@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
       deck: 'ML Basics',
       level: 'Foundation',
       visualKey: 'supervised',
-      memoryHook: 'Picture labeled examples: each row has features and a correct answer tag.',
-      question: 'What is supervised learning?',
-      answer: 'Supervised learning trains a model on labeled examples so it can learn a mapping from input features to a known target value or class.'
+      memoryHook: 'Picture WPH book metadata rows with a verified English-availability outcome attached.',
+      question: 'What is supervised learning in a WPH context?',
+      answer: 'In World Publishing Houses, supervised learning could use known book outcomes — such as available in English, coming soon, or not yet translated — to learn patterns from metadata like original language, publisher, genre, translator credits, country, and release history.'
     },
     {
       id: 'ml-train-test-split',
@@ -104,26 +104,53 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Portfolio',
       visualKey: 'entity-resolution',
       memoryHook: 'Picture messy publisher names merging into one clean canonical record.',
-      question: 'How can ML support World Publishing Houses?',
-      answer: 'ML can support publisher and translator entity resolution, metadata conflict detection, translation-likelihood signals, country activity clustering, and smarter search across books and publishers.'
+      question: 'What is entity resolution in WPH?',
+      answer: 'Entity resolution identifies when different names refer to the same real-world entity. In WPH, this helps merge publisher, translator, author, or imprint variants into one trustworthy profile.'
     },
     {
-      id: 'wph-human-review',
+      id: 'wph-classification',
       deck: 'WPH Applications',
       level: 'Portfolio',
-      visualKey: 'human-review',
-      memoryHook: 'Picture AI suggesting a claim, then a human reviewer adding a trust stamp.',
-      question: 'Why should WPH keep human review in the loop?',
-      answer: 'Publishing metadata can be incomplete or misleading. Human review protects trust when translator credits, translation paths, rights signals, or edition-level records are uncertain.'
+      visualKey: 'wph-classification',
+      memoryHook: 'Picture one book moving into the right reader-facing availability shelf.',
+      question: 'What is classification in WPH?',
+      answer: 'Classification assigns an item to a category. In WPH, a model could classify books into reader-facing buckets such as Read now in English, Coming soon in English, or Not yet in English based on verified metadata.'
+    },
+    {
+      id: 'wph-metadata-conflict',
+      deck: 'WPH Applications',
+      level: 'Portfolio',
+      visualKey: 'metadata-conflict',
+      memoryHook: 'Picture three sources disagreeing, then a review flag appearing.',
+      question: 'How can ML help detect metadata conflicts?',
+      answer: 'A model or rule-based system can compare metadata sources and flag conflicts, such as missing translators, inconsistent names, unclear publication dates, or suspicious translation paths that need human review.'
+    },
+    {
+      id: 'wph-embeddings-search',
+      deck: 'WPH Applications',
+      level: 'Portfolio',
+      visualKey: 'wph-embeddings',
+      memoryHook: 'Picture descriptions becoming vectors that pull similar books and publishers closer together.',
+      question: 'How could embeddings support WPH search?',
+      answer: 'Embeddings turn text into numeric vectors. In WPH, embeddings could help match similar book descriptions, cluster publishers by themes, improve discovery, and connect readers with related translated works.'
+    },
+    {
+      id: 'wph-translation-trust',
+      deck: 'WPH Applications',
+      level: 'Portfolio',
+      visualKey: 'translation-trust',
+      memoryHook: 'Picture each edition carrying a small trust label beside the translator credit.',
+      question: 'What is a translation trust signal?',
+      answer: 'A translation trust signal shows how reliable a translation credit or translation path is. WPH can label edition-level translator attribution as verified, unverified, or disputed based on source quality and consistency.'
     }
   ];
 
   const visualTemplates = {
     supervised: `
       <div class="visual-flow">
-        <span class="visual-pill">features</span><span class="visual-arrow">→</span><span class="visual-pill strong">known label</span><span class="visual-arrow">→</span><span class="visual-pill">model learns</span>
+        <span class="visual-pill">book metadata</span><span class="visual-arrow">→</span><span class="visual-pill strong">known target / label</span><span class="visual-arrow">→</span><span class="visual-pill">model learns pattern</span>
       </div>
-      <div class="mini-table"><span>x₁</span><span>x₂</span><strong>y</strong><span>size</span><span>rooms</span><strong>price</strong></div>
+      <div class="wph-mini-table"><span>x₁ language</span><strong>Danish</strong><span>x₂ publisher</span><strong>Gyldendal</strong><span>x₃ category</span><strong>literary fiction</strong><span>x₄ translator?</span><strong>yes</strong><span>y English status</span><strong>read now / coming soon / not yet</strong></div>
     `,
     split: `
       <div class="split-bars"><span style="--w:70%">train 80%</span><span style="--w:30%">test 20%</span></div>
@@ -161,10 +188,19 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="warning-chip">edge cases change model behavior</div>
     `,
     'entity-resolution': `
-      <div class="merge-map"><span>Gyldendal</span><span>Gyldendal DK</span><span>Gyldendal A/S</span><strong>canonical publisher</strong></div>
+      <div class="merge-map"><span>Gyldendal</span><span>Gyldendal DK</span><span>Gyldendalske</span><strong>one publisher entity</strong></div>
     `,
-    'human-review': `
-      <div class="review-flow"><span>AI signal</span><span class="visual-arrow">→</span><span>human review</span><span class="visual-arrow">→</span><strong>trusted record</strong></div>
+    'wph-classification': `
+      <div class="review-flow"><span>Book</span><span class="visual-arrow">→</span><strong>Read now</strong><span>Coming soon</span><span>Not yet in English</span></div>
+    `,
+    'metadata-conflict': `
+      <div class="conflict-map"><span>Retailer A<br><strong>Anna</strong></span><span>Retailer B<br><strong>missing</strong></span><span>Publisher<br><strong>Ana</strong></span><em>conflict flag</em></div>
+    `,
+    'wph-embeddings': `
+      <div class="review-flow"><span>Book description</span><span class="visual-arrow">→</span><strong>vector</strong><span class="visual-arrow">→</span><span>similar books</span><span>themes</span><span>publishers</span></div>
+    `,
+    'translation-trust': `
+      <div class="trust-flow"><span>Edition</span><span>translator credit</span><span>source</span><strong>verified / unverified / disputed</strong></div>
     `,
     custom: `
       <div class="visual-flow wide"><span class="visual-pill">question</span><span class="visual-arrow">→</span><span class="visual-pill strong">memory cue</span><span class="visual-arrow">→</span><span class="visual-pill">answer</span></div>

@@ -624,6 +624,34 @@ textarea.input {
   color: #37503a;
 }
 
+.wph-mini-table {
+  display: grid;
+  grid-template-columns: minmax(92px, 0.9fr) minmax(120px, 1.1fr);
+  overflow: hidden;
+  border: 1px solid #dcc9b4;
+  border-radius: 16px;
+}
+
+.wph-mini-table span,
+.wph-mini-table strong {
+  padding: 7px 9px;
+  border-right: 1px solid #e7d7c4;
+  border-bottom: 1px solid #e7d7c4;
+  background: #fffdf8;
+  font-size: 0.78rem;
+  line-height: 1.25;
+}
+
+.wph-mini-table span {
+  color: #6b4a2c;
+  font-weight: 760;
+}
+
+.wph-mini-table strong {
+  color: #37503a;
+  background: #eef0e5;
+}
+
 .split-bars {
   display: flex;
   height: 58px;
@@ -850,12 +878,76 @@ textarea.input {
   color: #37503a;
 }
 
+.conflict-map {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.conflict-map span,
+.conflict-map em {
+  min-height: 48px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  border: 1px solid #d8c5ad;
+  border-radius: 14px;
+  background: #fffdf8;
+  color: #5c351c;
+  padding: 8px;
+  font-size: 0.78rem;
+  font-style: normal;
+  line-height: 1.25;
+}
+
+.conflict-map strong {
+  color: #37503a;
+}
+
+.conflict-map em {
+  grid-column: 1 / -1;
+  background: #f8efe3;
+  border-color: #d7c4ac;
+  color: var(--accent);
+  font-weight: 850;
+}
+
+.trust-flow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.trust-flow span,
+.trust-flow strong {
+  min-height: 46px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  border: 1px solid #d8c5ad;
+  border-radius: 14px;
+  background: #fffdf8;
+  color: #5c351c;
+  padding: 8px;
+  font-size: 0.8rem;
+}
+
+.trust-flow strong {
+  grid-column: 1 / -1;
+  background: #eef0e5;
+  border-color: #bdc9ad;
+  color: #37503a;
+}
+
 @media (max-width: 650px) {
   .flashcard-visual { min-height: auto; }
   .label-row,
   .signal-row,
   .gate-flow,
-  .merge-map { grid-template-columns: 1fr; }
+  .merge-map,
+  .conflict-map,
+  .trust-flow { grid-template-columns: 1fr; }
+  .wph-mini-table { grid-template-columns: 1fr; }
   .edge-grid { grid-template-columns: repeat(2, 1fr); }
   .flashcard-card h3 { font-size: 1.72rem; }
 }
