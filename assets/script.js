@@ -513,7 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
       knownCount.textContent = `${knownCards.size} known`;
       progressBar.style.width = '0%';
       card.classList.add('is-flipped');
-      toggleAnswer.textContent = 'Show answer';
+      toggleAnswer.textContent = 'Show Answer';
       hint.textContent = 'Add a card below';
       return;
     }
@@ -532,9 +532,9 @@ document.addEventListener('DOMContentLoaded', () => {
     progressBar.style.width = `${Math.round((filteredKnown / filteredCards.length) * 100)}%`;
 
     card.classList.toggle('is-flipped', isFlipped);
-    toggleAnswer.textContent = isFlipped ? 'Hide answer' : 'Show answer';
-    hint.textContent = isFlipped ? 'Answer is visible. Use “Hide answer” below to return to the question.' : 'Click “Show answer” below to reveal the explanation.';
-    knownBtn.textContent = knownCards.has(active.id) ? 'Marked known' : 'I knew this';
+    toggleAnswer.textContent = isFlipped ? 'Hide Answer' : 'Show Answer';
+    hint.textContent = isFlipped ? 'Answer is visible. Use “Hide Answer” below to return to the question.' : 'Click “Show Answer” below to reveal the explanation.';
+    knownBtn.textContent = knownCards.has(active.id) ? 'Marked Known' : 'I Knew This';
   };
 
   const moveCard = (step) => {
