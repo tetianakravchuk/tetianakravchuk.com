@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 'ml-supervised-learning',
       deck: 'ML Basics',
       level: 'Foundation',
-      visualKey: 'supervised',
+      visualType: 'supervisedWph',
       memoryHook: 'Picture WPH book metadata rows with a verified English-availability outcome attached.',
       question: 'What is supervised learning in a WPH context?',
-      answer: 'In World Publishing Houses, supervised learning could use known book outcomes — such as available in English, coming soon, or not yet translated — to learn patterns from metadata like original language, publisher, genre, translator credits, country, and release history.'
+      answer: 'In World Publishing Houses, supervised learning could use known book outcomes, such as available in English, coming soon, or not yet translated, to learn patterns from metadata like original language, publisher, genre, translator credits, country, and release history.'
     },
     {
       id: 'ml-train-test-split',
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 'wph-entity-resolution',
       deck: 'WPH Applications',
       level: 'Portfolio',
-      visualKey: 'entity-resolution',
+      visualType: 'entityResolution',
       memoryHook: 'Picture messy publisher names merging into one clean canonical record.',
       question: 'What is entity resolution in WPH?',
       answer: 'Entity resolution identifies when different names refer to the same real-world entity. In WPH, this helps merge publisher, translator, author, or imprint variants into one trustworthy profile.'
@@ -111,16 +111,16 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 'wph-classification',
       deck: 'WPH Applications',
       level: 'Portfolio',
-      visualKey: 'wph-classification',
+      visualType: 'classificationWph',
       memoryHook: 'Picture one book moving into the right reader-facing availability shelf.',
       question: 'What is classification in WPH?',
-      answer: 'Classification assigns an item to a category. In WPH, a model could classify books into reader-facing buckets such as Read now in English, Coming soon in English, or Not yet in English based on verified metadata.'
+      answer: 'Classification assigns an item to a category. In WPH, a model could classify books into reader-facing buckets based on verified metadata.'
     },
     {
       id: 'wph-metadata-conflict',
       deck: 'WPH Applications',
       level: 'Portfolio',
-      visualKey: 'metadata-conflict',
+      visualType: 'conflictDetection',
       memoryHook: 'Picture three sources disagreeing, then a review flag appearing.',
       question: 'How can ML help detect metadata conflicts?',
       answer: 'A model or rule-based system can compare metadata sources and flag conflicts, such as missing translators, inconsistent names, unclear publication dates, or suspicious translation paths that need human review.'
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 'wph-embeddings-search',
       deck: 'WPH Applications',
       level: 'Portfolio',
-      visualKey: 'wph-embeddings',
+      visualType: 'embeddingsWph',
       memoryHook: 'Picture descriptions becoming vectors that pull similar books and publishers closer together.',
       question: 'How could embeddings support WPH search?',
       answer: 'Embeddings turn text into numeric vectors. In WPH, embeddings could help match similar book descriptions, cluster publishers by themes, improve discovery, and connect readers with related translated works.'
@@ -138,12 +138,96 @@ document.addEventListener('DOMContentLoaded', () => {
       id: 'wph-translation-trust',
       deck: 'WPH Applications',
       level: 'Portfolio',
-      visualKey: 'translation-trust',
+      visualType: 'translationTrust',
       memoryHook: 'Picture each edition carrying a small trust label beside the translator credit.',
       question: 'What is a translation trust signal?',
       answer: 'A translation trust signal shows how reliable a translation credit or translation path is. WPH can label edition-level translator attribution as verified, unverified, or disputed based on source quality and consistency.'
     }
   ];
+
+  const visualDiagrams = {
+    supervisedWph: `
+      <div class="visual-diagram vertical" role="img" aria-label="Book metadata flows to a known English status target, then the model learns a pattern.">
+        <div class="visual-box">
+          <strong>Book metadata</strong>
+          <span>Original language: Danish</span>
+          <span>Publisher: Gyldendal</span>
+          <span>Genre: Literary fiction</span>
+          <span>Translator known: Yes</span>
+        </div>
+        <span class="visual-arrow" aria-hidden="true">→</span>
+        <div class="visual-box target">
+          <strong>Known target / label</strong>
+          <span>English status:</span>
+          <span>Read now / Coming soon / Not yet</span>
+        </div>
+        <span class="visual-arrow" aria-hidden="true">→</span>
+        <div class="visual-box model"><strong>Model learns pattern</strong></div>
+      </div>
+    `,
+    classificationWph: `
+      <div class="visual-diagram" role="img" aria-label="A book card is classified into one of three English availability buckets.">
+        <div class="visual-box book-card"><strong>Book</strong><span>verified metadata</span></div>
+        <span class="visual-arrow" aria-hidden="true">→</span>
+        <div class="visual-buckets">
+          <span class="visual-bucket">Read now in English</span>
+          <span class="visual-bucket">Coming soon in English</span>
+          <span class="visual-bucket">Not yet in English</span>
+        </div>
+      </div>
+    `,
+    entityResolution: `
+      <div class="visual-diagram vertical" role="img" aria-label="Three publisher name variants merge into one trusted publisher profile.">
+        <div class="chip-row">
+          <span class="visual-chip">Gyldendal</span>
+          <span class="visual-chip">Gyldendal DK</span>
+          <span class="visual-chip">Gyldendalske</span>
+        </div>
+        <span class="visual-arrow" aria-hidden="true">→</span>
+        <div class="visual-box target"><strong>One trusted publisher profile</strong></div>
+      </div>
+    `,
+    conflictDetection: `
+      <div class="visual-diagram vertical" role="img" aria-label="Three metadata sources disagree about translator credit, creating a conflict flag for human review.">
+        <div class="source-grid">
+          <div class="source-card"><strong>Retailer A</strong><span>Translator = Anna Smith</span></div>
+          <div class="source-card"><strong>Retailer B</strong><span>Translator = missing</span></div>
+          <div class="source-card"><strong>Publisher</strong><span>Translator = Ana Smith</span></div>
+        </div>
+        <span class="visual-arrow" aria-hidden="true">→</span>
+        <div class="visual-box review"><strong>Conflict flag</strong><span>Human review</span></div>
+      </div>
+    `,
+    translationTrust: `
+      <div class="visual-diagram vertical" role="img" aria-label="Edition information, translator credit, and source evidence produce translation trust badges.">
+        <div class="trust-steps">
+          <span class="visual-box">Edition</span>
+          <span class="visual-arrow" aria-hidden="true">→</span>
+          <span class="visual-box">Translator credit</span>
+          <span class="visual-arrow" aria-hidden="true">→</span>
+          <span class="visual-box">Source evidence</span>
+        </div>
+        <div class="trust-badges" aria-label="Trust badge options">
+          <span class="trust-badge verified">Verified</span>
+          <span class="trust-badge unverified">Unverified</span>
+          <span class="trust-badge disputed">Disputed</span>
+        </div>
+      </div>
+    `,
+    embeddingsWph: `
+      <div class="visual-diagram vertical" role="img" aria-label="A book description becomes a numeric vector that supports similar books, themes, and publisher discovery.">
+        <div class="visual-box"><strong>Book description</strong><span>text about plot, themes, country, publisher</span></div>
+        <span class="visual-arrow" aria-hidden="true">→</span>
+        <div class="visual-box vector"><strong>Vector</strong><code>[0.12, -0.44, 0.87]</code></div>
+        <span class="visual-arrow" aria-hidden="true">→</span>
+        <div class="visual-buckets">
+          <span class="visual-bucket">Similar books</span>
+          <span class="visual-bucket">Themes</span>
+          <span class="visual-bucket">Publishers</span>
+        </div>
+      </div>
+    `
+  };
 
   const visualTemplates = {
     supervised: `
@@ -205,6 +289,22 @@ document.addEventListener('DOMContentLoaded', () => {
     custom: `
       <div class="visual-flow wide"><span class="visual-pill">question</span><span class="visual-arrow">→</span><span class="visual-pill strong">memory cue</span><span class="visual-arrow">→</span><span class="visual-pill">answer</span></div>
     `
+  };
+
+  const escapeHtml = (value) => String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+  const renderVisual = (item) => {
+    if (visualDiagrams[item.visualType]) return visualDiagrams[item.visualType];
+    if (visualTemplates[item.visualKey]) return visualTemplates[item.visualKey];
+    if (item.visualText) {
+      return `<div class="visual-diagram" role="img" aria-label="${escapeHtml(item.visualText)}"><div class="visual-box"><strong>${escapeHtml(item.visualText)}</strong></div></div>`;
+    }
+    return visualTemplates.custom;
   };
 
   const storageKeys = {
@@ -291,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
     deck.textContent = active.deck;
     level.textContent = active.level || 'Study';
     memory.textContent = active.memoryHook || 'Picture the idea as a simple flow: input → process → result.';
-    visual.innerHTML = visualTemplates[active.visualKey] || visualTemplates.custom;
+    visual.innerHTML = renderVisual(active);
     position.textContent = `Card ${currentIndex + 1} of ${filteredCards.length}`;
 
     const filteredKnown = filteredCards.filter((item) => knownCards.has(item.id)).length;

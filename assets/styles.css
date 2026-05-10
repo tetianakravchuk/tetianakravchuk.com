@@ -601,6 +601,145 @@ textarea.input {
   font-weight: 900;
 }
 
+.visual-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.visual-diagram.vertical {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.visual-diagram.vertical > .visual-arrow {
+  align-self: center;
+  transform: rotate(90deg);
+}
+
+.visual-box,
+.source-card {
+  border: 1px solid #d8c5ad;
+  background: #fffdf8;
+  color: #5c351c;
+  border-radius: 16px;
+  padding: 10px 12px;
+  box-shadow: 0 8px 20px rgba(75, 54, 33, 0.05);
+}
+
+.visual-box {
+  display: grid;
+  gap: 5px;
+  min-width: 150px;
+  text-align: center;
+}
+
+.visual-box strong,
+.source-card strong {
+  color: #263528;
+}
+
+.visual-box span,
+.source-card span {
+  font-size: 0.8rem;
+  line-height: 1.25;
+}
+
+.visual-box.target,
+.visual-box.model,
+.visual-box.review {
+  background: #eef0e5;
+  border-color: #bdc9ad;
+  color: #37503a;
+}
+
+.visual-box.book-card {
+  max-width: 150px;
+}
+
+.visual-box.vector code {
+  justify-self: center;
+  font-size: 0.78rem;
+}
+
+.chip-row,
+.source-grid,
+.visual-buckets,
+.trust-badges,
+.trust-steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.source-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: 100%;
+}
+
+.visual-chip,
+.visual-bucket,
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  border-radius: 999px;
+  border: 1px solid #d8c5ad;
+  background: #fffdf8;
+  color: #5c351c;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 780;
+  line-height: 1.2;
+}
+
+.visual-buckets {
+  max-width: 430px;
+}
+
+.visual-bucket {
+  flex: 1 1 118px;
+  border-radius: 16px;
+}
+
+.source-card {
+  display: grid;
+  gap: 6px;
+  min-height: 70px;
+  text-align: center;
+  align-content: center;
+}
+
+.trust-steps {
+  align-items: center;
+}
+
+.trust-badge {
+  border-radius: 14px;
+}
+
+.trust-badge.verified {
+  background: #eef0e5;
+  border-color: #bdc9ad;
+  color: #37503a;
+}
+
+.trust-badge.unverified {
+  background: #fffdf8;
+}
+
+.trust-badge.disputed {
+  background: #f8efe3;
+  border-color: #d7c4ac;
+  color: var(--accent);
+}
+
 .mini-table {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -948,6 +1087,17 @@ textarea.input {
   .conflict-map,
   .trust-flow { grid-template-columns: 1fr; }
   .wph-mini-table { grid-template-columns: 1fr; }
+  .visual-diagram,
+  .trust-steps { flex-direction: column; align-items: stretch; }
+  .visual-diagram > .visual-arrow,
+  .trust-steps > .visual-arrow { align-self: center; transform: rotate(90deg); }
+  .source-grid { grid-template-columns: 1fr; }
+  .visual-box,
+  .visual-box.book-card,
+  .visual-buckets { max-width: none; width: 100%; }
+  .visual-bucket,
+  .visual-chip,
+  .trust-badge { width: 100%; }
   .edge-grid { grid-template-columns: repeat(2, 1fr); }
   .flashcard-card h3 { font-size: 1.72rem; }
 }
