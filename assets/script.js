@@ -2,6 +2,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
 
+  const nav = document.querySelector('.nav');
+  const menuToggle = document.querySelector('[data-menu-toggle]');
+  const navLinks = document.querySelector('[data-nav-links]');
+
+  if (nav && menuToggle && navLinks) {
+    const closeMenu = () => {
+      nav.classList.remove('is-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    };
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('is-open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    navLinks.addEventListener('click', (event) => {
+      if (event.target.closest('a')) closeMenu();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeMenu();
+    });
+  }
+
   const flashcardRoot = document.querySelector('[data-flashcards]');
   if (!flashcardRoot) return;
 

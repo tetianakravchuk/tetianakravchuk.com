@@ -5,16 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tetiana Kravchuk | QA Automation, Data Science & ML Portfolio</title>
   <meta name="description" content="Portfolio of Tetiana Kravchuk, a QA Automation Engineer and Data Science graduate student building reliable ML and data products." />
+  <link rel="canonical" href="https://tetianakravchuk.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Tetiana Kravchuk" />
+  <meta property="og:title" content="Tetiana Kravchuk | QA Automation, Data Science & ML Portfolio" />
+  <meta property="og:description" content="Portfolio of Tetiana Kravchuk, a QA Automation Engineer and Data Science graduate student building reliable ML and data products." />
+  <meta property="og:url" content="https://tetianakravchuk.com/" />
+  <meta property="og:image" content="https://tetianakravchuk.com/assets/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to main content</a>
   <nav class="nav">
     <div class="nav-inner">
       <a class="brand" href="index.html"><span class="brand-mark">TK</span> Tetiana Kravchuk</a>
-      <div class="nav-links">
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" data-menu-toggle>
+        <span class="menu-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>Menu</span>
+      </button>
+      <div class="nav-links" id="site-navigation" data-nav-links>
         <a href="pages/about.html">About</a>
         <a href="pages/projects.html">Projects</a>
-        <a href="pages/world-publishing-houses.html">WPH</a>
+        <a href="pages/world-publishing-houses.html">World Publishing Houses</a>
         <a href="pages/qa-impact.html">QA Impact</a>
         <a href="pages/data-science.html">Data Science</a>
         <a href="pages/resume.html">Resume</a>
@@ -23,7 +37,7 @@
     </div>
   </nav>
 
-  <main>
+  <main id="main">
     <section class="hero">
       <div class="container hero-grid">
         <div>
@@ -31,17 +45,15 @@
           <h1>I build reliable software, test systems, and data products with an engineering-first mindset.</h1>
           <p class="lead">I’m Tetiana Kravchuk, a Software QA Engineer with 9+ years of automation and release-quality experience, currently completing a Master’s in Data Science at Boston University. My work connects careful testing, Python automation, data validation, and machine learning.</p>
           <div class="actions">
-            <a class="button primary" href="pages/projects.html">View projects</a>
-            <a class="button" href="pages/resume.html">View resume</a>
-            <a class="button" href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download>Download Resume PDF</a>
-            <a class="button" href="pages/contact.html">Contact</a>
+            <a class="button primary" href="pages/projects.html">View Projects</a>
+            <a class="button" href="pages/resume.html">View Resume</a>
+            <a class="button" href="pages/contact.html">Contact Me</a>
           </div>
-          <p class="download-note">If the PDF does not open, please contact me and I will send the latest version directly.</p>
         </div>
         <aside class="hero-panel">
           <div class="stat-row">
             <div class="stat"><strong>9+ yrs</strong><span>software QA, automation, regression, release support</span></div>
-            <div class="stat"><strong>#1</strong><span>team contributor in bugs reported/closed and ticket throughput</span></div>
+            <div class="stat"><strong>512</strong><span>bugs reported, with 474 closed across tracked QA workflows</span></div>
             <div class="stat"><strong>MS DS</strong><span>Boston University, Data Science and AI/ML coursework</span></div>
           </div>
         </aside>
@@ -62,7 +74,7 @@
           <article class="card">
             <h3>Data Science & ML</h3>
             <p>Model evaluation, supervised learning, feature analysis, experiment tracking, data quality, and responsible use of predictive systems. Includes an interactive flashcard study lab.</p>
-            <div class="actions"><a class="button" href="pages/data-science.html#flashcards">Play flashcards</a></div>
+            <div class="actions"><a class="button" href="pages/data-science.html#flashcards">Play Flashcards</a></div>
           </article>
           <article class="card">
             <h3>Data Products</h3>
@@ -86,19 +98,19 @@
             <ul class="tag-list">
               <li>Data product</li><li>Entity resolution</li><li>Metadata QA</li><li>Translation trust</li><li>UX testing</li>
             </ul>
-            <div class="actions"><a class="button" href="pages/world-publishing-houses.html">Open case study</a></div>
+            <div class="actions"><a class="button" href="pages/world-publishing-houses.html">Open Case Study</a></div>
           </article>
           <article class="card">
             <div class="kicker">ML capstone + study tool</div>
             <h3>Residential Property Value Prediction</h3>
             <p>Machine learning project using property features to predict assessed values, comparing linear regression, random forest, and gradient boosting with RMSE, MAE, and R². The Data Science page also includes flashcards for interview prep.</p>
-            <div class="actions"><a class="button" href="pages/data-science.html">Read ML work</a><a class="button" href="pages/data-science.html#flashcards">Open Study Lab</a></div>
+            <div class="actions"><a class="button" href="pages/data-science.html">Read ML Work</a><a class="button" href="pages/data-science.html#flashcards">Open Study Lab</a></div>
           </article>
           <article class="card">
             <div class="kicker">Professional impact</div>
             <h3>QA Metrics & Automation Impact</h3>
             <p>Evidence-based QA story using bug reporting, ticket closure, test case creation, release support, automation contributions, and triage improvements.</p>
-            <div class="actions"><a class="button" href="pages/qa-impact.html">View impact</a></div>
+            <div class="actions"><a class="button" href="pages/qa-impact.html">View Impact</a></div>
           </article>
         </div>
       </div>
@@ -109,7 +121,7 @@
         <div class="callout">
           <h2>Working principle</h2>
           <p>Reliable AI and data products start with trustworthy inputs, clear assumptions, tested workflows, and honest evaluation. My QA background gives me a practical lens for building ML systems that are not only accurate in notebooks, but understandable and testable in real product conditions.</p>
-          <div class="actions"><a class="button primary" href="pages/contact.html">Get in touch</a></div>
+          <div class="actions"><a class="button primary" href="pages/contact.html">Contact Me</a></div>
         </div>
       </div>
     </section>
@@ -119,8 +131,8 @@
     <div class="container footer-inner">
       <div>© <span data-year></span> Tetiana Kravchuk</div>
       <div class="footer-links">
-        <a href="https://www.linkedin.com/in/tetianakravchuk">LinkedIn</a>
-        <a href="https://github.com/tetianakravchuk">GitHub</a>
+        <a href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a href="mailto:tetiana.qa.data.jobs@gmail.com">Email</a>
         <a href="pages/resume.html">Resume</a>
         <a href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download>Download PDF</a>
