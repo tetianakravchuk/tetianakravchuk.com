@@ -16,8 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
       memoryHook: 'Picture WPH book metadata rows with a verified English-availability outcome attached.',
       question: 'What is supervised learning?',
       visualCaption: 'General idea: X features + known y → model learns a prediction pattern. WPH example: book metadata + known English status → availability prediction.',
-      generalAnswer: 'Supervised learning is a machine learning approach where a model learns from labeled examples. Each training example includes input features, called X, and a known correct output, called y. The model learns patterns from X to y so it can make predictions on new, unseen data.',
-      wphAnswer: 'In World Publishing Houses, supervised learning could use known book outcomes — such as available in English, coming soon, or not yet translated — and learn patterns from metadata like original language, publisher, genre, translator credits, country, and release history.'
+      generalIdea: 'Supervised learning is a machine learning approach where a model learns from labeled examples. Each training example includes input features, called X, and a known correct output, called y. The model learns patterns from X to y so it can make predictions on new, unseen data.',
+      simpleExample: 'A housing model can learn from features like square footage, number of rooms, and location, paired with a known sale price. After training, it can estimate the price of a new house.',
+      wphApplication: 'In World Publishing Houses, supervised learning could use known book outcomes — such as available in English, coming soon, or not yet translated — and learn patterns from metadata like original language, publisher, genre, translator credits, country, and release history.'
     },
     {
       id: 'ml-train-test-split',
@@ -26,7 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
       visualKey: 'split',
       memoryHook: 'Picture one dataset cut into two boxes: practice data and final exam data.',
       question: 'Why do we split data into training and test sets?',
-      answer: 'The training set is used to fit the model. The test set estimates how the model may perform on new, unseen data and helps detect overfitting.'
+      generalIdea: 'A train/test split separates data into one part used to train the model and another part used to evaluate it. This helps estimate whether the model can generalize to data it has not seen before.',
+      simpleExample: 'If you have 10,000 property records, you might train the model on 8,000 records and test it on 2,000 records that were held back.',
+      wphApplication: 'In WPH, a model that predicts reader availability or flags metadata conflicts should be tested on held-out book records. This helps verify that the model is learning real patterns rather than memorizing known publishers or titles.'
     },
     {
       id: 'ml-cross-validation',
@@ -35,7 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
       visualKey: 'folds',
       memoryHook: 'Picture the validation block moving across the dataset like a spotlight.',
       question: 'What is cross-validation?',
-      answer: 'Cross-validation repeats training and validation across multiple folds of the data, giving a more stable estimate of model performance than one single split.'
+      generalIdea: 'Cross-validation evaluates a model by repeatedly training and validating it on different portions of the data. It gives a more stable estimate of performance than one single train/test split.',
+      simpleExample: 'In 5-fold cross-validation, the dataset is split into five parts. The model trains five times, each time using a different fold for validation.',
+      wphApplication: 'In WPH, cross-validation would be useful when data is limited, especially for smaller countries or niche publishers. It can help evaluate whether a model performs consistently across different subsets of books and metadata sources.'
     },
     {
       id: 'eval-rmse',
@@ -44,7 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
       visualKey: 'rmse',
       memoryHook: 'Picture big errors becoming visually heavier because they are squared first.',
       question: 'What does RMSE measure?',
-      answer: 'RMSE is the square root of average squared prediction error. It is in the same units as the target and penalizes larger errors more strongly.'
+      generalIdea: 'RMSE, or root mean squared error, measures the typical prediction error in the same units as the target. Because errors are squared before averaging, RMSE penalizes large errors more strongly.',
+      simpleExample: 'In a property value model, RMSE estimates how far predictions are from actual values on average, with very large mistakes weighing more heavily.',
+      wphApplication: 'If WPH later predicts numeric signals, such as translation likelihood scores, confidence scores, or demand estimates, RMSE could help evaluate how close those predictions are to known outcomes.'
     },
     {
       id: 'eval-mae',
@@ -53,7 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
       visualKey: 'mae',
       memoryHook: 'Picture measuring straight distances from predictions to truth, then averaging them.',
       question: 'How is MAE different from RMSE?',
-      answer: 'MAE measures the average absolute error and is easier to interpret. RMSE gives extra weight to large errors, so it is more sensitive to outliers.'
+      generalIdea: 'MAE, or mean absolute error, measures the average absolute difference between predictions and true values. It is easier to interpret than RMSE because it treats each error as a direct distance.',
+      simpleExample: 'If a home value model has an MAE of about $184,569, predictions are off by about that amount on average, ignoring whether each error is above or below the true value.',
+      wphApplication: 'In WPH, MAE could be useful for numeric prediction tasks where interpretability matters. For example, it could explain average error in estimated release timing, ranking score, or other future quantitative signals.'
     },
     {
       id: 'eval-r2',
@@ -62,7 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
       visualKey: 'r2',
       memoryHook: 'Picture the model explaining part of the total variation cloud.',
       question: 'What does R² explain in a regression model?',
-      answer: 'R² describes the share of target variance explained by the model compared with a simple baseline. Higher is usually better, but it must be interpreted with error metrics and business context.'
+      generalIdea: 'R² describes how much of the variation in the target variable is explained by the model compared with a simple baseline. Higher values usually mean better fit, but R² should be interpreted with error metrics and business context.',
+      simpleExample: 'An R² of 0.517 means the model explains about 51.7% of the variation in the target, while the remaining variation is still unexplained.',
+      wphApplication: 'If WPH uses regression-style predictions later, R² could help explain whether metadata features meaningfully explain outcomes such as translation activity, publisher activity, or estimated demand.'
     },
     {
       id: 'eval-model-evaluation',
@@ -72,8 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
       memoryHook: 'Picture a model passing through a metrics checkpoint before it can guide product decisions.',
       question: 'What is model evaluation?',
       visualCaption: 'General idea: predictions + true outcomes → metrics. WPH example: model output + verified metadata → reliability check.',
-      generalAnswer: 'Model evaluation measures how well a model performs using metrics such as accuracy, precision, recall, RMSE, MAE, or R² depending on the task.',
-      wphAnswer: 'In WPH, evaluation would help check whether a classification or recommendation model is reliable enough to support reader discovery, metadata review, or publisher intelligence without misleading users.'
+      generalIdea: 'Model evaluation measures how well a model performs using metrics such as accuracy, precision, recall, RMSE, MAE, or R² depending on the task.',
+      simpleExample: 'A classifier can be evaluated by comparing its predicted labels with known correct labels and checking whether it makes too many false positives or false negatives.',
+      wphApplication: 'In WPH, evaluation would help check whether a classification or recommendation model is reliable enough to support reader discovery, metadata review, or publisher intelligence without misleading users.'
     },
     {
       id: 'nlp-embeddings',
@@ -81,8 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Applied',
       visualKey: 'embedding',
       memoryHook: 'Picture words becoming points on a meaning map; similar ideas sit close together.',
-      question: 'What is a text embedding?',
-      answer: 'A text embedding converts words, sentences, or documents into numeric vectors so algorithms can compare meaning, similarity, or patterns in text.'
+      question: 'What are embeddings?',
+      generalIdea: 'Embeddings are numeric vector representations of text, images, or other data. They help computers compare meaning by placing similar items close together in vector space.',
+      simpleExample: 'Two book descriptions about Nordic crime fiction may have embeddings that are close together, while a cookbook description would be farther away.',
+      wphApplication: 'In WPH, embeddings could support semantic book search, similar-title discovery, publisher clustering, theme detection, and recommendations across translated works.'
     },
     {
       id: 'nlp-classification',
@@ -90,8 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Applied',
       visualKey: 'classification',
       memoryHook: 'Picture text moving through a small pipeline and receiving a category label.',
-      question: 'How could text classification help a publishing platform?',
-      answer: 'It could classify publisher descriptions, detect children’s books, identify translation-related language, group titles by theme, or route uncertain metadata for human review.'
+      question: 'What is text classification?',
+      generalIdea: 'Text classification is the process of assigning text to predefined categories. It can be done with traditional machine learning, embeddings, or modern language models.',
+      simpleExample: 'A model can read a short description and classify it as news, fiction, children’s literature, academic text, or marketing copy.',
+      wphApplication: 'In WPH, text classification could classify publisher descriptions, detect children’s books, identify translation-related language, group titles by theme, or route uncertain metadata for human review.'
     },
     {
       id: 'qa-ml-data-quality',
@@ -100,7 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
       visualKey: 'qa-gates',
       memoryHook: 'Picture QA gates before the model, around evaluation, and after release.',
       question: 'Why is QA important for machine learning projects?',
-      answer: 'ML systems depend on data quality, stable pipelines, correct labels, reproducible evaluation, and monitored behavior. QA helps catch silent failures before users or business decisions are affected.'
+      generalIdea: 'QA is important for ML because model behavior depends on data quality, stable pipelines, correct labels, reproducible evaluation, and monitored outputs. A model can appear accurate while still failing silently in production.',
+      simpleExample: 'If a feature column changes meaning or labels are inconsistent, the model may produce unreliable predictions even if the code still runs.',
+      wphApplication: 'In WPH, QA thinking protects translation metadata, publisher identity, reader-facing buckets, and trust badges. It helps prevent misleading users when data is incomplete, conflicting, or uncertain.'
     },
     {
       id: 'qa-ml-edge-cases',
@@ -109,7 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
       visualKey: 'edge-cases',
       memoryHook: 'Picture a test checklist catching rare but dangerous cases at the edges.',
       question: 'What kind of edge cases should be tested in ML products?',
-      answer: 'Missing values, unusual categories, outliers, stale data, duplicate records, changed schemas, biased samples, low-confidence predictions, and user flows where the model returns no result.'
+      generalIdea: 'ML edge cases are unusual inputs or data conditions that can cause poor predictions, confusing outputs, or hidden failures. They should be tested because real users often encounter messy cases.',
+      simpleExample: 'Common edge cases include missing values, duplicate records, outliers, rare categories, stale data, changed schemas, and low-confidence predictions.',
+      wphApplication: 'In WPH, edge cases include missing translator credits, indirect translation paths, publisher name variants, low-data countries, contradictory retailer metadata, and books that do not fit clean reader buckets.'
     },
     {
       id: 'wph-entity-resolution',
@@ -119,8 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
       memoryHook: 'Picture messy publisher names merging into one clean canonical record.',
       question: 'What is entity resolution?',
       visualCaption: 'General idea: variant records → one real-world entity. WPH example: publisher name variants → trusted profile.',
-      generalAnswer: 'Entity resolution is the process of identifying when different records or names refer to the same real-world entity.',
-      wphAnswer: 'In WPH, entity resolution can merge publisher, translator, author, or imprint variants into one trustworthy profile, such as recognizing Gyldendal, Gyldendal DK, and Gyldendalske as related records that need review or consolidation.'
+      generalIdea: 'Entity resolution is the process of identifying when different records, names, or spellings refer to the same real-world entity.',
+      simpleExample: 'A database may contain “Gyldendal,” “Gyldendal DK,” and “Gyldendalske.” Entity resolution helps determine whether these should be linked, merged, or reviewed as related records.',
+      wphApplication: 'In WPH, entity resolution can merge publisher, translator, author, or imprint variants into one trustworthy profile while preserving evidence and avoiding careless over-merging.'
     },
     {
       id: 'wph-classification',
@@ -130,8 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
       memoryHook: 'Picture one book moving into the right reader-facing availability shelf.',
       question: 'What is classification?',
       visualCaption: 'General idea: input → predefined category. WPH example: book metadata → English availability bucket.',
-      generalAnswer: 'Classification is a supervised learning task where a model assigns an input to one of several predefined categories.',
-      wphAnswer: 'In WPH, classification could help place books into reader-facing buckets such as Read now in English, Coming soon in English, or Not yet in English based on verified metadata.'
+      generalIdea: 'Classification is a supervised learning task where a model assigns an input to one of several predefined categories.',
+      simpleExample: 'An email classifier can sort messages into categories like primary, promotion, update, or junk.',
+      wphApplication: 'In WPH, classification could help place books into reader-facing buckets such as Read now in English, Coming soon in English, or Not yet in English based on verified metadata.'
     },
     {
       id: 'wph-metadata-conflict',
@@ -141,8 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
       memoryHook: 'Picture three sources disagreeing, then a review flag appearing.',
       question: 'What is metadata conflict detection?',
       visualCaption: 'General idea: compare sources → flag inconsistency. WPH example: conflicting translator credits → human review.',
-      generalAnswer: 'Metadata conflict detection finds inconsistent, missing, or contradictory information across multiple data sources.',
-      wphAnswer: 'In WPH, this can flag cases where one source lists a translator, another source omits the translator, and a publisher page shows a slightly different name. Instead of pretending the data is certain, WPH can mark the record for human review.'
+      generalIdea: 'Metadata conflict detection finds inconsistent, missing, or contradictory information across multiple data sources.',
+      simpleExample: 'One source may list a translator as Anna Smith, another may omit the translator, and a publisher page may show Ana Smith. The record should not be treated as fully verified without review.',
+      wphApplication: 'In WPH, conflict detection can flag translator discrepancies, unclear publication dates, inconsistent publisher names, suspicious translation paths, and records that need human verification.'
     },
     {
       id: 'wph-embeddings-search',
@@ -150,10 +173,11 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Portfolio',
       visualType: 'embeddingsWph',
       memoryHook: 'Picture descriptions becoming vectors that pull similar books and publishers closer together.',
-      question: 'What are embeddings?',
+      question: 'How could embeddings support search?',
       visualCaption: 'General idea: text → vector → similarity. WPH example: book descriptions → related books, themes, and publishers.',
-      generalAnswer: 'Embeddings are numeric vector representations of text, images, or other data. They help computers compare meaning by placing similar items close together in vector space.',
-      wphAnswer: 'In WPH, embeddings could support semantic book search, similar-title discovery, publisher clustering, theme detection, and recommendations across translated works.'
+      generalIdea: 'Embeddings support search by comparing meaning instead of only exact keyword matches. They can retrieve related content even when users use different wording.',
+      simpleExample: 'A search for “Nordic family mystery” might find books described with words like “Icelandic domestic suspense” because the meanings are similar.',
+      wphApplication: 'In WPH, embeddings could improve discovery across translated works, connect similar books and publishers, cluster themes, and help readers find relevant titles even when metadata wording differs by source.'
     },
     {
       id: 'wph-translation-trust',
@@ -162,7 +186,9 @@ document.addEventListener('DOMContentLoaded', () => {
       visualType: 'translationTrust',
       memoryHook: 'Picture each edition carrying a small trust label beside the translator credit.',
       question: 'What is a translation trust signal?',
-      answer: 'A translation trust signal shows how reliable a translation credit or translation path is. WPH can label edition-level translator attribution as verified, unverified, or disputed based on source quality and consistency.'
+      generalIdea: 'A trust signal is a visible indicator that tells users how reliable a piece of information is and what evidence supports it.',
+      simpleExample: 'A product page might label information as verified, unverified, or disputed depending on source quality and consistency.',
+      wphApplication: 'In WPH, translation trust signals can label edition-level translator attribution and translation paths as verified, unverified, or disputed based on source evidence, conflicts, and human review.'
     }
   ];
 
@@ -374,13 +400,16 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const renderAnswer = (item) => {
-    if (item.generalAnswer || item.wphAnswer) {
+    if (item.generalIdea || item.simpleExample || item.wphApplication) {
       const sections = [];
-      if (item.generalAnswer) {
-        sections.push(`<section class="answer-section"><h4>General idea</h4><p>${escapeHtml(item.generalAnswer)}</p></section>`);
+      if (item.generalIdea) {
+        sections.push(`<section class="answer-section"><h4>General idea</h4><p>${escapeHtml(item.generalIdea)}</p></section>`);
       }
-      if (item.wphAnswer) {
-        sections.push(`<section class="answer-section"><h4>How it applies to WPH</h4><p>${escapeHtml(item.wphAnswer)}</p></section>`);
+      if (item.simpleExample) {
+        sections.push(`<section class="answer-section"><h4>Simple example</h4><p>${escapeHtml(item.simpleExample)}</p></section>`);
+      }
+      if (item.wphApplication) {
+        sections.push(`<section class="answer-section wph-answer"><h4>How it applies to WPH</h4><p>${escapeHtml(item.wphApplication)}</p></section>`);
       }
       return sections.join('');
     }
