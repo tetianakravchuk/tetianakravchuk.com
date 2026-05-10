@@ -173,11 +173,13 @@ a { color: inherit; text-decoration: none; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  max-width: 100%;
   border-radius: 999px;
   padding: 12px 18px;
   border: 1px solid var(--accent);
   color: var(--accent);
   font-weight: 700;
+  text-align: center;
   transition: transform 0.18s ease, background 0.18s ease;
 }
 
@@ -296,6 +298,32 @@ a { color: inherit; text-decoration: none; }
 .table-row strong { color: #263528; }
 .table-row span { color: var(--muted); }
 
+.result-card {
+  border: 1px solid #d7c4ac;
+  background: #f8efe3;
+  border-radius: 18px;
+  padding: 18px 20px;
+  box-shadow: 0 12px 30px rgba(75, 54, 33, 0.07);
+}
+
+.result-card span {
+  display: block;
+  color: var(--accent-2);
+  font-size: 0.86rem;
+  font-weight: 780;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+
+.result-card strong {
+  display: block;
+  color: #263528;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.32rem;
+  line-height: 1.35;
+}
+
 @media (max-width: 850px) {
   h1 { font-size: 3.1rem; }
   h2 { font-size: 2.25rem; }
@@ -335,6 +363,10 @@ code {
   align-items: stretch;
 }
 
+.flashcard-layout > * {
+  min-width: 0;
+}
+
 .flashcard-sidebar {
   display: flex;
   flex-direction: column;
@@ -349,12 +381,18 @@ code {
 
 .input {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   border: 1px solid #d8c5ad;
   background: #fffdf8;
   color: var(--ink);
   border-radius: 14px;
   padding: 12px 13px;
   font: inherit;
+}
+
+textarea.input {
+  resize: vertical;
 }
 
 .input:focus {
@@ -473,6 +511,10 @@ code {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+.flashcard-actions .button {
+  flex: 1 1 130px;
 }
 
 .flashcard-add-row {

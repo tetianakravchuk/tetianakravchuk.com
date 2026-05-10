@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     card.classList.toggle('is-flipped', isFlipped);
     toggleAnswer.textContent = isFlipped ? 'Hide answer' : 'Show answer';
-    hint.textContent = isFlipped ? 'Click to hide answer' : 'Click to show answer';
+    hint.textContent = isFlipped ? 'Answer is visible. Use “Hide answer” below to return to the question.' : 'Click “Show answer” below to reveal the explanation.';
     knownBtn.textContent = knownCards.has(active.id) ? 'Marked known' : 'I knew this';
   };
 
