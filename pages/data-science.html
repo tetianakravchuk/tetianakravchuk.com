@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Science & ML | Tetiana Kravchuk</title>
+  <meta name="description" content="Data science, machine learning, and interactive study flashcards by Tetiana Kravchuk." />
+  <link rel="stylesheet" href="../assets/styles.css" />
+</head>
+<body>
+<nav class="nav"><div class="nav-inner"><a class="brand" href="../index.html"><span class="brand-mark">TK</span> Tetiana Kravchuk</a><div class="nav-links"><a href="about.html">About</a><a href="projects.html">Projects</a><a href="world-publishing-houses.html">WPH</a><a href="qa-impact.html">QA Impact</a><a href="data-science.html">Data Science</a><a href="resume.html">Resume</a><a href="contact.html">Contact</a></div></div></nav>
+<main>
+<section class="page-title"><div class="container"><div class="eyebrow">Data Science & ML</div><h1>Applied machine learning with a quality-first mindset.</h1><p class="lead">My data science work emphasizes model evaluation, data quality, interpretable results, and practical business use cases. This page also includes an interactive study lab where I can keep interview flashcards and visitors can play with the same concepts.</p><div class="actions"><a class="button primary" href="#flashcards">Open Study Lab</a><a class="button" href="#housing">View ML capstone</a></div></div></section>
+
+<section class="section" id="flashcards">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Interactive Study Lab</div>
+      <h2>Data Science Flashcards</h2>
+      <p>A small portfolio feature for learning and interview prep. Each card includes a visual memory cue, mini diagram, or formula-style hint so concepts are easier to remember. I can use this area to add flashcards from my courses, and visitors can test themselves on machine learning, metrics, QA-for-ML, and World Publishing Houses examples.</p>
+    </div>
+
+    <div class="flashcard-layout" data-flashcards>
+      <aside class="card flashcard-sidebar">
+        <h3>Study controls</h3>
+        <label class="field-label" for="deckFilter">Deck</label>
+        <select id="deckFilter" class="input" data-deck-filter>
+          <option value="all">All cards</option>
+          <option value="ML Basics">ML Basics</option>
+          <option value="Evaluation">Evaluation</option>
+          <option value="NLP & Embeddings">NLP & Embeddings</option>
+          <option value="QA for ML">QA for ML</option>
+          <option value="WPH Applications">WPH Applications</option>
+          <option value="Custom">Custom cards</option>
+        </select>
+        <div class="mini-progress" aria-label="Study progress"><span data-card-position>Card 1 of 1</span><span data-known-count>0 known</span></div>
+        <div class="progress-bar"><span data-progress-bar></span></div>
+        <div class="actions compact"><button class="button" type="button" data-shuffle>Shuffle</button><button class="button" type="button" data-reset-progress>Reset</button></div>
+        <p class="small-note">Tip: first look at the visual cue, say the idea in your own words, then flip the card. “I knew this” updates your local progress.</p>
+      </aside>
+
+      <section class="flashcard-stage">
+        <article class="flashcard-card" tabindex="0" role="button" aria-live="polite" data-card-flip>
+          <div class="flashcard-meta"><span data-card-deck>Deck</span><span data-card-level>Level</span></div>
+          <div class="flashcard-visual" data-card-visual aria-hidden="true"></div>
+          <p class="memory-hook" data-card-memory>Visual memory cue</p>
+          <h3 data-card-question>Question</h3>
+          <p data-card-answer class="flashcard-answer">Answer</p>
+          <p class="flip-hint" data-card-hint>Click to show answer</p>
+        </article>
+        <div class="flashcard-actions">
+          <button class="button" type="button" data-prev-card>Previous</button>
+          <button class="button primary" type="button" data-toggle-answer>Show answer</button>
+          <button class="button" type="button" data-known-card>I knew this</button>
+          <button class="button" type="button" data-next-card>Next</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="grid-2 flashcard-add-row">
+      <article class="card">
+        <h3>Add a new flashcard</h3>
+        <p>Add temporary study cards directly in the browser. They are saved on this device with local storage. For permanent public cards, add them to <code>assets/script.js</code> in the <code>baseFlashcards</code> list. Each card can include a memory cue to help create a mental picture.</p>
+        <form class="flashcard-form" data-add-card-form>
+          <label class="field-label" for="newQuestion">Question</label>
+          <textarea id="newQuestion" class="input" rows="3" data-new-question placeholder="Example: What does RMSE measure?"></textarea>
+          <label class="field-label" for="newAnswer">Answer</label>
+          <textarea id="newAnswer" class="input" rows="4" data-new-answer placeholder="Example: RMSE measures the square root of average squared prediction error..."></textarea>
+          <label class="field-label" for="newDeck">Deck name</label>
+          <input id="newDeck" class="input" data-new-deck value="Custom" />
+          <label class="field-label" for="newMemory">Visual memory cue</label>
+          <textarea id="newMemory" class="input" rows="2" data-new-memory placeholder="Example: Picture the model as a final-exam grader checking unseen data."></textarea>
+          <div class="actions"><button class="button primary" type="submit">Add flashcard</button><button class="button" type="button" data-clear-custom>Clear custom cards</button></div>
+          <p class="form-message" data-form-message></p>
+        </form>
+      </article>
+      <article class="card soft-card">
+        <h3>How this supports my portfolio</h3>
+        <p>This feature shows more than course knowledge. It demonstrates how I think about learning systems, product usability, local state, clear interaction design, and explainable machine learning concepts.</p>
+        <ul class="metric-list">
+          <li>Recruiters see applied data science topics, not only a static resume.</li>
+          <li>Hiring managers can connect my QA mindset to ML evaluation and risk.</li>
+          <li>I can keep adding cards from BU courses, interview prep, and WPH use cases.</li>
+          <li>The diagrams make the page feel more like a small learning product than a static portfolio.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="housing"><div class="container project-detail"><article class="card"><h2>Capstone: Residential Property Value Prediction</h2><p>This project predicts residential property values using a Zillow-derived dataset of approximately 64,894 records and 19 numeric variables. The target variable is property tax assessed value, and the project compares linear regression, random forest, and gradient boosting.</p><div class="table-like"><div class="table-row"><strong>Primary metric</strong><span>RMSE, supported by MAE and R².</span></div><div class="table-row"><strong>Best model</strong><span>Random Forest: RMSE around $290,919, MAE around $184,569, R² around 0.517.</span></div><div class="table-row"><strong>Business use case</strong><span>Valuation support for investors, lenders, assessors, analysts, and real-estate decision makers.</span></div><div class="table-row"><strong>Ethics lens</strong><span>Location features can proxy socioeconomic patterns; monitoring and retraining are important.</span></div></div><ul class="tag-list"><li>Python</li><li>Pandas</li><li>scikit-learn</li><li>Random Forest</li><li>Gradient Boosting</li><li>Model evaluation</li></ul></article></div></section>
+<section class="section" id="text"><div class="container grid-2"><article class="card"><h2>Text mining and classification</h2><p>I am connecting course concepts like embeddings, text classification, evaluation metrics, and responsible AI to World Publishing Houses. Potential applications include classifying publisher descriptions, detecting genre signals, identifying translation-related text, and improving search/discovery.</p></article><article class="card"><h2>Data product applications</h2><p>World Publishing Houses creates many natural ML opportunities: entity resolution for publisher and translator names, clustering countries or publishers by activity, predicting translation likelihood, and identifying metadata conflicts that require human review.</p></article></div></section>
+<section class="section"><div class="container"><div class="section-header"><h2>Tools and concepts</h2><p>Technologies and methods I use or study in my QA-to-DS transition.</p></div><div class="grid-3"><article class="card"><h3>Python data stack</h3><p>Pandas, NumPy, scikit-learn, notebooks, data cleaning, model comparison, and evaluation.</p></article><article class="card"><h3>ML concepts</h3><p>Regression, classification, clustering, embeddings, decision trees, gradient boosting, cross-validation, and error analysis.</p></article><article class="card"><h3>Engineering context</h3><p>SQL, API testing, logs, automation, CI/CD awareness, cloud/data pipeline concepts, and production QA thinking.</p></article></div></div></section>
+</main>
+<footer class="footer"><div class="container">© <span data-year></span> Tetiana Kravchuk</div></footer><script src="../assets/script.js"></script>
+</body></html>
