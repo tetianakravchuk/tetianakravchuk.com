@@ -17,11 +17,19 @@ This is a complete static portfolio starter for `tetianakravchuk.com`.
 
 ## Recommended next edits
 
-1. Add your latest resume PDF and link it from `pages/resume.html`.
+1. Upload your real resume PDF to `assets/resume/Tetiana_Kravchuk_Resume.pdf`. The site already links to this path for resume downloads.
 2. Add screenshots from World Publishing Houses when you are ready.
 3. Replace any project numbers or claims you want softened before publishing.
 4. Add more permanent study cards by editing the `baseFlashcards` array in `assets/script.js`.
 5. Deploy the folder to Cloudflare Pages, GitHub Pages, Netlify, or Vercel.
+
+## Resume PDF
+
+The downloadable resume file is not committed yet. Upload the real PDF here:
+
+`assets/resume/Tetiana_Kravchuk_Resume.pdf`
+
+Do not rename the file unless you also update the download links in `index.html` and `pages/*.html`.
 
 ## Contact currently used
 

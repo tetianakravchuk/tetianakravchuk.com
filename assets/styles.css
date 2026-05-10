@@ -161,6 +161,14 @@ a { color: inherit; text-decoration: none; }
   margin-top: 28px;
 }
 
+.download-note {
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+  margin-top: 12px;
+  max-width: 680px;
+}
+
 .button {
   display: inline-flex;
   align-items: center;
