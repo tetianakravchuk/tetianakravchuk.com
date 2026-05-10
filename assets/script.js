@@ -14,8 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Foundation',
       visualType: 'supervisedWph',
       memoryHook: 'Picture WPH book metadata rows with a verified English-availability outcome attached.',
-      question: 'What is supervised learning in a WPH context?',
-      answer: 'In World Publishing Houses, supervised learning could use known book outcomes, such as available in English, coming soon, or not yet translated, to learn patterns from metadata like original language, publisher, genre, translator credits, country, and release history.'
+      question: 'What is supervised learning?',
+      visualCaption: 'General idea: X features + known y → model learns a prediction pattern. WPH example: book metadata + known English status → availability prediction.',
+      generalAnswer: 'Supervised learning is a machine learning approach where a model learns from labeled examples. Each training example includes input features, called X, and a known correct output, called y. The model learns patterns from X to y so it can make predictions on new, unseen data.',
+      wphAnswer: 'In World Publishing Houses, supervised learning could use known book outcomes — such as available in English, coming soon, or not yet translated — and learn patterns from metadata like original language, publisher, genre, translator credits, country, and release history.'
     },
     {
       id: 'ml-train-test-split',
@@ -63,6 +65,17 @@ document.addEventListener('DOMContentLoaded', () => {
       answer: 'R² describes the share of target variance explained by the model compared with a simple baseline. Higher is usually better, but it must be interpreted with error metrics and business context.'
     },
     {
+      id: 'eval-model-evaluation',
+      deck: 'Evaluation',
+      level: 'Applied',
+      visualType: 'modelEvaluationWph',
+      memoryHook: 'Picture a model passing through a metrics checkpoint before it can guide product decisions.',
+      question: 'What is model evaluation?',
+      visualCaption: 'General idea: predictions + true outcomes → metrics. WPH example: model output + verified metadata → reliability check.',
+      generalAnswer: 'Model evaluation measures how well a model performs using metrics such as accuracy, precision, recall, RMSE, MAE, or R² depending on the task.',
+      wphAnswer: 'In WPH, evaluation would help check whether a classification or recommendation model is reliable enough to support reader discovery, metadata review, or publisher intelligence without misleading users.'
+    },
+    {
       id: 'nlp-embeddings',
       deck: 'NLP & Embeddings',
       level: 'Applied',
@@ -104,8 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Portfolio',
       visualType: 'entityResolution',
       memoryHook: 'Picture messy publisher names merging into one clean canonical record.',
-      question: 'What is entity resolution in WPH?',
-      answer: 'Entity resolution identifies when different names refer to the same real-world entity. In WPH, this helps merge publisher, translator, author, or imprint variants into one trustworthy profile.'
+      question: 'What is entity resolution?',
+      visualCaption: 'General idea: variant records → one real-world entity. WPH example: publisher name variants → trusted profile.',
+      generalAnswer: 'Entity resolution is the process of identifying when different records or names refer to the same real-world entity.',
+      wphAnswer: 'In WPH, entity resolution can merge publisher, translator, author, or imprint variants into one trustworthy profile, such as recognizing Gyldendal, Gyldendal DK, and Gyldendalske as related records that need review or consolidation.'
     },
     {
       id: 'wph-classification',
@@ -113,8 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Portfolio',
       visualType: 'classificationWph',
       memoryHook: 'Picture one book moving into the right reader-facing availability shelf.',
-      question: 'What is classification in WPH?',
-      answer: 'Classification assigns an item to a category. In WPH, a model could classify books into reader-facing buckets based on verified metadata.'
+      question: 'What is classification?',
+      visualCaption: 'General idea: input → predefined category. WPH example: book metadata → English availability bucket.',
+      generalAnswer: 'Classification is a supervised learning task where a model assigns an input to one of several predefined categories.',
+      wphAnswer: 'In WPH, classification could help place books into reader-facing buckets such as Read now in English, Coming soon in English, or Not yet in English based on verified metadata.'
     },
     {
       id: 'wph-metadata-conflict',
@@ -122,8 +139,10 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Portfolio',
       visualType: 'conflictDetection',
       memoryHook: 'Picture three sources disagreeing, then a review flag appearing.',
-      question: 'How can ML help detect metadata conflicts?',
-      answer: 'A model or rule-based system can compare metadata sources and flag conflicts, such as missing translators, inconsistent names, unclear publication dates, or suspicious translation paths that need human review.'
+      question: 'What is metadata conflict detection?',
+      visualCaption: 'General idea: compare sources → flag inconsistency. WPH example: conflicting translator credits → human review.',
+      generalAnswer: 'Metadata conflict detection finds inconsistent, missing, or contradictory information across multiple data sources.',
+      wphAnswer: 'In WPH, this can flag cases where one source lists a translator, another source omits the translator, and a publisher page shows a slightly different name. Instead of pretending the data is certain, WPH can mark the record for human review.'
     },
     {
       id: 'wph-embeddings-search',
@@ -131,8 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Portfolio',
       visualType: 'embeddingsWph',
       memoryHook: 'Picture descriptions becoming vectors that pull similar books and publishers closer together.',
-      question: 'How could embeddings support WPH search?',
-      answer: 'Embeddings turn text into numeric vectors. In WPH, embeddings could help match similar book descriptions, cluster publishers by themes, improve discovery, and connect readers with related translated works.'
+      question: 'What are embeddings?',
+      visualCaption: 'General idea: text → vector → similarity. WPH example: book descriptions → related books, themes, and publishers.',
+      generalAnswer: 'Embeddings are numeric vector representations of text, images, or other data. They help computers compare meaning by placing similar items close together in vector space.',
+      wphAnswer: 'In WPH, embeddings could support semantic book search, similar-title discovery, publisher clustering, theme detection, and recommendations across translated works.'
     },
     {
       id: 'wph-translation-trust',
@@ -148,6 +169,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const visualDiagrams = {
     supervisedWph: `
       <div class="visual-diagram vertical" role="img" aria-label="Book metadata flows to a known English status target, then the model learns a pattern.">
+        <div class="dual-flow-row">
+          <span class="visual-chip">X features</span>
+          <span class="visual-chip">known y</span>
+          <span class="visual-chip strong">prediction pattern</span>
+        </div>
         <div class="visual-box">
           <strong>Book metadata</strong>
           <span>Original language: Danish</span>
@@ -166,8 +192,12 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `,
     classificationWph: `
-      <div class="visual-diagram" role="img" aria-label="A book card is classified into one of three English availability buckets.">
-        <div class="visual-box book-card"><strong>Book</strong><span>verified metadata</span></div>
+      <div class="visual-diagram vertical" role="img" aria-label="A book card is classified into one of three English availability buckets.">
+        <div class="dual-flow-row">
+          <span class="visual-chip">input</span>
+          <span class="visual-chip strong">predefined category</span>
+        </div>
+        <div class="visual-box book-card"><strong>Input</strong><span>book + verified metadata</span></div>
         <span class="visual-arrow" aria-hidden="true">→</span>
         <div class="visual-buckets">
           <span class="visual-bucket">Read now in English</span>
@@ -178,6 +208,11 @@ document.addEventListener('DOMContentLoaded', () => {
     `,
     entityResolution: `
       <div class="visual-diagram vertical" role="img" aria-label="Three publisher name variants merge into one trusted publisher profile.">
+        <div class="dual-flow-row">
+          <span class="visual-chip">record A</span>
+          <span class="visual-chip">record B</span>
+          <span class="visual-chip strong">same entity?</span>
+        </div>
         <div class="chip-row">
           <span class="visual-chip">Gyldendal</span>
           <span class="visual-chip">Gyldendal DK</span>
@@ -189,6 +224,11 @@ document.addEventListener('DOMContentLoaded', () => {
     `,
     conflictDetection: `
       <div class="visual-diagram vertical" role="img" aria-label="Three metadata sources disagree about translator credit, creating a conflict flag for human review.">
+        <div class="dual-flow-row">
+          <span class="visual-chip">source 1</span>
+          <span class="visual-chip">source 2</span>
+          <span class="visual-chip strong">conflict?</span>
+        </div>
         <div class="source-grid">
           <div class="source-card"><strong>Retailer A</strong><span>Translator = Anna Smith</span></div>
           <div class="source-card"><strong>Retailer B</strong><span>Translator = missing</span></div>
@@ -216,6 +256,11 @@ document.addEventListener('DOMContentLoaded', () => {
     `,
     embeddingsWph: `
       <div class="visual-diagram vertical" role="img" aria-label="A book description becomes a numeric vector that supports similar books, themes, and publisher discovery.">
+        <div class="dual-flow-row">
+          <span class="visual-chip">text</span>
+          <span class="visual-chip">vector space</span>
+          <span class="visual-chip strong">similarity</span>
+        </div>
         <div class="visual-box"><strong>Book description</strong><span>text about plot, themes, country, publisher</span></div>
         <span class="visual-arrow" aria-hidden="true">→</span>
         <div class="visual-box vector"><strong>Vector</strong><code>[0.12, -0.44, 0.87]</code></div>
@@ -224,6 +269,24 @@ document.addEventListener('DOMContentLoaded', () => {
           <span class="visual-bucket">Similar books</span>
           <span class="visual-bucket">Themes</span>
           <span class="visual-bucket">Publishers</span>
+        </div>
+      </div>
+    `,
+    modelEvaluationWph: `
+      <div class="visual-diagram vertical" role="img" aria-label="Model predictions are compared with true outcomes to produce metrics and a WPH reliability check.">
+        <div class="dual-flow-row">
+          <span class="visual-chip">predictions</span>
+          <span class="visual-chip">true outcomes</span>
+          <span class="visual-chip strong">metrics</span>
+        </div>
+        <div class="visual-box"><strong>Model output</strong><span>availability bucket or recommendation</span></div>
+        <span class="visual-arrow" aria-hidden="true">→</span>
+        <div class="visual-box target"><strong>Verified metadata</strong><span>known status, translator, source evidence</span></div>
+        <span class="visual-arrow" aria-hidden="true">→</span>
+        <div class="visual-buckets">
+          <span class="visual-bucket">accuracy</span>
+          <span class="visual-bucket">precision / recall</span>
+          <span class="visual-bucket">RMSE / MAE / R²</span>
         </div>
       </div>
     `
@@ -299,12 +362,29 @@ document.addEventListener('DOMContentLoaded', () => {
     .replace(/'/g, '&#39;');
 
   const renderVisual = (item) => {
-    if (visualDiagrams[item.visualType]) return visualDiagrams[item.visualType];
-    if (visualTemplates[item.visualKey]) return visualTemplates[item.visualKey];
+    const visualMarkup = visualDiagrams[item.visualType] || visualTemplates[item.visualKey];
+    const caption = item.visualCaption
+      ? `<p class="visual-caption">${escapeHtml(item.visualCaption)}</p>`
+      : '';
+    if (visualMarkup) return `${visualMarkup}${caption}`;
     if (item.visualText) {
       return `<div class="visual-diagram" role="img" aria-label="${escapeHtml(item.visualText)}"><div class="visual-box"><strong>${escapeHtml(item.visualText)}</strong></div></div>`;
     }
     return visualTemplates.custom;
+  };
+
+  const renderAnswer = (item) => {
+    if (item.generalAnswer || item.wphAnswer) {
+      const sections = [];
+      if (item.generalAnswer) {
+        sections.push(`<section class="answer-section"><h4>General idea</h4><p>${escapeHtml(item.generalAnswer)}</p></section>`);
+      }
+      if (item.wphAnswer) {
+        sections.push(`<section class="answer-section"><h4>How it applies to WPH</h4><p>${escapeHtml(item.wphAnswer)}</p></section>`);
+      }
+      return sections.join('');
+    }
+    return `<p>${escapeHtml(item.answer || '')}</p>`;
   };
 
   const storageKeys = {
@@ -371,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const renderCard = () => {
     if (!filteredCards.length) {
       question.textContent = 'No cards in this deck yet.';
-      answer.textContent = 'Add a custom card below or switch to another deck.';
+      answer.innerHTML = '<p>Add a custom card below or switch to another deck.</p>';
       deck.textContent = deckFilter.value === 'all' ? 'Empty' : deckFilter.value;
       level.textContent = 'Add cards';
       memory.textContent = 'Visual cue: create one small picture in your mind before checking the answer.';
@@ -387,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const active = filteredCards[currentIndex];
     question.textContent = active.question;
-    answer.textContent = active.answer;
+    answer.innerHTML = renderAnswer(active);
     deck.textContent = active.deck;
     level.textContent = active.level || 'Study';
     memory.textContent = active.memoryHook || 'Picture the idea as a simple flow: input → process → result.';

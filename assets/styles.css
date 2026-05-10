@@ -492,6 +492,34 @@ textarea.input {
   max-width: 850px;
 }
 
+.flashcard-answer p {
+  margin-bottom: 0;
+}
+
+.answer-section {
+  display: grid;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.answer-section:first-child {
+  margin-top: 0;
+}
+
+.answer-section h4 {
+  margin: 0;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.answer-section p {
+  font-size: 1.08rem;
+  line-height: 1.62;
+}
+
 .flashcard-card.is-flipped .flashcard-answer {
   display: block;
 }
@@ -601,6 +629,14 @@ textarea.input {
   font-weight: 900;
 }
 
+.visual-caption {
+  color: #6b4a2c;
+  font-size: 0.82rem;
+  line-height: 1.38;
+  margin: 10px 0 0;
+  text-align: center;
+}
+
 .visual-diagram {
   display: flex;
   align-items: center;
@@ -665,6 +701,7 @@ textarea.input {
 }
 
 .chip-row,
+.dual-flow-row,
 .source-grid,
 .visual-buckets,
 .trust-badges,
@@ -738,6 +775,16 @@ textarea.input {
   background: #f8efe3;
   border-color: #d7c4ac;
   color: var(--accent);
+}
+
+.dual-flow-row {
+  align-items: center;
+}
+
+.visual-chip.strong {
+  background: #eef0e5;
+  border-color: #bdc9ad;
+  color: #37503a;
 }
 
 .mini-table {
@@ -1088,6 +1135,7 @@ textarea.input {
   .trust-flow { grid-template-columns: 1fr; }
   .wph-mini-table { grid-template-columns: 1fr; }
   .visual-diagram,
+  .dual-flow-row,
   .trust-steps { flex-direction: column; align-items: stretch; }
   .visual-diagram > .visual-arrow,
   .trust-steps > .visual-arrow { align-self: center; transform: rotate(90deg); }
