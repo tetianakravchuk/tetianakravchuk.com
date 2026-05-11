@@ -438,7 +438,7 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
 }
 
-.portrait-placeholder {
+.portrait-fallback {
   aspect-ratio: 1;
   border: 1px solid #d8c5ad;
   border-radius: 34px;
@@ -457,7 +457,7 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
 }
 
-.portrait-placeholder span {
+.portrait-fallback span {
   width: 52%;
   aspect-ratio: 1;
   border-radius: 50%;
@@ -509,7 +509,7 @@ a { color: inherit; text-decoration: none; }
   .lead { font-size: 1.14rem; }
   .hero-grid, .grid-2, .grid-3, .grid-4, .table-row { grid-template-columns: 1fr; }
   .about-hero-grid { grid-template-columns: 1fr; }
-  .portrait-placeholder { max-width: 220px; }
+  .portrait-fallback { max-width: 220px; }
   .card.featured { grid-column: span 1; }
   .nav-inner { align-items: center; flex-direction: row; flex-wrap: wrap; gap: 12px; padding: 14px 18px; }
   .brand { min-width: 0; white-space: normal; }
