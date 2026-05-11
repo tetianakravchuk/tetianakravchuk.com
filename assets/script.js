@@ -88,190 +88,246 @@ document.addEventListener('DOMContentLoaded', () => {
   const flashcardRoot = document.querySelector('[data-flashcards]');
   if (!flashcardRoot) return;
 
-  // Permanent public cards live here. Add new public cards to this list.
-  // visualKey controls the mini diagram. memoryHook is the visual-memory phrase.
   const baseFlashcards = [
     {
-      id: 'ml-supervised-learning',
-      deck: 'ML Basics',
-      level: 'Foundation',
-      visualType: 'supervisedWph',
-      memoryHook: 'Picture WPH book metadata rows with a verified English-availability outcome attached.',
-      question: 'What is supervised learning?',
-      visualCaption: 'General idea: X features + known y → model learns a prediction pattern. WPH example: book metadata + known English status → availability prediction.',
-      generalIdea: 'Supervised learning is a machine learning approach where a model learns from labeled examples. Each training example includes input features, called X, and a known correct output, called y. The model learns patterns from X to y so it can make predictions on new, unseen data.',
-      simpleExample: 'A housing model can learn from features like square footage, number of rooms, and location, paired with a known sale price. After training, it can estimate the price of a new house.',
-      wphApplication: 'In World Publishing Houses, supervised learning could use known book outcomes — such as available in English, coming soon, or not yet translated — and learn patterns from metadata like original language, publisher, genre, translator credits, country, and release history.'
-    },
-    {
-      id: 'ml-train-test-split',
-      deck: 'ML Basics',
-      level: 'Foundation',
-      visualKey: 'split',
-      memoryHook: 'Picture one dataset cut into two boxes: practice data and final exam data.',
-      question: 'Why do we split data into training and test sets?',
-      generalIdea: 'A train/test split separates data into one part used to train the model and another part used to evaluate it. This helps estimate whether the model can generalize to data it has not seen before.',
-      simpleExample: 'If you have 10,000 property records, you might train the model on 8,000 records and test it on 2,000 records that were held back.',
-      wphApplication: 'In WPH, a model that predicts reader availability or flags metadata conflicts should be tested on held-out book records. This helps verify that the model is learning real patterns rather than memorizing known publishers or titles.'
-    },
-    {
-      id: 'ml-cross-validation',
-      deck: 'ML Basics',
-      level: 'Interview',
-      visualKey: 'folds',
-      memoryHook: 'Picture the validation block moving across the dataset like a spotlight.',
-      question: 'What is cross-validation?',
-      generalIdea: 'Cross-validation evaluates a model by repeatedly training and validating it on different portions of the data. It gives a more stable estimate of performance than one single train/test split.',
-      simpleExample: 'In 5-fold cross-validation, the dataset is split into five parts. The model trains five times, each time using a different fold for validation.',
-      wphApplication: 'In WPH, cross-validation would be useful when data is limited, especially for smaller countries or niche publishers. It can help evaluate whether a model performs consistently across different subsets of books and metadata sources.'
-    },
-    {
-      id: 'eval-rmse',
-      deck: 'Evaluation',
-      level: 'Capstone',
-      visualKey: 'rmse',
-      memoryHook: 'Picture big errors becoming visually heavier because they are squared first.',
-      question: 'What does RMSE measure?',
-      generalIdea: 'RMSE, or root mean squared error, measures the typical prediction error in the same units as the target. Because errors are squared before averaging, RMSE penalizes large errors more strongly.',
-      simpleExample: 'In a property value model, RMSE estimates how far predictions are from actual values on average, with very large mistakes weighing more heavily.',
-      wphApplication: 'If WPH later predicts numeric signals, such as translation likelihood scores, confidence scores, or demand estimates, RMSE could help evaluate how close those predictions are to known outcomes.'
-    },
-    {
-      id: 'eval-mae',
-      deck: 'Evaluation',
-      level: 'Capstone',
-      visualKey: 'mae',
-      memoryHook: 'Picture measuring straight distances from predictions to truth, then averaging them.',
-      question: 'How is MAE different from RMSE?',
-      generalIdea: 'MAE, or mean absolute error, measures the average absolute difference between predictions and true values. It is easier to interpret than RMSE because it treats each error as a direct distance.',
-      simpleExample: 'If a home value model has an MAE of about $184,569, predictions are off by about that amount on average, ignoring whether each error is above or below the true value.',
-      wphApplication: 'In WPH, MAE could be useful for numeric prediction tasks where interpretability matters. For example, it could explain average error in estimated release timing, ranking score, or other future quantitative signals.'
-    },
-    {
-      id: 'eval-r2',
-      deck: 'Evaluation',
-      level: 'Capstone',
-      visualKey: 'r2',
-      memoryHook: 'Picture the model explaining part of the total variation cloud.',
-      question: 'What does R² explain in a regression model?',
-      generalIdea: 'R² describes how much of the variation in the target variable is explained by the model compared with a simple baseline. Higher values usually mean better fit, but R² should be interpreted with error metrics and business context.',
-      simpleExample: 'An R² of 0.517 means the model explains about 51.7% of the variation in the target, while the remaining variation is still unexplained.',
-      wphApplication: 'If WPH uses regression-style predictions later, R² could help explain whether metadata features meaningfully explain outcomes such as translation activity, publisher activity, or estimated demand.'
-    },
-    {
-      id: 'eval-model-evaluation',
-      deck: 'Evaluation',
-      level: 'Applied',
-      visualType: 'modelEvaluationWph',
-      memoryHook: 'Picture a model passing through a metrics checkpoint before it can guide product decisions.',
-      question: 'What is model evaluation?',
-      visualCaption: 'General idea: predictions + true outcomes → metrics. WPH example: model output + verified metadata → reliability check.',
-      generalIdea: 'Model evaluation measures how well a model performs using metrics such as accuracy, precision, recall, RMSE, MAE, or R² depending on the task.',
-      simpleExample: 'A classifier can be evaluated by comparing its predicted labels with known correct labels and checking whether it makes too many false positives or false negatives.',
-      wphApplication: 'In WPH, evaluation would help check whether a classification or recommendation model is reliable enough to support reader discovery, metadata review, or publisher intelligence without misleading users.'
-    },
-    {
-      id: 'nlp-embeddings',
-      deck: 'NLP & Embeddings',
-      level: 'Applied',
-      visualKey: 'embedding',
-      memoryHook: 'Picture words becoming points on a meaning map; similar ideas sit close together.',
-      question: 'What are embeddings?',
-      generalIdea: 'Embeddings are numeric vector representations of text, images, or other data. They help computers compare meaning by placing similar items close together in vector space.',
-      simpleExample: 'Two book descriptions about Nordic crime fiction may have embeddings that are close together, while a cookbook description would be farther away.',
-      wphApplication: 'In WPH, embeddings could support semantic book search, similar-title discovery, publisher clustering, theme detection, and recommendations across translated works.'
-    },
-    {
-      id: 'nlp-classification',
-      deck: 'NLP & Embeddings',
-      level: 'Applied',
-      visualKey: 'classification',
-      memoryHook: 'Picture text moving through a small pipeline and receiving a category label.',
-      question: 'What is text classification?',
-      generalIdea: 'Text classification is the process of assigning text to predefined categories. It can be done with traditional machine learning, embeddings, or modern language models.',
-      simpleExample: 'A model can read a short description and classify it as news, fiction, children’s literature, academic text, or marketing copy.',
-      wphApplication: 'In WPH, text classification could classify publisher descriptions, detect children’s books, identify translation-related language, group titles by theme, or route uncertain metadata for human review.'
-    },
-    {
-      id: 'qa-ml-data-quality',
-      deck: 'QA for ML',
-      level: 'Professional',
-      visualKey: 'qa-gates',
-      memoryHook: 'Picture QA gates before the model, around evaluation, and after release.',
-      question: 'Why is QA important for machine learning projects?',
-      generalIdea: 'QA is important for ML because model behavior depends on data quality, stable pipelines, correct labels, reproducible evaluation, and monitored outputs. A model can appear accurate while still failing silently in production.',
-      simpleExample: 'If a feature column changes meaning or labels are inconsistent, the model may produce unreliable predictions even if the code still runs.',
-      wphApplication: 'In WPH, QA thinking protects translation metadata, publisher identity, reader-facing buckets, and trust badges. It helps prevent misleading users when data is incomplete, conflicting, or uncertain.'
-    },
-    {
-      id: 'qa-ml-edge-cases',
-      deck: 'QA for ML',
-      level: 'Professional',
-      visualKey: 'edge-cases',
-      memoryHook: 'Picture a test checklist catching rare but dangerous cases at the edges.',
-      question: 'What kind of edge cases should be tested in ML products?',
-      generalIdea: 'ML edge cases are unusual inputs or data conditions that can cause poor predictions, confusing outputs, or hidden failures. They should be tested because real users often encounter messy cases.',
-      simpleExample: 'Common edge cases include missing values, duplicate records, outliers, rare categories, stale data, changed schemas, and low-confidence predictions.',
-      wphApplication: 'In WPH, edge cases include missing translator credits, indirect translation paths, publisher name variants, low-data countries, contradictory retailer metadata, and books that do not fit clean reader buckets.'
-    },
-    {
-      id: 'wph-entity-resolution',
-      deck: 'WPH Applications',
+      id: 'wph-dq-entity-resolution',
+      deck: 'WPH: Data Quality',
       level: 'Portfolio',
       visualType: 'entityResolution',
-      memoryHook: 'Picture messy publisher names merging into one clean canonical record.',
-      question: 'What is entity resolution?',
-      visualCaption: 'General idea: variant records → one real-world entity. WPH example: publisher name variants → trusted profile.',
-      generalIdea: 'Entity resolution is the process of identifying when different records, names, or spellings refer to the same real-world entity.',
-      simpleExample: 'A database may contain “Gyldendal,” “Gyldendal DK,” and “Gyldendalske.” Entity resolution helps determine whether these should be linked, merged, or reviewed as related records.',
-      wphApplication: 'In WPH, entity resolution can merge publisher, translator, author, or imprint variants into one trustworthy profile while preserving evidence and avoiding careless over-merging.'
+      visualCue: 'Publisher variants should be reviewed before merging into one trusted entity.',
+      front: 'WPH has “Penguin Random House UK” and “Penguin Books Ltd” as separate publisher entries. What ML/data problem is this?',
+      back: 'Entity resolution / record linkage. Start with a heuristic baseline: normalize names, remove suffixes like Ltd/GmbH/AB, compare country, imprint, ISBN prefix, and author overlap. Use embeddings only after simple rules fail.',
+      qaAngle: 'False merges are more dangerous than false splits. Merging two real publishers can permanently corrupt lineage; splitting one publisher is easier to repair.',
+      projectLinkLabel: 'WPH Dataset / Publishers section',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/'
     },
     {
-      id: 'wph-classification',
-      deck: 'WPH Applications',
-      level: 'Portfolio',
-      visualType: 'classificationWph',
-      memoryHook: 'Picture one book moving into the right reader-facing availability shelf.',
-      question: 'What is classification?',
-      visualCaption: 'General idea: input → predefined category. WPH example: book metadata → English availability bucket.',
-      generalIdea: 'Classification is a supervised learning task where a model assigns an input to one of several predefined categories.',
-      simpleExample: 'An email classifier can sort messages into categories like primary, promotion, update, or junk.',
-      wphApplication: 'In WPH, classification could help place books into reader-facing buckets such as Read now in English, Coming soon in English, or Not yet in English based on verified metadata.'
-    },
-    {
-      id: 'wph-metadata-conflict',
-      deck: 'WPH Applications',
+      id: 'wph-dq-language-code',
+      deck: 'WPH: Data Quality',
       level: 'Portfolio',
       visualType: 'conflictDetection',
-      memoryHook: 'Picture three sources disagreeing, then a review flag appearing.',
-      question: 'What is metadata conflict detection?',
-      visualCaption: 'General idea: compare sources → flag inconsistency. WPH example: conflicting translator credits → human review.',
-      generalIdea: 'Metadata conflict detection finds inconsistent, missing, or contradictory information across multiple data sources.',
-      simpleExample: 'One source may list a translator as Anna Smith, another may omit the translator, and a publisher page may show Ana Smith. The record should not be treated as fully verified without review.',
-      wphApplication: 'In WPH, conflict detection can flag translator discrepancies, unclear publication dates, inconsistent publisher names, suspicious translation paths, and records that need human verification.'
+      visualCue: 'A small code casing issue can change meaning for users.',
+      front: 'A book page shows “UK” as the original language for a Ukrainian work. What kind of data quality bug is this?',
+      back: 'ISO/code mapping error. “uk” can mean Ukrainian as a language code, but “UK” visually reads as United Kingdom. The UI must distinguish language codes from country codes.',
+      qaAngle: 'Test language labels with real examples, especially Ukrainian, Norwegian Bokmål, Danish, Icelandic, and English. Check that backend codes render as human-readable names.',
+      projectLinkLabel: 'WPH QA / Trust section',
+      projectLinkHref: 'world-publishing-houses.html'
     },
     {
-      id: 'wph-embeddings-search',
-      deck: 'WPH Applications',
-      level: 'Portfolio',
-      visualType: 'embeddingsWph',
-      memoryHook: 'Picture descriptions becoming vectors that pull similar books and publishers closer together.',
-      question: 'How could embeddings support search?',
-      visualCaption: 'General idea: text → vector → similarity. WPH example: book descriptions → related books, themes, and publishers.',
-      generalIdea: 'Embeddings support search by comparing meaning instead of only exact keyword matches. They can retrieve related content even when users use different wording.',
-      simpleExample: 'A search for “Nordic family mystery” might find books described with words like “Icelandic domestic suspense” because the meanings are similar.',
-      wphApplication: 'In WPH, embeddings could improve discovery across translated works, connect similar books and publishers, cluster themes, and help readers find relevant titles even when metadata wording differs by source.'
-    },
-    {
-      id: 'wph-translation-trust',
-      deck: 'WPH Applications',
+      id: 'wph-dq-translator-conflict',
+      deck: 'WPH: Data Quality',
       level: 'Portfolio',
       visualType: 'translationTrust',
-      memoryHook: 'Picture each edition carrying a small trust label beside the translator credit.',
-      question: 'What is a translation trust signal?',
-      generalIdea: 'A trust signal is a visible indicator that tells users how reliable a piece of information is and what evidence supports it.',
-      simpleExample: 'A product page might label information as verified, unverified, or disputed depending on source quality and consistency.',
-      wphApplication: 'In WPH, translation trust signals can label edition-level translator attribution and translation paths as verified, unverified, or disputed based on source evidence, conflicts, and human review.'
+      visualCue: 'Conflicting translator metadata needs provenance, not silent overwrite.',
+      front: 'Two sources disagree about the translator of the same book edition. What should the system do?',
+      back: 'Store conflicting attribution with source provenance instead of overwriting one value. Mark the translator field as verified, unverified, or disputed.',
+      qaAngle: 'Never silently collapse conflicting metadata. A QA test should verify that disputed records show a warning and source trail.',
+      projectLinkLabel: 'WPH Translation Trust section',
+      projectLinkHref: 'world-publishing-houses.html'
+    },
+    {
+      id: 'wph-dq-count-mismatch',
+      deck: 'WPH: Data Quality',
+      level: 'Portfolio',
+      visualKey: 'qa-gates',
+      visualCue: 'Hero metrics and rendered content must agree under the same filters.',
+      front: 'A WPH country page has 0 translations in the hero but translation cards lower on the page. What type of bug is this?',
+      back: 'Metric-content mismatch. Aggregated counts and visible page content are being calculated from different sources or filters.',
+      qaAngle: 'Add regression tests comparing hero counts against rendered module counts for the same country/month/filter.',
+      projectLinkLabel: 'WPH Country Page QA',
+      projectLinkHref: 'world-publishing-houses.html'
+    },
+    {
+      id: 'wph-ml-rights-ranking',
+      deck: 'WPH: ML Applications',
+      level: 'Portfolio',
+      visualType: 'modelEvaluationWph',
+      visualCue: 'A rights watchlist model should support decisions, not replace editorial judgment.',
+      front: 'How could WPH predict which untranslated books may be good candidates for English translation?',
+      back: 'A ranking model could use awards, publisher activity, author visibility, prior translations, genre, country momentum, and similar-title signals.',
+      qaAngle: 'The model should be decision-support only. Test for over-ranking already famous markets and under-ranking smaller-language authors.',
+      projectLinkLabel: 'WPH Rights Watchlist',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/'
+    },
+    {
+      id: 'wph-ml-publisher-clusters',
+      deck: 'WPH: ML Applications',
+      level: 'Portfolio',
+      visualType: 'embeddingsWph',
+      visualCue: 'Embeddings can group publishers, but clusters still need human-readable reasons.',
+      front: 'How could embeddings help WPH organize publishers?',
+      back: 'Publisher descriptions, catalogs, genres, and author lists could be embedded and clustered to reveal similar publishers or market niches.',
+      qaAngle: 'Clusters must be explainable. QA should check whether clusters make editorial sense, not just mathematical sense.',
+      projectLinkLabel: 'WPH Publisher Intelligence',
+      projectLinkHref: 'world-publishing-houses.html'
+    },
+    {
+      id: 'wph-ml-reader-buckets',
+      deck: 'WPH: ML Applications',
+      level: 'Portfolio',
+      visualType: 'classificationWph',
+      visualCue: 'Reader-facing availability buckets are high-trust labels.',
+      front: 'How could WPH classify books into reader buckets?',
+      back: 'A classifier or rule-based system could assign: “Read now in English,” “Coming soon in English,” or “Not yet in English” based on release and translation metadata.',
+      qaAngle: 'Bucket assignment is user-facing and high trust. Test edge cases where rights are acquired but no release date exists.',
+      projectLinkLabel: 'WPH Reader Mode',
+      projectLinkHref: 'world-publishing-houses.html'
+    },
+    {
+      id: 'wph-ml-recommendation-baseline',
+      deck: 'WPH: ML Applications',
+      level: 'Portfolio',
+      visualKey: 'split',
+      visualCue: 'Transparent rules are the baseline before claiming ML adds value.',
+      front: 'What is the simplest baseline before using ML for WPH recommendations?',
+      back: 'A rules-based baseline: prioritize verified English availability, recent awards, active publishers, known translators, and recent market events.',
+      qaAngle: 'Always compare ML suggestions against a transparent rule-based baseline before claiming the model adds value.',
+      projectLinkLabel: 'WPH Recommendation Logic',
+      projectLinkHref: 'world-publishing-houses.html'
+    },
+    {
+      id: 'capstone-r2-production',
+      deck: 'Capstone: Model Validation',
+      level: 'ML QA',
+      visualKey: 'r2',
+      visualCue: 'R² around 0.517 is useful signal, not production appraisal confidence.',
+      front: 'The housing model has R² ≈ 0.517. Is that good enough for production appraisal?',
+      back: 'No. It shows meaningful signal, but it is not strong enough for high-stakes valuation without more validation, feature engineering, fairness checks, and monitoring.',
+      qaAngle: 'A QA-minded model review asks: where does it fail, for whom, and under what market conditions?',
+      projectLinkLabel: 'Capstone Results',
+      projectLinkHref: 'data-science.html#housing'
+    },
+    {
+      id: 'capstone-rmse-risk',
+      deck: 'Capstone: Model Validation',
+      level: 'ML QA',
+      visualKey: 'rmse',
+      visualCue: 'RMSE makes large valuation mistakes more visible.',
+      front: 'Why is RMSE useful in the property-value capstone?',
+      back: 'RMSE penalizes large prediction errors more heavily, which matters when expensive valuation mistakes are risky.',
+      qaAngle: 'Also inspect MAE and residuals. A model can have acceptable average error but still fail badly on expensive homes or specific regions.',
+      projectLinkLabel: 'Capstone Metrics',
+      projectLinkHref: 'data-science.html#housing'
+    },
+    {
+      id: 'capstone-naive-baseline',
+      deck: 'Capstone: Model Validation',
+      level: 'ML QA',
+      visualKey: 'split',
+      visualCue: 'A simple baseline keeps model claims honest.',
+      front: 'Why add a naive mean-prediction baseline?',
+      back: 'A baseline shows whether the ML model improves over a simple non-ML approach. Without it, model metrics lack context.',
+      qaAngle: 'Every model evaluation should include at least one simple baseline before claiming success.',
+      projectLinkLabel: 'Capstone Model Comparison',
+      projectLinkHref: 'data-science.html#housing'
+    },
+    {
+      id: 'capstone-location-fairness',
+      deck: 'Capstone: Model Validation',
+      level: 'ML QA',
+      visualKey: 'edge-cases',
+      visualCue: 'Location can act as a proxy feature and create uneven error patterns.',
+      front: 'Why can location features create fairness risk?',
+      back: 'Latitude, longitude, region, and ZIP-like fields can proxy socioeconomic patterns. The model may learn historical inequality rather than property value alone.',
+      qaAngle: 'Test error rates by region, price band, and property type. Require fairness review before production use.',
+      projectLinkLabel: 'Capstone Ethics Lens',
+      projectLinkHref: 'data-science.html#model-validation'
+    },
+    {
+      id: 'qa-ml-vs-software',
+      deck: 'QA for ML',
+      level: 'ML QA',
+      visualKey: 'qa-gates',
+      visualCue: 'ML QA checks model behavior, not just whether code executes.',
+      front: 'How is testing an ML model different from testing normal software?',
+      back: 'Traditional software has expected outputs. ML systems produce probabilistic outputs, so QA must validate data, metrics, drift, edge cases, and failure patterns.',
+      qaAngle: 'A passing unit test does not mean the model is trustworthy. Model QA needs statistical and production checks.',
+      projectLinkLabel: 'ML QA Case Study',
+      projectLinkHref: 'data-science.html#model-validation'
+    },
+    {
+      id: 'qa-ml-golden-dataset',
+      deck: 'QA for ML',
+      level: 'ML QA',
+      visualKey: 'qa-gates',
+      visualCue: 'A small trusted dataset can catch behavior regressions over time.',
+      front: 'What is a golden dataset?',
+      back: 'A small, trusted dataset with verified labels or expected outcomes used to test model behavior over time.',
+      qaAngle: 'Golden datasets help catch regressions when retraining or changing features.',
+      projectLinkLabel: 'QA for ML',
+      projectLinkHref: 'data-science.html#model-validation'
+    },
+    {
+      id: 'qa-ml-data-drift',
+      deck: 'QA for ML',
+      level: 'ML QA',
+      visualKey: 'edge-cases',
+      visualCue: 'Production data can move away from the training distribution.',
+      front: 'What is data drift?',
+      back: 'Data drift happens when production data changes from the training data distribution.',
+      qaAngle: 'Monitor input distributions, prediction errors, and business conditions. Housing data is especially drift-prone because markets change.',
+      projectLinkLabel: 'Capstone Monitoring',
+      projectLinkHref: 'data-science.html#model-validation'
+    },
+    {
+      id: 'qa-ml-release-checklist',
+      deck: 'QA for ML',
+      level: 'ML QA',
+      visualKey: 'qa-gates',
+      visualCue: 'Release readiness means the model is understood, monitored, and bounded by use case.',
+      front: 'What should be checked before releasing an ML model?',
+      back: 'Baseline comparison, validation split, data quality, fairness review, residual analysis, monitoring plan, rollback plan, and documentation.',
+      qaAngle: 'Release readiness for ML is not just “model runs.” It is “model is understood, monitored, and safe enough for its use case.”',
+      projectLinkLabel: 'ML QA Checklist',
+      projectLinkHref: 'data-science.html#model-validation'
+    },
+    {
+      id: 'fundamentals-supervised-learning',
+      deck: 'Fundamentals for Study',
+      level: 'Foundation',
+      visualType: 'supervisedWph',
+      visualCue: 'X features plus known y teach the model a prediction pattern.',
+      front: 'What is supervised learning?',
+      back: 'Supervised learning is a machine learning approach where a model learns from labeled examples: input features X and a known correct output y.',
+      qaAngle: 'Check label quality before trusting model quality. Bad labels can make a model look systematic while learning the wrong pattern.',
+      projectLinkLabel: 'ML Validation Case Study',
+      projectLinkHref: 'data-science.html#housing'
+    },
+    {
+      id: 'fundamentals-train-test',
+      deck: 'Fundamentals for Study',
+      level: 'Foundation',
+      visualKey: 'split',
+      visualCue: 'Holdout data is the model’s first reality check.',
+      front: 'Why do we split data into training and test sets?',
+      back: 'A train/test split separates data used to train the model from data used to evaluate whether the model generalizes to unseen examples.',
+      qaAngle: 'Document the split and watch for leakage. If the same entity appears in both sets, the test result may be too optimistic.',
+      projectLinkLabel: 'Capstone Model Comparison',
+      projectLinkHref: 'data-science.html#housing'
+    },
+    {
+      id: 'fundamentals-rmse-mae',
+      deck: 'Fundamentals for Study',
+      level: 'Foundation',
+      visualKey: 'mae',
+      visualCue: 'RMSE highlights large errors; MAE explains average absolute error.',
+      front: 'Why compare RMSE and MAE?',
+      back: 'RMSE penalizes large errors more strongly, while MAE is easier to interpret as average absolute error.',
+      qaAngle: 'Use both metrics to find whether a model has broad average error or a smaller number of severe failures.',
+      projectLinkLabel: 'Capstone Metrics',
+      projectLinkHref: 'data-science.html#housing'
+    },
+    {
+      id: 'fundamentals-embeddings',
+      deck: 'Fundamentals for Study',
+      level: 'Foundation',
+      visualType: 'embeddingsWph',
+      visualCue: 'Embeddings compare meaning, but similarity still needs product validation.',
+      front: 'What are embeddings?',
+      back: 'Embeddings are numeric vector representations of text, images, or other data that help computers compare similarity in vector space.',
+      qaAngle: 'Test whether similar items are useful to the user, not just close in the embedding space.',
+      projectLinkLabel: 'WPH Publisher Intelligence',
+      projectLinkHref: 'world-publishing-houses.html'
     }
   ];
 
@@ -476,6 +532,19 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const renderAnswer = (item) => {
+    if (item.front || item.back || item.qaAngle || item.projectLinkLabel) {
+      const sections = [];
+      if (item.back) {
+        sections.push(`<section class="answer-section"><h4>Applied Example</h4><p>${escapeHtml(item.back)}</p></section>`);
+      }
+      if (item.qaAngle) {
+        sections.push(`<section class="answer-section qa-angle"><h4>QA Angle</h4><p>${escapeHtml(item.qaAngle)}</p></section>`);
+      }
+      if (item.projectLinkLabel && item.projectLinkHref) {
+        sections.push(`<section class="answer-section project-connection"><h4>Project Connection</h4><p><a href="${escapeHtml(item.projectLinkHref)}">${escapeHtml(item.projectLinkLabel)}</a></p></section>`);
+      }
+      return sections.join('');
+    }
     if (item.generalIdea || item.simpleExample || item.wphApplication) {
       const sections = [];
       if (item.generalIdea) {
@@ -493,8 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const storageKeys = {
-    customCards: 'tkPortfolioCustomFlashcards',
-    knownCards: 'tkPortfolioKnownFlashcards'
+    customCards: 'tkPortfolioCustomFlashcards'
   };
 
   const getCustomCards = () => {
@@ -503,13 +571,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const setCustomCards = (cards) => localStorage.setItem(storageKeys.customCards, JSON.stringify(cards));
-
-  const getKnownCards = () => {
-    try { return new Set(JSON.parse(localStorage.getItem(storageKeys.knownCards) || '[]')); }
-    catch { return new Set(); }
-  };
-
-  const setKnownCards = (knownSet) => localStorage.setItem(storageKeys.knownCards, JSON.stringify([...knownSet]));
 
   const el = (selector) => document.querySelector(selector);
   const deckFilter = el('[data-deck-filter]');
@@ -522,14 +583,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const memory = el('[data-card-memory]');
   const visual = el('[data-card-visual]');
   const position = el('[data-card-position]');
-  const knownCount = el('[data-known-count]');
-  const progressBar = el('[data-progress-bar]');
   const toggleAnswer = el('[data-toggle-answer]');
+  const showProjectBtn = el('[data-show-project]');
   const prevBtn = el('[data-prev-card]');
   const nextBtn = el('[data-next-card]');
-  const knownBtn = el('[data-known-card]');
-  const shuffleBtn = el('[data-shuffle]');
-  const resetBtn = el('[data-reset-progress]');
+  const authorToggle = el('[data-author-toggle]');
+  const authorPanel = el('[data-author-panel]');
   const addForm = el('[data-add-card-form]');
   const newQuestion = el('[data-new-question]');
   const newAnswer = el('[data-new-answer]');
@@ -538,7 +597,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const formMessage = el('[data-form-message]');
   const clearCustomBtn = el('[data-clear-custom]');
 
-  let knownCards = getKnownCards();
   let allCards = [...baseFlashcards, ...getCustomCards()];
   let filteredCards = [...allCards];
   let currentIndex = 0;
@@ -556,37 +614,30 @@ document.addEventListener('DOMContentLoaded', () => {
   const renderCard = () => {
     if (!filteredCards.length) {
       question.textContent = 'No cards in this deck yet.';
-      answer.innerHTML = '<p>Add a custom card below or switch to another deck.</p>';
+      answer.innerHTML = '<p>Choose another deck to continue exploring applied ML and QA examples.</p>';
       deck.textContent = deckFilter.value === 'all' ? 'Empty' : deckFilter.value;
       level.textContent = 'Add cards';
       memory.textContent = 'Visual cue: create one small picture in your mind before checking the answer.';
       visual.innerHTML = visualTemplates.custom;
       position.textContent = 'Card 0 of 0';
-      knownCount.textContent = `${knownCards.size} known`;
-      progressBar.style.width = '0%';
       card.classList.add('is-flipped');
-      toggleAnswer.textContent = 'Show Answer';
+      toggleAnswer.textContent = 'Show QA Angle';
       hint.textContent = 'Add a card below';
       return;
     }
 
     const active = filteredCards[currentIndex];
-    question.textContent = active.question;
+    question.textContent = active.front || active.question;
     answer.innerHTML = renderAnswer(active);
     deck.textContent = active.deck;
     level.textContent = active.level || 'Study';
-    memory.textContent = active.memoryHook || 'Picture the idea as a simple flow: input → process → result.';
+    memory.textContent = active.visualCue || active.memoryHook || 'Visual cue: connect the concept to a product failure mode or validation check.';
     visual.innerHTML = renderVisual(active);
     position.textContent = `Card ${currentIndex + 1} of ${filteredCards.length}`;
 
-    const filteredKnown = filteredCards.filter((item) => knownCards.has(item.id)).length;
-    knownCount.textContent = `${filteredKnown} known`;
-    progressBar.style.width = `${Math.round((filteredKnown / filteredCards.length) * 100)}%`;
-
     card.classList.toggle('is-flipped', isFlipped);
-    toggleAnswer.textContent = isFlipped ? 'Hide Answer' : 'Show Answer';
-    hint.textContent = isFlipped ? 'Answer is visible. Use “Hide Answer” below to return to the question.' : 'Click “Show Answer” below to reveal the explanation.';
-    knownBtn.textContent = knownCards.has(active.id) ? 'Marked Known' : 'I Knew This';
+    toggleAnswer.textContent = isFlipped ? 'Hide Answer' : 'Show QA Angle';
+    hint.textContent = isFlipped ? 'Answer, QA angle, and project connection are visible.' : 'Click “Show QA Angle” below to reveal the answer, QA angle, and project connection.';
   };
 
   const moveCard = (step) => {
@@ -610,34 +661,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   toggleAnswer.addEventListener('click', flipCard);
+  if (showProjectBtn) {
+    showProjectBtn.addEventListener('click', () => {
+      isFlipped = true;
+      renderCard();
+      answer.querySelector('.project-connection')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
   prevBtn.addEventListener('click', () => moveCard(-1));
   nextBtn.addEventListener('click', () => moveCard(1));
-
-  knownBtn.addEventListener('click', () => {
-    if (!filteredCards.length) return;
-    const active = filteredCards[currentIndex];
-    knownCards.add(active.id);
-    setKnownCards(knownCards);
-    isFlipped = true;
-    renderCard();
-  });
-
-  shuffleBtn.addEventListener('click', () => {
-    filteredCards = filteredCards
-      .map((item) => ({ item, sort: Math.random() }))
-      .sort((a, b) => a.sort - b.sort)
-      .map(({ item }) => item);
-    currentIndex = 0;
-    isFlipped = false;
-    renderCard();
-  });
-
-  resetBtn.addEventListener('click', () => {
-    knownCards = new Set();
-    setKnownCards(knownCards);
-    isFlipped = false;
-    renderCard();
-  });
+  if (authorToggle && authorPanel) {
+    authorToggle.addEventListener('click', () => {
+      const isHidden = authorPanel.hidden;
+      authorPanel.hidden = !isHidden;
+      authorToggle.setAttribute('aria-expanded', String(isHidden));
+    });
+  }
 
   addForm.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -658,8 +697,11 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Custom',
       visualKey: 'custom',
       memoryHook: m,
-      question: q,
-      answer: a
+      front: q,
+      back: a,
+      qaAngle: 'Custom author-mode card. Add a QA angle before publishing this card.',
+      projectLinkLabel: 'Portfolio project',
+      projectLinkHref: 'projects.html'
     };
 
     customCards.push(cardToAdd);

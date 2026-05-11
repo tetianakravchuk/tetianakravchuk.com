@@ -27,28 +27,29 @@
 <section class="section" id="flashcards">
   <div class="container">
     <div class="section-header">
-      <div class="eyebrow">Interactive Study Lab</div>
-      <h2>Data Science Flashcards</h2>
-      <p>A small portfolio feature for learning and interview prep. Each card includes a visual memory cue, mini diagram, or formula-style hint so concepts are easier to remember. I can use this area to add flashcards from my courses, and visitors can test themselves on machine learning, metrics, QA-for-ML, and World Publishing Houses examples.</p>
+      <div class="eyebrow">Applied Portfolio Cards</div>
+      <h2>Applied ML + Data Quality Flashcards</h2>
+      <p>Short case-based cards showing how I apply machine learning, data quality, and QA thinking to real portfolio projects.</p>
+      <p>These flashcards are not generic study notes. They connect machine learning concepts to real product and QA problems: translation metadata, publisher entity resolution, model validation, fairness risk, and production-readiness checks.</p>
     </div>
 
     <div class="flashcard-layout" data-flashcards>
       <aside class="card flashcard-sidebar">
-        <h3>Study controls</h3>
+        <h3>Featured decks</h3>
         <label class="field-label" for="deckFilter">Deck</label>
         <select id="deckFilter" class="input" data-deck-filter>
           <option value="all">All cards</option>
-          <option value="ML Basics">ML Basics</option>
-          <option value="Evaluation">Evaluation</option>
-          <option value="NLP & Embeddings">NLP & Embeddings</option>
+          <option value="WPH: Data Quality">WPH: Data Quality</option>
+          <option value="WPH: ML Applications">WPH: ML Applications</option>
+          <option value="Capstone: Model Validation">Capstone: Model Validation</option>
           <option value="QA for ML">QA for ML</option>
-          <option value="WPH Applications">World Publishing Houses (WPH) Applications</option>
-          <option value="Custom">Custom cards</option>
+          <option value="Fundamentals for Study">Fundamentals for Study</option>
         </select>
-        <div class="mini-progress" aria-label="Study progress"><span data-card-position>Card 1 of 1</span><span data-known-count>0 known</span></div>
-        <div class="progress-bar"><span data-progress-bar></span></div>
-        <div class="actions compact"><button class="button" type="button" data-shuffle>Shuffle</button><button class="button" type="button" data-reset-progress>Reset</button></div>
-        <p class="small-note">Tip: first look at the visual cue, say the idea in your own words, then flip the card. “I Knew This” updates your local progress.</p>
+        <div class="mini-progress" aria-label="Card position"><span data-card-position>Card 1 of 1</span></div>
+        <details class="fundamentals-note">
+          <summary>Fundamentals for Study</summary>
+          <p class="small-note">General ML cards are available for context, but the featured decks prioritize applied QA, data quality, and project-specific reasoning.</p>
+        </details>
       </aside>
 
       <section class="flashcard-stage">
@@ -58,21 +59,25 @@
           <p class="memory-hook" data-card-memory>Visual memory cue</p>
           <h3 data-card-question>Question</h3>
           <div data-card-answer class="flashcard-answer">Answer</div>
-          <p class="flip-hint" data-card-hint>Click “Show Answer” below to reveal the explanation.</p>
+          <p class="flip-hint" data-card-hint>Click “Show QA Angle” below to reveal the answer, QA angle, and project connection.</p>
         </article>
         <div class="flashcard-actions">
           <button class="button" type="button" data-prev-card>Previous</button>
-          <button class="button primary" type="button" data-toggle-answer>Show Answer</button>
-          <button class="button" type="button" data-known-card>I Knew This</button>
+          <button class="button primary" type="button" data-toggle-answer>Show QA Angle</button>
+          <button class="button" type="button" data-show-project>Show Where This Is Used</button>
           <button class="button" type="button" data-next-card>Next</button>
         </div>
       </section>
     </div>
 
-    <div class="grid-2 flashcard-add-row">
+    <div class="author-mode-control">
+      <button class="button" type="button" aria-expanded="false" aria-controls="author-mode-panel" data-author-toggle>Author Mode</button>
+    </div>
+
+    <div class="grid-2 flashcard-add-row" id="author-mode-panel" data-author-panel hidden>
       <article class="card">
-        <h3>Add a new flashcard</h3>
-        <p>Add temporary study cards directly in the browser. They are saved on this device with local storage. For permanent public cards, add them to <code>assets/script.js</code> in the <code>baseFlashcards</code> list. Each card can include a memory cue to help create a mental picture.</p>
+        <h3>Add an author-mode flashcard</h3>
+        <p>Add temporary draft cards directly in the browser. They are saved on this device with local storage and are hidden from the default portfolio flow.</p>
         <form class="flashcard-form" data-add-card-form>
           <label class="field-label" for="newQuestion">Question</label>
           <textarea id="newQuestion" class="input" rows="3" data-new-question></textarea>

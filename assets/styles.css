@@ -727,6 +727,20 @@ textarea.input {
   padding-left: 12px;
 }
 
+.qa-angle {
+  border-left: 3px solid var(--accent-2);
+  background: rgba(239, 227, 211, 0.46);
+  border-radius: 0 12px 12px 0;
+  padding: 10px 12px;
+}
+
+.project-connection a {
+  color: var(--button-outline);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .flashcard-card.is-flipped .flashcard-answer {
   display: block;
 }
@@ -754,6 +768,22 @@ textarea.input {
 
 .flashcard-add-row {
   margin-top: 20px;
+}
+
+.author-mode-control {
+  margin-top: 22px;
+}
+
+.fundamentals-note {
+  border-top: 1px solid var(--line);
+  margin-top: 16px;
+  padding-top: 14px;
+}
+
+.fundamentals-note summary {
+  color: #263528;
+  cursor: pointer;
+  font-weight: 800;
 }
 
 .flashcard-form {
