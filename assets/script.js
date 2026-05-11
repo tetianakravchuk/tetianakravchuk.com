@@ -302,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'wph-readiness-provenance',
-      deck: 'WPH Dataset Readiness',
+      deck: 'WPH Trust & Provenance',
       level: 'Level 4: Failure Case',
       visualType: 'translationTrust',
       visualCue: 'Trust metadata should travel with model inputs and outputs.',
@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'wph-readiness-feature-variation',
-      deck: 'WPH Dataset Readiness',
+      deck: 'WPH Feature Readiness',
       level: 'Level 4: Failure Case',
       visualKey: 'qa-gates',
       visualCue: 'A feature can exist in the schema and still have too little variation to learn from.',
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'wph-readiness-domain-scope',
-      deck: 'WPH Dataset Readiness',
+      deck: 'WPH Scope & Generalization',
       level: 'Level 4: Failure Case',
       visualKey: 'edge-cases',
       visualCue: 'A two-country pilot should not claim full Nordic prediction coverage.',
@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'wph-dq-entity-resolution',
-      deck: 'WPH: Data Quality',
+      deck: 'WPH Feature Readiness',
       level: 'Level 4: Failure Case',
       visualType: 'entityResolution',
       visualCue: 'Publisher variants should be reviewed before merging into one trusted entity.',
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'wph-dq-language-code',
-      deck: 'WPH: Data Quality',
+      deck: 'WPH Feature Readiness',
       level: 'Level 4: Failure Case',
       visualType: 'conflictDetection',
       visualCue: 'A small code casing issue can change meaning for users.',
@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'wph-dq-translator-conflict',
-      deck: 'WPH: Data Quality',
+      deck: 'WPH Trust & Provenance',
       level: 'Level 4: Failure Case',
       visualType: 'translationTrust',
       visualCue: 'Conflicting translator metadata needs provenance, not silent overwrite.',
@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'wph-dq-count-mismatch',
-      deck: 'WPH: Data Quality',
+      deck: 'WPH Feature Readiness',
       level: 'Level 4: Failure Case',
       visualKey: 'qa-gates',
       visualCue: 'Hero metrics and rendered content must agree under the same filters.',
@@ -386,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'wph-dq-availability-confidence',
-      deck: 'WPH: Data Quality',
+      deck: 'WPH Trust & Provenance',
       level: 'Level 4: Failure Case',
       visualType: 'classificationWph',
       visualCue: 'Reader-facing availability labels need source evidence.',
@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'wph-dq-evidence-levels',
-      deck: 'WPH: Data Quality',
+      deck: 'WPH Trust & Provenance',
       level: 'Level 4: Failure Case',
       visualType: 'translationTrust',
       visualCue: 'Verified rows and curated research leads should never share the same trust badge.',
@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'wph-ml-rights-ranking',
-      deck: 'WPH: ML Applications',
+      deck: 'WPH Scope & Generalization',
       level: 'Level 3: Applied Reasoning',
       visualType: 'modelEvaluationWph',
       visualCue: 'A rights watchlist model should support decisions, not replace editorial judgment.',
@@ -422,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'wph-ml-publisher-clusters',
-      deck: 'WPH: ML Applications',
+      deck: 'WPH Feature Readiness',
       level: 'Level 3: Applied Reasoning',
       visualType: 'embeddingsWph',
       visualCue: 'Embeddings can group publishers, but clusters still need human-readable reasons.',
@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'wph-ml-reader-buckets',
-      deck: 'WPH: ML Applications',
+      deck: 'WPH Feature Readiness',
       level: 'Level 3: Applied Reasoning',
       visualType: 'classificationWph',
       visualCue: 'Reader-facing availability buckets are high-trust labels.',
@@ -446,7 +446,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id: 'wph-ml-recommendation-baseline',
-      deck: 'WPH: ML Applications',
+      deck: 'WPH Scope & Generalization',
       level: 'Level 2: Tradeoff',
       visualKey: 'split',
       visualCue: 'Transparent rules are the baseline before claiming ML adds value.',
@@ -803,17 +803,42 @@ document.addEventListener('DOMContentLoaded', () => {
     return visualTemplates.custom;
   };
 
+  const deckMeta = {
+    'WPH Dataset Readiness': { style: 'dataset', icon: '▦' },
+    'WPH Trust & Provenance': { style: 'trust', icon: '✓' },
+    'WPH Feature Readiness': { style: 'feature', icon: '☷' },
+    'WPH Scope & Generalization': { style: 'scope', icon: '⌾' },
+    'Capstone: Model Validation': { style: 'capstone', icon: '⌁' },
+    'QA for ML': { style: 'qa', icon: '⌕' },
+    'Fundamentals for Study': { style: 'fundamentals', icon: '◇' },
+    Custom: { style: 'qa', icon: '+' }
+  };
+
+  const getDeckMeta = (item) => deckMeta[item.deck] || deckMeta.Custom;
+
+  const dataReferenceFor = (item) => {
+    const references = {
+      'wph-readiness-class-imbalance': 'reader_bucket.value_counts()\\nRead now in English: 51\\nNot yet confirmed: 3\\nComing soon: 1',
+      'wph-readiness-small-holdout': 'len(wph_works) = 55\\ntest_size = 0.20\\nheld_out_rows = 11',
+      'wph-readiness-lag-tail': 'translation_lag_years.describe()\\nmin: 1\\nmedian: 3\\nmean: 9.2\\nmax: 88',
+      'wph-readiness-provenance': 'verification_status.value_counts()\\nverified_public_source: 29\\ncurated_needs_check: 26',
+      'wph-readiness-feature-variation': 'translation_path.value_counts()\\nDirect: 52\\nUnknown: 3',
+      'wph-readiness-domain-scope': 'country_iso.value_counts()\\nDK: 25\\nIS: 30\\nNO / SE / FI: expansion planned'
+    };
+    return references[item.id] || item.projectLinkLabel || 'Portfolio project reference';
+  };
+
   const renderAnswer = (item) => {
     if (item.front || item.back || item.qaAngle || item.projectLinkLabel) {
       const sections = [];
       if (item.back) {
-        sections.push(`<section class="answer-section"><h4>Applied Example</h4><p>${escapeHtml(item.back)}</p></section>`);
+        sections.push(`<section id="flashcard-answer-section" class="answer-section reveal-section" data-reveal-section="answer"><h4>Answer</h4><p>${escapeHtml(item.back)}</p></section>`);
       }
       if (item.qaAngle) {
-        sections.push(`<section class="answer-section qa-angle"><h4>QA Angle</h4><p>${escapeHtml(item.qaAngle)}</p></section>`);
+        sections.push(`<section id="qa-angle-panel" class="answer-section qa-angle reveal-section" data-reveal-section="qa"><h4>QA Angle</h4><p>${escapeHtml(item.qaAngle)}</p></section>`);
       }
       if (item.projectLinkLabel && item.projectLinkHref) {
-        sections.push(`<section class="answer-section project-connection"><h4>Where This Shows Up</h4><p><a href="${escapeHtml(item.projectLinkHref)}">${escapeHtml(item.projectLinkLabel)}</a></p></section>`);
+        sections.push(`<section id="data-reference-panel" class="answer-section project-connection reveal-section" data-reveal-section="reference"><h4>Where This Shows Up</h4><pre class="data-reference"><code>${escapeHtml(dataReferenceFor(item))}</code></pre><p><a href="${escapeHtml(item.projectLinkHref)}">${escapeHtml(item.projectLinkLabel)}</a></p></section>`);
       }
       return sections.join('');
     }
@@ -834,7 +859,8 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const storageKeys = {
-    customCards: 'tkPortfolioCustomFlashcards'
+    customCards: 'tkPortfolioCustomFlashcards',
+    learnedCards: 'tkPortfolioLearnedFlashcards'
   };
 
   const getCustomCards = () => {
@@ -844,13 +870,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const setCustomCards = (cards) => localStorage.setItem(storageKeys.customCards, JSON.stringify(cards));
 
+  const getLearnedCards = () => {
+    try { return new Set(JSON.parse(localStorage.getItem(storageKeys.learnedCards) || '[]')); }
+    catch { return new Set(); }
+  };
+
+  const setLearnedCards = (cards) => localStorage.setItem(storageKeys.learnedCards, JSON.stringify([...cards]));
+
   const el = (selector) => document.querySelector(selector);
+  const searchInput = el('[data-card-search]');
   const deckFilter = el('[data-deck-filter]');
+  const levelFilter = el('[data-level-filter]');
   const card = el('[data-card-flip]');
   const question = el('[data-card-question]');
   const answer = el('[data-card-answer]');
   const deck = el('[data-card-deck]');
   const level = el('[data-card-level]');
+  const cardIcon = el('[data-card-icon]');
+  const cardCounter = el('[data-card-counter]');
+  const learnedBadge = el('[data-learned-badge]');
   const hint = el('[data-card-hint]');
   const memory = el('[data-card-memory]');
   const visual = el('[data-card-visual]');
@@ -858,6 +896,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const progress = el('[data-card-progress]');
   const toggleAnswer = el('[data-toggle-answer]');
   const showProjectBtn = el('[data-show-project]');
+  const revealAnswerBtn = el('[data-reveal-answer]');
+  const revealQaBtn = el('[data-reveal-qa]');
+  const revealReferenceBtn = el('[data-reveal-reference]');
+  const markLearnedBtn = el('[data-mark-learned]');
+  const learnedCount = el('[data-learned-count]');
   const prevBtn = el('[data-prev-card]');
   const nextBtn = el('[data-next-card]');
   const authorToggle = el('[data-author-toggle]');
@@ -873,7 +916,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let allCards = [...baseFlashcards, ...getCustomCards()];
   let filteredCards = [...allCards];
   let currentIndex = 0;
-  let isFlipped = false;
+  let revealStage = 0;
+  let learnedCards = getLearnedCards();
 
   const setButtonState = (button, disabled) => {
     if (!button) return;
@@ -882,53 +926,128 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const applyFilter = () => {
-    const selectedDeck = deckFilter.value;
+    const selectedDeck = deckFilter?.value || 'all';
+    const selectedLevel = levelFilter?.value || 'all';
+    const query = (searchInput?.value || '').trim().toLowerCase();
     allCards = [...baseFlashcards, ...getCustomCards()];
-    filteredCards = selectedDeck === 'all' ? [...allCards] : allCards.filter((item) => item.deck === selectedDeck);
+    filteredCards = allCards.filter((item) => {
+      const deckMatches = selectedDeck === 'all' || item.deck === selectedDeck;
+      const levelMatches = selectedLevel === 'all' || item.level === selectedLevel;
+      const searchText = [
+        item.deck,
+        item.level,
+        item.front || item.question,
+        item.back || item.answer,
+        item.qaAngle,
+        item.projectLinkLabel,
+        item.visualCue,
+        item.memoryHook
+      ].filter(Boolean).join(' ').toLowerCase();
+      return deckMatches && levelMatches && (!query || searchText.includes(query));
+    });
     currentIndex = 0;
-    isFlipped = false;
+    revealStage = 0;
     renderCard();
+  };
+
+  const updateLearnedCount = () => {
+    if (!learnedCount) return;
+    const builtInIds = new Set(baseFlashcards.map((item) => item.id));
+    const learnedTotal = [...learnedCards].filter((id) => builtInIds.has(id)).length;
+    learnedCount.textContent = `${learnedTotal} / ${baseFlashcards.length} cards learned`;
+  };
+
+  const setRevealSection = (name, isVisible) => {
+    const section = answer?.querySelector(`[data-reveal-section="${name}"]`);
+    if (section) section.hidden = !isVisible;
+  };
+
+  const updateRevealControls = () => {
+    setRevealSection('answer', revealStage >= 1);
+    setRevealSection('qa', revealStage >= 2);
+    setRevealSection('reference', revealStage >= 3);
+
+    if (card) card.dataset.revealStage = String(revealStage);
+    if (revealAnswerBtn) {
+      revealAnswerBtn.textContent = revealStage >= 1 ? 'Hide Answer' : 'Reveal Answer';
+      revealAnswerBtn.setAttribute('aria-expanded', String(revealStage >= 1));
+    }
+    if (revealQaBtn) {
+      revealQaBtn.textContent = revealStage >= 2 ? 'Hide QA Angle' : 'Show QA Angle';
+      revealQaBtn.setAttribute('aria-expanded', String(revealStage >= 2));
+      setButtonState(revealQaBtn, revealStage < 1);
+    }
+    if (revealReferenceBtn) {
+      revealReferenceBtn.textContent = revealStage >= 3 ? 'Hide Data Reference' : 'Show Data Reference';
+      revealReferenceBtn.setAttribute('aria-expanded', String(revealStage >= 3));
+      setButtonState(revealReferenceBtn, revealStage < 2);
+    }
+    if (toggleAnswer) {
+      toggleAnswer.textContent = revealStage >= 2 ? 'Hide QA Angle' : 'Show QA Angle';
+      toggleAnswer.setAttribute('aria-expanded', String(revealStage >= 2));
+    }
+    if (hint) {
+      const hints = [
+        'Start with the question. Reveal the answer when you are ready.',
+        'Answer visible. Next, open the QA angle to see the validation risk.',
+        'QA angle visible. Open the data reference to connect this to the portfolio work.',
+        'Answer, QA angle, and dataset reference are visible.'
+      ];
+      hint.textContent = hints[revealStage] || hints[0];
+    }
   };
 
   const renderCard = () => {
     if (!filteredCards.length) {
-      question.textContent = 'No cards in this deck yet.';
-      answer.innerHTML = '<p>Choose another deck to continue exploring applied ML and QA examples.</p>';
-      deck.textContent = deckFilter.value === 'all' ? 'Empty' : deckFilter.value;
-      level.textContent = 'No cards';
-      memory.textContent = 'Visual cue: create one small picture in your mind before checking the answer.';
-      visual.innerHTML = visualTemplates.custom;
-      position.textContent = 'Card 0 of 0';
+      if (question) question.textContent = 'No matching cards. Try another concept or deck.';
+      if (answer) answer.innerHTML = '';
+      if (deck) deck.textContent = 'No match';
+      if (level) level.textContent = 'Adjust filters';
+      if (cardIcon) cardIcon.textContent = '◇';
+      if (cardCounter) cardCounter.textContent = '0 / 0';
+      if (memory) memory.textContent = 'Try clearing the search field or choosing All decks.';
+      if (visual) visual.innerHTML = visualTemplates.custom;
+      if (position) position.textContent = '0 / 0';
       if (progress) progress.style.width = '0%';
-      card.classList.add('is-flipped');
-      if (toggleAnswer) {
-        toggleAnswer.textContent = 'Show QA Angle';
-        toggleAnswer.setAttribute('aria-expanded', 'false');
-      }
-      hint.textContent = 'Choose another deck to keep exploring applied ML and QA examples.';
+      if (card) card.classList.remove('is-learned');
+      if (learnedBadge) learnedBadge.hidden = true;
+      if (hint) hint.textContent = 'No matching cards. Try another concept or deck.';
       setButtonState(prevBtn, true);
       setButtonState(nextBtn, true);
+      setButtonState(revealAnswerBtn, true);
+      setButtonState(revealQaBtn, true);
+      setButtonState(revealReferenceBtn, true);
+      setButtonState(markLearnedBtn, true);
+      updateLearnedCount();
       return;
     }
 
     const active = filteredCards[currentIndex];
-    question.textContent = active.front || active.question;
-    answer.innerHTML = renderAnswer(active);
-    deck.textContent = active.deck;
-    level.textContent = active.level || 'Study';
-    memory.textContent = active.visualCue || active.memoryHook || 'Visual cue: connect the concept to a product failure mode or validation check.';
-    visual.innerHTML = renderVisual(active);
-    position.textContent = `${currentIndex + 1} / ${filteredCards.length}`;
+    const meta = getDeckMeta(active);
+    const isLearned = learnedCards.has(active.id);
+    if (question) question.textContent = active.front || active.question;
+    if (answer) answer.innerHTML = renderAnswer(active);
+    if (deck) deck.textContent = active.deck;
+    if (level) level.textContent = active.level || 'Study';
+    if (cardIcon) cardIcon.textContent = meta.icon;
+    if (cardCounter) cardCounter.textContent = `${currentIndex + 1} / ${filteredCards.length}`;
+    if (memory) memory.textContent = active.visualCue || active.memoryHook || 'Visual cue: connect the concept to a product failure mode or validation check.';
+    if (visual) visual.innerHTML = renderVisual(active);
+    if (position) position.textContent = `${currentIndex + 1} / ${filteredCards.length}`;
     if (progress) progress.style.width = `${((currentIndex + 1) / filteredCards.length) * 100}%`;
 
-    card.classList.toggle('is-flipped', isFlipped);
-    if (toggleAnswer) {
-      toggleAnswer.textContent = isFlipped ? 'Hide QA Angle' : 'Show QA Angle';
-      toggleAnswer.setAttribute('aria-expanded', String(isFlipped));
+    if (card) {
+      card.dataset.deckStyle = meta.style;
+      card.classList.toggle('is-learned', isLearned);
     }
-    hint.textContent = isFlipped ? 'Answer, QA angle, and dataset connection are visible.' : 'Use Show QA Angle to expand the validation explanation and dataset connection.';
+    if (learnedBadge) learnedBadge.hidden = !isLearned;
+    if (markLearnedBtn) markLearnedBtn.textContent = isLearned ? 'Mark as Unlearned' : 'Mark as Learned';
+    updateRevealControls();
+    updateLearnedCount();
     setButtonState(prevBtn, currentIndex === 0);
     setButtonState(nextBtn, currentIndex === filteredCards.length - 1);
+    setButtonState(revealAnswerBtn, false);
+    setButtonState(markLearnedBtn, false);
   };
 
   const moveCard = (step) => {
@@ -936,33 +1055,58 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextIndex = currentIndex + step;
     if (nextIndex < 0 || nextIndex >= filteredCards.length) return;
     currentIndex = nextIndex;
-    isFlipped = false;
+    revealStage = 0;
     renderCard();
   };
 
-  const flipCard = () => {
-    isFlipped = !isFlipped;
+  const setStage = (stage) => {
+    revealStage = Math.max(0, Math.min(3, stage));
     renderCard();
   };
 
-  deckFilter.addEventListener('change', applyFilter);
-  card.addEventListener('click', flipCard);
-  card.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      flipCard();
+  const toggleLearned = () => {
+    const active = filteredCards[currentIndex];
+    if (!active) return;
+    if (learnedCards.has(active.id)) {
+      learnedCards.delete(active.id);
+    } else {
+      learnedCards.add(active.id);
     }
-  });
-  if (toggleAnswer) toggleAnswer.addEventListener('click', flipCard);
+    setLearnedCards(learnedCards);
+    renderCard();
+  };
+
+  if (deckFilter) deckFilter.addEventListener('change', applyFilter);
+  if (searchInput) searchInput.addEventListener('input', applyFilter);
+  if (levelFilter) levelFilter.addEventListener('change', applyFilter);
+  if (revealAnswerBtn) {
+    revealAnswerBtn.addEventListener('click', () => {
+      setStage(revealStage >= 1 ? 0 : 1);
+    });
+  }
+  if (revealQaBtn) {
+    revealQaBtn.addEventListener('click', () => {
+      if (revealQaBtn.disabled) return;
+      setStage(revealStage >= 2 ? 1 : 2);
+    });
+  }
+  if (revealReferenceBtn) {
+    revealReferenceBtn.addEventListener('click', () => {
+      if (revealReferenceBtn.disabled) return;
+      setStage(revealStage >= 3 ? 2 : 3);
+    });
+  }
+  if (toggleAnswer) toggleAnswer.addEventListener('click', () => setStage(revealStage >= 2 ? 1 : 2));
   if (showProjectBtn) {
     showProjectBtn.addEventListener('click', () => {
-      isFlipped = true;
+      revealStage = 3;
       renderCard();
       answer.querySelector('.project-connection')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
   }
-  prevBtn.addEventListener('click', () => moveCard(-1));
-  nextBtn.addEventListener('click', () => moveCard(1));
+  if (markLearnedBtn) markLearnedBtn.addEventListener('click', toggleLearned);
+  if (prevBtn) prevBtn.addEventListener('click', () => moveCard(-1));
+  if (nextBtn) nextBtn.addEventListener('click', () => moveCard(1));
   if (authorToggle && authorPanel) {
     authorToggle.addEventListener('click', () => {
       const isHidden = authorPanel.hidden;

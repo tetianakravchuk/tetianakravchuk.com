@@ -82,7 +82,7 @@
     <div class="section-header">
       <div class="eyebrow">Applied Portfolio Cards</div>
       <h2>Applied ML + Data Quality Flashcards</h2>
-      <p>Short case-based cards showing how I apply machine learning, data quality, and QA thinking to real portfolio projects.</p>
+      <p>Case-based cards connecting machine learning concepts to dataset readiness, model validation, and QA risk.</p>
       <p>These flashcards are not generic study notes. They connect machine learning concepts to real product and QA problems: translation metadata, publisher entity resolution, model validation, fairness risk, and production-readiness checks.</p>
       <p>These cards are organized in four levels: <strong>Level 1: Definition recall</strong>, <strong>Level 2: Tradeoffs</strong>, <strong>Level 3: When to use what</strong>, and <strong>Level 4: Failure cases and production risk</strong>.</p>
       <div class="actions"><a class="button" href="../projects/world-publishing-houses-dataset/#dataset-explorer">Open WPH Dataset Explorer</a></div>
@@ -91,16 +91,29 @@
     <div class="flashcard-layout" data-flashcards>
       <aside class="card flashcard-sidebar">
         <h3>Featured decks</h3>
+        <label class="field-label" for="cardSearch">Search</label>
+        <input id="cardSearch" class="input" type="search" placeholder="Search concepts, datasets, QA angles..." data-card-search>
         <label class="field-label" for="deckFilter">Deck</label>
         <select id="deckFilter" class="input" data-deck-filter>
+          <option value="all">All</option>
           <option value="WPH Dataset Readiness">WPH Dataset Readiness</option>
-          <option value="WPH: Data Quality">WPH: Data Quality</option>
-          <option value="WPH: ML Applications">WPH: ML Applications</option>
-          <option value="Capstone: Model Validation">Capstone: Model Validation</option>
+          <option value="WPH Trust & Provenance">WPH Trust & Provenance</option>
+          <option value="WPH Feature Readiness">WPH Feature Readiness</option>
+          <option value="WPH Scope & Generalization">WPH Scope & Generalization</option>
+          <option value="Capstone: Model Validation">Capstone Model Validation</option>
           <option value="QA for ML">QA for ML</option>
           <option value="Fundamentals for Study">Fundamentals for Study</option>
         </select>
-        <div class="mini-progress" aria-label="Card position"><span data-card-position>1 / 6</span><div class="progress-bar" aria-hidden="true"><span data-card-progress style="width: 16.67%;"></span></div></div>
+        <label class="field-label" for="levelFilter">Level</label>
+        <select id="levelFilter" class="input" data-level-filter>
+          <option value="all">All levels</option>
+          <option value="Level 1: Definition">Definition</option>
+          <option value="Level 2: Tradeoff">Tradeoff</option>
+          <option value="Level 3: Applied Reasoning">Applied reasoning</option>
+          <option value="Level 4: Failure Case">Failure case</option>
+        </select>
+        <div class="mini-progress" aria-label="Card position"><span data-card-position>1 / 28</span><div class="progress-bar" aria-hidden="true"><span data-card-progress style="width: 3.57%;"></span></div></div>
+        <p class="small-note learned-count" data-learned-count>0 / 28 cards learned</p>
         <h4 id="wph-data-quality" class="sr-only">WPH Data Quality</h4>
         <h4 id="wph-ml-applications" class="sr-only">WPH ML Applications</h4>
         <h4 id="capstone-model-validation" class="sr-only">Capstone Model Validation</h4>
@@ -112,19 +125,25 @@
       </aside>
 
       <section class="flashcard-stage">
-        <article class="flashcard-card" tabindex="0" role="button" aria-live="polite" data-card-flip>
-          <div class="flashcard-meta"><span data-card-deck>WPH Dataset Readiness</span><span data-card-level>Level 4: Failure Case</span></div>
+        <article class="flashcard-card" aria-live="polite" data-card-flip data-deck-style="dataset" data-reveal-stage="3">
+          <div class="flashcard-window-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div class="flashcard-meta"><span class="deck-icon" data-card-icon aria-hidden="true">▦</span><span data-card-deck>WPH Dataset Readiness</span><span data-card-level>Level 4: Failure Case</span><span data-card-counter>1 / 28</span><span class="learned-badge" data-learned-badge hidden>Learned</span></div>
           <div class="flashcard-visual" data-card-visual><div class="visual-flow wide"><span class="visual-pill">reader buckets</span><span class="visual-arrow">→</span><span class="visual-pill strong">class balance</span><span class="visual-arrow">→</span><span class="visual-pill">metric risk</span></div><p class="visual-caption">Majority-class accuracy can hide weak model behavior.</p></div>
           <p class="memory-hook" data-card-memory>A 93% majority class can make a weak classifier look accurate.</p>
           <h3 data-card-question>WPH has 55 works. 51 fall in “Read now in English,” 3 in “Not yet confirmed,” and 1 in “Coming soon.” You want to train a classifier to predict whether a Nordic book will reach English readers. What is the immediate problem?</h3>
-          <div id="qa-angle-panel" data-card-answer class="flashcard-answer"><section class="answer-section"><h4>Applied Example</h4><p>This is severe class imbalance. About 93% of the dataset is in the positive class. A model that always predicts “yes, will be translated” could look accurate while learning almost nothing. Accuracy is the wrong metric here; precision and recall on the minority class matter more, but the minority class is too small for reliable evaluation.</p></section><section class="answer-section qa-angle"><h4>QA Angle</h4><p>This is a data quality and validation problem before it is a modeling problem. An ML QA review should check class balance before training and flag the dataset if the minority class is too small to support meaningful evaluation.</p></section><section class="answer-section project-connection"><h4>Where This Shows Up</h4><p><a href="../projects/world-publishing-houses-dataset/#dataset-explorer">wph_works.csv → reader_bucket value counts</a></p></section></div>
-          <p class="flip-hint" data-card-hint>Use Show QA Angle to expand the validation explanation and dataset connection.</p>
+          <div data-card-answer class="flashcard-answer"><section id="flashcard-answer-section" class="answer-section reveal-section" data-reveal-section="answer"><h4>Answer</h4><p>This is severe class imbalance. About 93% of the dataset is in the positive class. A model that always predicts “yes, will be translated” could look accurate while learning almost nothing. Accuracy is the wrong metric here; precision and recall on the minority class matter more, but the minority class is too small for reliable evaluation.</p></section><section id="qa-angle-panel" class="answer-section qa-angle reveal-section" data-reveal-section="qa"><h4>QA Angle</h4><p>This is a data quality and validation problem before it is a modeling problem. An ML QA review should check class balance before training and flag the dataset if the minority class is too small to support meaningful evaluation.</p></section><section id="data-reference-panel" class="answer-section project-connection reveal-section" data-reveal-section="reference"><h4>Where This Shows Up</h4><pre class="data-reference"><code>reader_bucket.value_counts()
+Read now in English: 51
+Not yet confirmed: 3
+Coming soon: 1</code></pre><p><a href="../projects/world-publishing-houses-dataset/#dataset-explorer">Open WPH Dataset Explorer</a></p></section></div>
+          <p class="flip-hint" data-card-hint>Reveal each layer: answer, QA angle, then the dataset reference.</p>
         </article>
         <div class="flashcard-actions">
           <button class="button" type="button" data-prev-card>Previous</button>
-          <button class="button" type="button" aria-expanded="false" aria-controls="qa-angle-panel" data-toggle-answer>Show QA Angle</button>
-          <button class="button" type="button" data-show-project>Where Used</button>
-          <button class="button primary" type="button" data-next-card>Next</button>
+          <button class="button primary" type="button" aria-expanded="true" aria-controls="flashcard-answer-section" data-reveal-answer>Hide Answer</button>
+          <button class="button" type="button" aria-expanded="true" aria-controls="qa-angle-panel" data-reveal-qa>Hide QA Angle</button>
+          <button class="button" type="button" aria-expanded="true" aria-controls="data-reference-panel" data-reveal-reference>Hide Data Reference</button>
+          <button class="button" type="button" data-mark-learned>Mark as Learned</button>
+          <button class="button primary" type="button" data-next-card>Next Card</button>
         </div>
       </section>
     </div>
