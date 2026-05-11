@@ -887,7 +887,7 @@ document.addEventListener('DOMContentLoaded', () => {
       question.textContent = 'No cards in this deck yet.';
       answer.innerHTML = '<p>Choose another deck to continue exploring applied ML and QA examples.</p>';
       deck.textContent = deckFilter.value === 'all' ? 'Empty' : deckFilter.value;
-      level.textContent = 'Add cards';
+      level.textContent = 'No cards';
       memory.textContent = 'Visual cue: create one small picture in your mind before checking the answer.';
       visual.innerHTML = visualTemplates.custom;
       position.textContent = 'Card 0 of 0';
@@ -897,7 +897,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleAnswer.textContent = 'Show QA Angle';
         toggleAnswer.setAttribute('aria-expanded', 'false');
       }
-      hint.textContent = 'Add a card below';
+      hint.textContent = 'Choose another deck to keep exploring applied ML and QA examples.';
       setButtonState(prevBtn, true);
       setButtonState(nextBtn, true);
       return;
@@ -918,7 +918,7 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleAnswer.textContent = isFlipped ? 'Hide QA Angle' : 'Show QA Angle';
       toggleAnswer.setAttribute('aria-expanded', String(isFlipped));
     }
-    hint.textContent = isFlipped ? 'Answer, QA angle, and project connection are visible.' : 'Click “Show QA Angle” below to reveal the answer, QA angle, and project connection.';
+    hint.textContent = isFlipped ? 'Answer, QA angle, and dataset connection are visible.' : 'Use Show QA Angle to expand the validation explanation and dataset connection.';
     setButtonState(prevBtn, currentIndex === 0);
     setButtonState(nextBtn, currentIndex === filteredCards.length - 1);
   };
