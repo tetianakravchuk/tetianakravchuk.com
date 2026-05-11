@@ -1259,6 +1259,141 @@ textarea.input {
   color: #37503a;
 }
 
+/* WPH dataset case study */
+.dataset-hero {
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.62), rgba(247, 243, 237, 0)),
+    radial-gradient(circle at 88% 12%, rgba(65, 95, 70, 0.12), transparent 32%);
+}
+
+.hero-badges {
+  margin-top: 24px;
+}
+
+.dataset-stats .card {
+  min-height: 170px;
+}
+
+.schema-card {
+  display: grid;
+  gap: 24px;
+}
+
+.schema-map {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.schema-map span {
+  min-height: 64px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  border: 1px solid #d8c5ad;
+  border-radius: 18px;
+  background: #fffaf3;
+  color: #5c351c;
+  font-weight: 800;
+  padding: 10px;
+}
+
+.schema-map span:nth-child(4),
+.schema-map span:nth-child(7) {
+  background: #eef0e5;
+  border-color: #bdc9ad;
+  color: #37503a;
+}
+
+.trust-pair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.dashboard-preview {
+  margin: 0;
+}
+
+.dashboard-preview img {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  background: var(--card);
+}
+
+.dashboard-preview figcaption {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-top: 12px;
+}
+
+.responsive-table {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.responsive-table table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+}
+
+.responsive-table th,
+.responsive-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: top;
+  font-size: 0.9rem;
+}
+
+.responsive-table th {
+  background: #f8efe3;
+  color: #263528;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.responsive-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid #d8c5ad;
+  padding: 5px 9px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.status-pill.verified {
+  background: #eef0e5;
+  border-color: #bdc9ad;
+  color: #37503a;
+}
+
+.status-pill.needs-check {
+  background: #f8efe3;
+  border-color: #d7c4ac;
+  color: var(--accent);
+}
+
+.skill-cloud {
+  max-width: 900px;
+}
+
 @media (max-width: 650px) {
   .flashcard-visual { min-height: auto; }
   .label-row,
@@ -1282,4 +1417,6 @@ textarea.input {
   .trust-badge { width: 100%; }
   .edge-grid { grid-template-columns: repeat(2, 1fr); }
   .flashcard-card h3 { font-size: 1.72rem; }
+  .schema-map { grid-template-columns: 1fr; }
+  .dashboard-preview img { border-radius: 18px; }
 }

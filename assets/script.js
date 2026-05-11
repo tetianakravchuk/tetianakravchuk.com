@@ -26,6 +26,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  const escapeHtml = (value) => String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+  const datasetStats = document.querySelector('[data-wph-stats]');
+  const datasetRows = document.querySelector('[data-wph-sample-rows]');
+
+  if (datasetStats || datasetRows) {
+    const datasetSource = datasetStats?.dataset.source || datasetRows?.dataset.source || '../assets/data/wph-dataset-summary.json';
+    fetch(datasetSource)
+      .then((response) => {
+        if (!response.ok) throw new Error('Dataset summary unavailable');
+        return response.json();
+      })
+      .then((data) => {
+        if (datasetStats && data.summary) {
+          const summary = data.summary;
+          datasetStats.innerHTML = [
+            ['Works', summary.works, 'Books and works represented in the pilot dataset.'],
+            ['Publishers', summary.publishers, 'Publisher and imprint records across the pilot markets.'],
+            ['Translations', summary.translationRecords, 'Translation records with attribution and availability fields.'],
+            ['Events', summary.events, 'Release, award, market, and publishing signal events.'],
+            ['Rights Signals', summary.rightsSignals, 'Rows designed for watchlist and acquisition workflows.'],
+            ['Pilot Countries', summary.pilotCountries.length, summary.pilotCountries.join(' and ') + ' as early country templates.']
+          ].map(([label, value, detail]) => `
+            <article class="card">
+              <h3>${escapeHtml(label)}</h3>
+              <p><strong class="metric-number">${escapeHtml(value)}</strong>${escapeHtml(detail)}</p>
+            </article>
+          `).join('');
+        }
+
+        if (datasetRows && Array.isArray(data.sampleRows)) {
+          datasetRows.innerHTML = data.sampleRows.map((row) => `
+            <tr>
+              <td>${escapeHtml(row.country)}</td>
+              <td>${escapeHtml(row.workTitle)}</td>
+              <td>${escapeHtml(row.author)}</td>
+              <td>${escapeHtml(row.publisher)}</td>
+              <td>${escapeHtml(row.originalLanguage)}</td>
+              <td>${escapeHtml(row.englishAvailability)}</td>
+              <td>${escapeHtml(row.translator)}</td>
+              <td><span class="status-pill ${row.verificationStatus === 'verified_public_source' ? 'verified' : 'needs-check'}">${escapeHtml(row.verificationStatus)}</span></td>
+              <td>${escapeHtml(row.readerBucket)}</td>
+              <td>${escapeHtml(row.rightsSignal)}</td>
+            </tr>
+          `).join('');
+        }
+      })
+      .catch(() => {
+        if (datasetRows) {
+          datasetRows.innerHTML = '<tr><td colspan="10">Dataset sample could not load. The case study summary remains available above.</td></tr>';
+        }
+      });
+  }
+
   const flashcardRoot = document.querySelector('[data-flashcards]');
   if (!flashcardRoot) return;
 
@@ -403,13 +462,6 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="visual-flow wide"><span class="visual-pill">question</span><span class="visual-arrow">→</span><span class="visual-pill strong">memory cue</span><span class="visual-arrow">→</span><span class="visual-pill">answer</span></div>
     `
   };
-
-  const escapeHtml = (value) => String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
 
   const renderVisual = (item) => {
     const visualMarkup = visualDiagrams[item.visualType] || visualTemplates[item.visualKey];

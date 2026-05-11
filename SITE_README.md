@@ -8,12 +8,14 @@ This is a complete static portfolio starter for `tetianakravchuk.com`.
 - `pages/about.html` — professional story
 - `pages/projects.html` — selected project portfolio
 - `pages/world-publishing-houses.html` — flagship WPH case study
+- `projects/world-publishing-houses-dataset/index.html` — WPH publishing intelligence dataset case study
 - `pages/qa-impact.html` — QA metrics and professional impact
 - `pages/data-science.html` — ML/data science projects plus an interactive Data Science Flashcard Study Lab
 - `pages/resume.html` — web resume
 - `pages/contact.html` — contact page
 - `assets/styles.css` — site styling
 - `assets/script.js` — footer year script and flashcard study-lab logic
+- `assets/data/wph-dataset-summary.json` — dataset summary and small sample rows for the WPH dataset case study
 
 ## Recommended next edits
 

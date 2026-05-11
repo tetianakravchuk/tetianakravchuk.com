@@ -1,0 +1,86 @@
+{
+  "summary": {
+    "works": 55,
+    "publishers": 29,
+    "translationRecords": 55,
+    "events": 60,
+    "rightsSignals": 19,
+    "pilotCountries": ["Denmark", "Iceland"],
+    "verifiedPublicSourceRows": 29,
+    "curatedNeedsCheckRows": 26
+  },
+  "sampleRows": [
+    {
+      "country": "Denmark",
+      "workTitle": "The Employees",
+      "author": "Olga Ravn",
+      "publisher": "Gyldendal",
+      "originalLanguage": "Danish",
+      "englishAvailability": "Available in English",
+      "translator": "Martin Aitken",
+      "verificationStatus": "verified_public_source",
+      "readerBucket": "Read now in English",
+      "rightsSignal": "Translation visibility"
+    },
+    {
+      "country": "Iceland",
+      "workTitle": "Moonstone",
+      "author": "Sjon",
+      "publisher": "Forlagid",
+      "originalLanguage": "Icelandic",
+      "englishAvailability": "Available in English",
+      "translator": "Victoria Cribb",
+      "verificationStatus": "verified_public_source",
+      "readerBucket": "Read now in English",
+      "rightsSignal": "Backlist discovery"
+    },
+    {
+      "country": "Denmark",
+      "workTitle": "Mirror, Shoulder, Signal",
+      "author": "Dorthe Nors",
+      "publisher": "Gyldendal",
+      "originalLanguage": "Danish",
+      "englishAvailability": "Available in English",
+      "translator": "Misha Hoekstra",
+      "verificationStatus": "verified_public_source",
+      "readerBucket": "Read now in English",
+      "rightsSignal": "International recognition"
+    },
+    {
+      "country": "Iceland",
+      "workTitle": "Independent People",
+      "author": "Halldor Laxness",
+      "publisher": "Helgafell",
+      "originalLanguage": "Icelandic",
+      "englishAvailability": "Available in English",
+      "translator": "J. A. Thompson",
+      "verificationStatus": "verified_public_source",
+      "readerBucket": "Read now in English",
+      "rightsSignal": "Classic catalog signal"
+    },
+    {
+      "country": "Denmark",
+      "workTitle": "Sample Emerging Danish Title",
+      "author": "Curated example",
+      "publisher": "Independent Danish publisher",
+      "originalLanguage": "Danish",
+      "englishAvailability": "Not yet in English",
+      "translator": "Needs research",
+      "verificationStatus": "curated_needs_check",
+      "readerBucket": "Not yet in English",
+      "rightsSignal": "Potential acquisition lead"
+    },
+    {
+      "country": "Iceland",
+      "workTitle": "Sample Icelandic Literary Title",
+      "author": "Curated example",
+      "publisher": "Icelandic publisher",
+      "originalLanguage": "Icelandic",
+      "englishAvailability": "Coming soon / needs confirmation",
+      "translator": "Needs research",
+      "verificationStatus": "curated_needs_check",
+      "readerBucket": "Coming soon in English",
+      "rightsSignal": "Monitor release activity"
+    }
+  ]
+}

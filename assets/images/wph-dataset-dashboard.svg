@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="World Publishing Houses dataset dashboard preview">
+  <rect width="1200" height="720" rx="36" fill="#fffdf8"/>
+  <rect x="38" y="38" width="1124" height="644" rx="30" fill="#f7f3ed" stroke="#e7dccd" stroke-width="3"/>
+  <text x="82" y="104" font-family="Georgia, 'Times New Roman', serif" font-size="42" font-weight="700" fill="#1f2a21">World Publishing Houses Dataset</text>
+  <text x="82" y="148" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#7a4f2a">Denmark + Iceland pilot coverage</text>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="82" y="198" width="190" height="108" rx="20" fill="#fffaf3" stroke="#e7dccd"/>
+    <text x="110" y="246" font-size="38" font-weight="800" fill="#7a4f2a">55</text>
+    <text x="110" y="278" font-size="18" fill="#4f5d50">Works</text>
+    <rect x="296" y="198" width="190" height="108" rx="20" fill="#fffaf3" stroke="#e7dccd"/>
+    <text x="324" y="246" font-size="38" font-weight="800" fill="#7a4f2a">29</text>
+    <text x="324" y="278" font-size="18" fill="#4f5d50">Publishers</text>
+    <rect x="510" y="198" width="190" height="108" rx="20" fill="#fffaf3" stroke="#e7dccd"/>
+    <text x="538" y="246" font-size="38" font-weight="800" fill="#7a4f2a">55</text>
+    <text x="538" y="278" font-size="18" fill="#4f5d50">Translations</text>
+    <rect x="724" y="198" width="190" height="108" rx="20" fill="#fffaf3" stroke="#e7dccd"/>
+    <text x="752" y="246" font-size="38" font-weight="800" fill="#7a4f2a">60</text>
+    <text x="752" y="278" font-size="18" fill="#4f5d50">Events</text>
+    <rect x="938" y="198" width="152" height="108" rx="20" fill="#eef0e5" stroke="#bdc9ad"/>
+    <text x="966" y="246" font-size="38" font-weight="800" fill="#415f46">19</text>
+    <text x="966" y="278" font-size="18" fill="#4f5d50">Rights</text>
+    <rect x="82" y="356" width="500" height="244" rx="24" fill="#fffaf3" stroke="#e7dccd"/>
+    <text x="118" y="408" font-size="22" font-weight="800" fill="#263528">Reader Buckets</text>
+    <rect x="120" y="448" width="334" height="22" rx="11" fill="#415f46"/>
+    <rect x="120" y="492" width="238" height="22" rx="11" fill="#7a4f2a"/>
+    <rect x="120" y="536" width="292" height="22" rx="11" fill="#d7c4ac"/>
+    <text x="468" y="466" font-size="16" fill="#4f5d50">Read now</text>
+    <text x="372" y="510" font-size="16" fill="#4f5d50">Coming soon</text>
+    <text x="426" y="554" font-size="16" fill="#4f5d50">Not yet</text>
+    <rect x="624" y="356" width="466" height="244" rx="24" fill="#fffaf3" stroke="#e7dccd"/>
+    <text x="660" y="408" font-size="22" font-weight="800" fill="#263528">Trust Coverage</text>
+    <circle cx="730" cy="506" r="70" fill="#415f46"/>
+    <circle cx="730" cy="506" r="38" fill="#fffaf3"/>
+    <circle cx="910" cy="506" r="70" fill="#7a4f2a"/>
+    <circle cx="910" cy="506" r="38" fill="#fffaf3"/>
+    <text x="696" y="610" font-size="16" fill="#4f5d50">29 verified public-source rows</text>
+    <text x="846" y="636" font-size="16" fill="#4f5d50">26 curated rows needing check</text>
+  </g>
+</svg>
