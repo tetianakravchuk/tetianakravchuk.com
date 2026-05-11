@@ -35,6 +35,22 @@ The downloadable resume file is not committed yet. Upload the real PDF here:
 
 Do not rename the file unless you also update the download links in `index.html` and `pages/*.html`.
 
+## Google Search Console
+
+The static SEO foundation is already in the repo:
+
+- `robots.txt` allows crawling and points to `https://tetianakravchuk.com/sitemap.xml`.
+- `sitemap.xml` lists the main portfolio pages and the WPH dataset case study.
+- Pages include canonical URLs, Open Graph metadata, and no `noindex` tag.
+- `pages/data-science.html` includes JSON-LD structured data for the ML validation/data quality flashcards.
+
+Manual steps after the domain is live:
+
+1. Add `https://tetianakravchuk.com` in Google Search Console.
+2. Prefer Domain property verification with a DNS TXT record.
+3. Submit `https://tetianakravchuk.com/sitemap.xml`.
+4. Use URL Inspection to request indexing for `https://tetianakravchuk.com/pages/data-science.html`.
+
 ## Contact currently used
 
 - Email: tetiana.qa.data.jobs@gmail.com
