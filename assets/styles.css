@@ -502,12 +502,99 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.35;
 }
 
+.explorer-card {
+  padding: 24px;
+}
+
+.explorer-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.tab-button {
+  border: 1px solid #d8c5ad;
+  border-radius: 999px;
+  background: rgba(255, 250, 243, 0.86);
+  color: var(--accent);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 780;
+  padding: 9px 14px;
+}
+
+.tab-button.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fffaf3;
+}
+
+.explorer-panel {
+  display: grid;
+  gap: 22px;
+}
+
+.explorer-grid,
+.quality-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.compact-stats {
+  margin-bottom: 18px;
+}
+
+.mini-stat,
+.quality-check,
+.readiness-summary {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 250, 243, 0.72);
+  padding: 16px;
+}
+
+.mini-stat strong {
+  display: block;
+  color: #263528;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.mini-stat span {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 720;
+}
+
+.explorer-filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.quality-check h3 {
+  margin-top: 12px;
+  font-size: 1.2rem;
+}
+
+.quality-check.warning,
+.readiness-summary {
+  background: #fbf3e8;
+}
+
+.quality-check.fail {
+  background: #fbede8;
+}
+
 @media (max-width: 850px) {
   h1 { font-size: clamp(2.35rem, 11vw, 3.1rem); }
   h2 { font-size: clamp(1.9rem, 8vw, 2.25rem); }
   h3 { font-size: 1.28rem; }
   .lead { font-size: 1.14rem; }
-  .hero-grid, .grid-2, .grid-3, .grid-4, .table-row { grid-template-columns: 1fr; }
+  .hero-grid, .grid-2, .grid-3, .grid-4, .table-row, .explorer-grid, .quality-grid, .explorer-filters { grid-template-columns: 1fr; }
   .about-hero-grid { grid-template-columns: 1fr; }
   .portrait-fallback { max-width: 220px; }
   .card.featured { grid-column: span 1; }
@@ -1495,6 +1582,24 @@ textarea.input {
   background: #f8efe3;
   border-color: #d7c4ac;
   color: var(--accent);
+}
+
+.status-pill.pass {
+  background: #eef0e5;
+  border-color: #bdc9ad;
+  color: #37503a;
+}
+
+.status-pill.warning {
+  background: #f8efe3;
+  border-color: #d7c4ac;
+  color: var(--accent);
+}
+
+.status-pill.fail {
+  background: #fbede8;
+  border-color: #d0a08b;
+  color: #8a3d20;
 }
 
 .skill-cloud {

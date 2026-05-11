@@ -85,10 +85,249 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
+  const explorerRoot = document.querySelector('[data-wph-explorer]');
+  if (explorerRoot) {
+    const panel = explorerRoot.querySelector('[data-explorer-panel]');
+    const tabButtons = Array.from(explorerRoot.querySelectorAll('[data-explorer-tab]'));
+    const source = explorerRoot.dataset.source || '../../assets/data/wph-dataset-summary.json';
+    let activeTab = 'explore';
+    let explorerData = null;
+    let filters = { country: 'all', verificationStatus: 'all', readerBucket: 'all' };
+
+    const aggregate = {
+      totalWorks: 55,
+      countries: { Denmark: 25, Iceland: 30 },
+      readerBuckets: {
+        'Read now in English': 51,
+        'Not yet confirmed': 3,
+        'Coming soon': 1
+      },
+      verificationStatus: {
+        verified_public_source: 29,
+        curated_needs_check: 26
+      },
+      translationLag: { min: 1, median: 3, mean: 9.2, max: 88 },
+      translationPath: { Direct: 52, Unknown: 3 }
+    };
+
+    const statusClass = (status) => status.toLowerCase();
+
+    const renderDistribution = (items) => Object.entries(items).map(([label, value]) => `
+      <div class="table-row">
+        <strong>${escapeHtml(label)}</strong>
+        <span>${escapeHtml(value)} records</span>
+      </div>
+    `).join('');
+
+    const renderCheck = ({ status, title, detail, why }) => `
+      <article class="quality-check ${statusClass(status)}">
+        <span class="status-pill ${statusClass(status)}">${escapeHtml(status)}</span>
+        <h3>${escapeHtml(title)}</h3>
+        <p>${escapeHtml(detail)}</p>
+        <p class="small-note"><strong>Why it matters:</strong> ${escapeHtml(why)}</p>
+      </article>
+    `;
+
+    const filteredRows = () => {
+      const rows = explorerData?.sampleRows || [];
+      return rows.filter((row) => {
+        const readerBucket = row.readerBucket === 'Coming soon in English' ? 'Coming soon' : row.readerBucket;
+        const countryOk = filters.country === 'all' || row.country === filters.country;
+        const verificationOk = filters.verificationStatus === 'all' || row.verificationStatus === filters.verificationStatus;
+        const bucketOk = filters.readerBucket === 'all' || readerBucket === filters.readerBucket;
+        return countryOk && verificationOk && bucketOk;
+      });
+    };
+
+    const selectMarkup = (label, name, options) => `
+      <label class="field-label">${escapeHtml(label)}
+        <select class="input" data-explorer-filter="${escapeHtml(name)}">
+          ${options.map((option) => `<option value="${escapeHtml(option.value)}"${filters[name] === option.value ? ' selected' : ''}>${escapeHtml(option.label)}</option>`).join('')}
+        </select>
+      </label>
+    `;
+
+    const renderExplore = () => {
+      const rows = filteredRows();
+      return `
+        <div class="explorer-grid">
+          <article>
+            <h3>Dataset Summary</h3>
+            <div class="grid-3 compact-stats">
+              <div class="mini-stat"><strong>${aggregate.totalWorks}</strong><span>Total works</span></div>
+              <div class="mini-stat"><strong>2</strong><span>Countries represented</span></div>
+              <div class="mini-stat"><strong>6 of 55</strong><span>Preview records shown</span></div>
+            </div>
+            <div class="table-like">
+              <div class="table-row"><strong>Reader bucket distribution</strong><span>51 read now, 3 not yet confirmed, 1 coming soon</span></div>
+              <div class="table-row"><strong>Verification status</strong><span>29 verified public-source rows, 26 curated rows needing check</span></div>
+              <div class="table-row"><strong>Translation lag</strong><span>Min ${aggregate.translationLag.min}, median ${aggregate.translationLag.median}, mean ${aggregate.translationLag.mean}, max ${aggregate.translationLag.max} years</span></div>
+            </div>
+          </article>
+          <article>
+            <h3>Distributions</h3>
+            <div class="table-like">${renderDistribution(aggregate.countries)}${renderDistribution(aggregate.readerBuckets)}${renderDistribution(aggregate.verificationStatus)}</div>
+          </article>
+        </div>
+        <div class="explorer-filters">
+          ${selectMarkup('Country', 'country', [{ value: 'all', label: 'All countries' }, { value: 'Denmark', label: 'Denmark' }, { value: 'Iceland', label: 'Iceland' }])}
+          ${selectMarkup('Verification Status', 'verificationStatus', [{ value: 'all', label: 'All statuses' }, { value: 'verified_public_source', label: 'verified_public_source' }, { value: 'curated_needs_check', label: 'curated_needs_check' }])}
+          ${selectMarkup('Reader Bucket', 'readerBucket', [{ value: 'all', label: 'All buckets' }, { value: 'Read now in English', label: 'Read now in English' }, { value: 'Not yet confirmed', label: 'Not yet confirmed' }, { value: 'Coming soon', label: 'Coming soon' }])}
+        </div>
+        <p class="small-note">Prototype preview table: showing ${rows.length} filtered preview records from the embedded 6-row sample, out of 55 total works.</p>
+        <div class="responsive-table"><table><thead><tr><th>Country</th><th>Work</th><th>Author</th><th>Publisher</th><th>Reader Bucket</th><th>Verification</th><th>Rights Signal</th></tr></thead><tbody>
+          ${rows.map((row) => `<tr><td>${escapeHtml(row.country)}</td><td>${escapeHtml(row.workTitle)}</td><td>${escapeHtml(row.author)}</td><td>${escapeHtml(row.publisher)}</td><td>${escapeHtml(row.readerBucket)}</td><td><span class="status-pill ${row.verificationStatus === 'verified_public_source' ? 'verified' : 'needs-check'}">${escapeHtml(row.verificationStatus)}</span></td><td>${escapeHtml(row.rightsSignal)}</td></tr>`).join('') || '<tr><td colspan="7">No preview rows match the selected filters.</td></tr>'}
+        </tbody></table></div>
+      `;
+    };
+
+    const renderQuality = () => {
+      const checks = [
+        { status: 'Pass', title: 'Missing required fields', detail: 'The preview rows include country, work title, author, publisher, language, reader bucket, and verification status.', why: 'Required-field checks prevent broken cards, empty filters, and misleading dataset summaries.' },
+        { status: 'Warning', title: 'Verification coverage', detail: '29 rows are verified_public_source and 26 rows are curated_needs_check.', why: 'Nearly half the dataset needs review, so provenance should remain visible in analysis and UI.' },
+        { status: 'Warning', title: 'Translation path cardinality', detail: '52 records are Direct and 3 are Unknown.', why: 'A near-constant categorical feature will not teach a model much and should be flagged before training.' },
+        { status: 'Warning', title: 'Reader bucket imbalance', detail: '51 of 55 works are in Read now in English, with only 4 records outside the majority class.', why: 'A classifier can look accurate while ignoring the minority classes.' },
+        { status: 'Warning', title: 'Outlier translation lag', detail: 'Translation lag ranges from 1 to 88 years, with a median of 3 and a mean of 9.2.', why: 'Outliers can distort averages and should be reviewed before summary reporting.' },
+        { status: 'Warning', title: 'Country coverage', detail: 'The dataset currently covers Denmark and Iceland only.', why: 'Models trained on two Nordic countries should not be generalized to all European publishing markets.' }
+      ];
+      return `<div class="quality-grid">${checks.map(renderCheck).join('')}</div>`;
+    };
+
+    const renderReadiness = () => {
+      const checks = [
+        { status: 'Fail', title: 'Sample size', detail: '55 works is too small for reliable supervised model evaluation.', why: 'A small holdout set can make accuracy unstable and overstate model confidence.' },
+        { status: 'Fail', title: 'Class balance', detail: 'About 93% of works fall in Read now in English.', why: 'Accuracy is misleading when one class dominates the target.' },
+        { status: 'Fail', title: 'Minority class count', detail: 'Only 3 works are Not yet confirmed and 1 is Coming soon.', why: 'Minority classes are too small for trustworthy precision and recall estimates.' },
+        { status: 'Warning', title: 'Feature cardinality', detail: 'translation_path is near-constant with 52 Direct and 3 Unknown values.', why: 'Low-variation features add little predictive signal and can create false confidence.' },
+        { status: 'Warning', title: 'Verification coverage', detail: '26 of 55 rows are curated_needs_check.', why: 'Training data quality should be disclosed and reviewed before model claims.' },
+        { status: 'Warning', title: 'Scope/domain coverage', detail: 'Current coverage is Denmark and Iceland.', why: 'Predictions outside this domain should return a warning or be blocked.' }
+      ];
+      return `
+        <div class="readiness-summary">
+          <span class="status-pill fail">Prototype / Not production-ready</span>
+          <p>This dataset is currently better suited for exploratory analysis, data modeling, QA checks, and prototype dashboards than for training a reliable predictive model.</p>
+        </div>
+        <div class="quality-grid">${checks.map(renderCheck).join('')}</div>
+      `;
+    };
+
+    const renderExplorer = () => {
+      if (!panel) return;
+      panel.innerHTML = activeTab === 'quality'
+        ? renderQuality()
+        : activeTab === 'readiness'
+          ? renderReadiness()
+          : renderExplore();
+      panel.querySelectorAll('[data-explorer-filter]').forEach((filter) => {
+        filter.addEventListener('change', () => {
+          filters[filter.dataset.explorerFilter] = filter.value;
+          renderExplorer();
+        });
+      });
+    };
+
+    tabButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeTab = button.dataset.explorerTab;
+        tabButtons.forEach((tab) => {
+          const isActive = tab === button;
+          tab.classList.toggle('active', isActive);
+          tab.setAttribute('aria-selected', String(isActive));
+        });
+        renderExplorer();
+      });
+    });
+
+    fetch(source)
+      .then((response) => {
+        if (!response.ok) throw new Error('Dataset explorer unavailable');
+        return response.json();
+      })
+      .then((data) => {
+        explorerData = data;
+        renderExplorer();
+      })
+      .catch(() => {
+        if (panel) panel.innerHTML = '<p>Dataset explorer could not load. The static case study summary remains available on this page.</p>';
+      });
+  }
+
   const flashcardRoot = document.querySelector('[data-flashcards]');
   if (!flashcardRoot) return;
 
   const baseFlashcards = [
+    {
+      id: 'wph-readiness-class-imbalance',
+      deck: 'WPH Dataset Readiness',
+      level: 'ML Readiness',
+      visualKey: 'classification',
+      visualCue: 'A majority bucket can make a weak classifier look accurate.',
+      front: 'WPH has 55 works. 51 fall in “Read now in English,” 3 in “Not yet confirmed,” and 1 in “Coming soon.” You want to train a classifier to predict whether a Nordic book will reach English readers. What is the immediate problem?',
+      back: 'This is severe class imbalance. About 93% of the dataset is in the positive class. A model that always predicts “yes, will be translated” could look accurate while learning almost nothing. Accuracy is the wrong metric here; precision and recall on the minority class matter more, but the minority class is too small for reliable evaluation.',
+      qaAngle: 'This is a data quality and validation problem before it is a modeling problem. An ML QA review should check class balance before training and flag the dataset if the minority class is too small to support meaningful evaluation.',
+      projectLinkLabel: 'wph_works.csv → reader_bucket value counts',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#dataset-explorer'
+    },
+    {
+      id: 'wph-readiness-small-holdout',
+      deck: 'WPH Dataset Readiness',
+      level: 'ML Readiness',
+      visualKey: 'split',
+      visualCue: 'With only 11 test rows, one row changes accuracy by about 9 points.',
+      front: 'You split the WPH dataset, n=55, into an 80/20 train/test split. A Random Forest gives 91% test accuracy. Should this be presented as a strong model result?',
+      back: 'Not as a performance claim. A 20% test set on 55 rows has only 11 examples, so one record can move accuracy by about 9 percentage points. The better portfolio framing is that the dataset is too small for a reliable holdout evaluation and should be discussed as an ML-readiness case.',
+      qaAngle: '“It ran without errors” is not the same as validation. A QA-minded review asks whether the test set is large enough to detect meaningful performance differences.',
+      projectLinkLabel: 'wph_works.csv row count',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#dataset-explorer'
+    },
+    {
+      id: 'wph-readiness-lag-tail',
+      deck: 'WPH Dataset Readiness',
+      level: 'ML Readiness',
+      visualKey: 'rmse',
+      visualCue: 'A long right tail means the average alone does not tell the full story.',
+      front: 'WPH translation lag ranges from 1 to 88 years, with a median of 3 and a mean of 9.2. What does the gap between median and mean tell you?',
+      back: 'The distribution has a long right tail. Most books reach English readers relatively quickly, but a few are translated decades later because of rediscovery, classics, awards, or posthumous interest. A histogram or boxplot is more honest than a single average.',
+      qaAngle: 'Reporting only the mean would be misleading. Data quality review should inspect distributions before summarizing them, especially when outliers change the story.',
+      projectLinkLabel: 'wph_works.csv → english_publication_year minus original_publication_year',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#dataset-explorer'
+    },
+    {
+      id: 'wph-readiness-provenance',
+      deck: 'WPH Dataset Readiness',
+      level: 'ML Readiness',
+      visualType: 'translationTrust',
+      visualCue: 'Trust metadata should travel with model inputs and outputs.',
+      front: 'WPH has two verification levels: verified_public_source, 29 rows, and curated_needs_check, 26 rows. What should happen if these rows are used for ML?',
+      back: 'The model should not treat all rows as equally trustworthy without disclosure. Options include training only on verified rows, using verification status as a feature, or weighting verified rows more heavily. The wrong choice is mixing verified and unverified rows silently.',
+      qaAngle: 'Provenance must travel with predictions. If nearly half the training data needs review, the model card and any prediction output should make that limitation visible.',
+      projectLinkLabel: 'wph_works.csv → verification_status',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#dataset-explorer'
+    },
+    {
+      id: 'wph-readiness-feature-variation',
+      deck: 'WPH Dataset Readiness',
+      level: 'ML Readiness',
+      visualKey: 'qa-gates',
+      visualCue: 'A feature can exist in the schema and still have too little variation to learn from.',
+      front: 'WPH has 52 books with translation_path = “Direct” and 3 with “Unknown.” You want to build a feature called is_pivot_translation. Can the model learn from it?',
+      back: 'Not yet. The schema supports the idea, but the data does not contain enough variation. If every confirmed path is Direct, the feature is effectively constant. A model cannot learn a pattern it never sees.',
+      qaAngle: 'Schema completeness is not the same as data completeness. Every categorical feature should get a cardinality check before training. Constant or near-constant features should be flagged or dropped.',
+      projectLinkLabel: 'wph_works.csv and wph_translations.csv → translation_path',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#dataset-explorer'
+    },
+    {
+      id: 'wph-readiness-domain-scope',
+      deck: 'WPH Dataset Readiness',
+      level: 'ML Readiness',
+      visualKey: 'edge-cases',
+      visualCue: 'A two-country pilot should not claim Europe-wide prediction coverage.',
+      front: 'WPH currently covers Denmark, 25 works, and Iceland, 30 works. Can a model trained on this predict translation likelihood for any European book?',
+      back: 'No. The dataset’s current domain is two Nordic countries. A Portuguese, Romanian, Polish, or Greek book would be out of distribution. The honest scope is Nordic-focused until more countries and publishing contexts are added.',
+      qaAngle: 'Every model needs a domain of validity. Predictions outside the supported scope should return a warning or be blocked rather than presented as reliable scores.',
+      projectLinkLabel: 'wph_countries.csv and wph_works.csv → country_iso distribution',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#dataset-explorer'
+    },
     {
       id: 'wph-dq-entity-resolution',
       deck: 'WPH: Data Quality',
@@ -565,7 +804,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sections.push(`<section class="answer-section qa-angle"><h4>QA Angle</h4><p>${escapeHtml(item.qaAngle)}</p></section>`);
       }
       if (item.projectLinkLabel && item.projectLinkHref) {
-        sections.push(`<section class="answer-section project-connection"><h4>Project Connection</h4><p><a href="${escapeHtml(item.projectLinkHref)}">${escapeHtml(item.projectLinkLabel)}</a></p></section>`);
+        sections.push(`<section class="answer-section project-connection"><h4>Where This Shows Up</h4><p><a href="${escapeHtml(item.projectLinkHref)}">${escapeHtml(item.projectLinkLabel)}</a></p></section>`);
       }
       return sections.join('');
     }
@@ -735,14 +974,14 @@ document.addEventListener('DOMContentLoaded', () => {
     newMemory.value = '';
     newDeck.value = 'Custom';
     formMessage.textContent = 'Flashcard added on this device with a visual memory cue.';
-    deckFilter.value = Array.from(deckFilter.options).some((option) => option.value === d) ? d : 'WPH: Data Quality';
+    deckFilter.value = Array.from(deckFilter.options).some((option) => option.value === d) ? d : 'WPH Dataset Readiness';
     applyFilter();
   });
 
   clearCustomBtn.addEventListener('click', () => {
     setCustomCards([]);
     formMessage.textContent = 'Custom cards cleared from this device.';
-    if (deckFilter.value === 'Custom') deckFilter.value = 'WPH: Data Quality';
+    if (deckFilter.value === 'Custom') deckFilter.value = 'WPH Dataset Readiness';
     applyFilter();
   });
 
