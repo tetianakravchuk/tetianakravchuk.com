@@ -47,12 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (datasetStats && data.summary) {
           const summary = data.summary;
           datasetStats.innerHTML = [
-            ['Works', summary.works, 'Books and works represented in the pilot dataset.'],
-            ['Publishers', summary.publishers, 'Publisher and imprint records across the pilot markets.'],
+            ['Works', summary.works, 'Books and works represented in the current verified pilot.'],
+            ['Publishers', summary.publishers, 'Publisher and imprint records across the current pilot markets.'],
             ['Translations', summary.translationRecords, 'Translation records with attribution and availability fields.'],
             ['Events', summary.events, 'Release, award, market, and publishing signal events.'],
-            ['Rights Signals', summary.rightsSignals, 'Rows designed for watchlist and acquisition workflows.'],
-            ['Pilot Countries', summary.pilotCountries.length, summary.pilotCountries.join(' and ') + ' as early country templates.']
+            ['Current verified pilot', summary.pilotCountries.length, summary.pilotCountries.join(' + ') + '.'],
+            ['Expansion target', 5, 'Nordic region — Denmark, Iceland, Norway, Sweden, Finland.']
           ].map(([label, value, detail]) => `
             <article class="card">
               <h3>${escapeHtml(label)}</h3>
@@ -93,10 +93,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeTab = 'explore';
     let explorerData = null;
     let filters = { country: 'all', verificationStatus: 'all', readerBucket: 'all' };
+    const plannedCountries = ['Norway', 'Sweden', 'Finland'];
 
     const aggregate = {
       totalWorks: 55,
-      countries: { Denmark: 25, Iceland: 30 },
+      countries: { Denmark: 25, Iceland: 30, Norway: 'Expansion planned', Sweden: 'Expansion planned', Finland: 'Expansion planned' },
       readerBuckets: {
         'Read now in English': 51,
         'Not yet confirmed': 3,
@@ -115,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderDistribution = (items) => Object.entries(items).map(([label, value]) => `
       <div class="table-row">
         <strong>${escapeHtml(label)}</strong>
-        <span>${escapeHtml(value)} records</span>
+        <span>${typeof value === 'number' ? `${escapeHtml(value)} records` : escapeHtml(value)}</span>
       </div>
     `).join('');
 
@@ -139,6 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     };
 
+    const selectedCountryIsPlanned = () => plannedCountries.includes(filters.country);
+
     const selectMarkup = (label, name, options) => `
       <label class="field-label">${escapeHtml(label)}
         <select class="input" data-explorer-filter="${escapeHtml(name)}">
@@ -149,16 +152,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderExplore = () => {
       const rows = filteredRows();
+      const plannedMessage = selectedCountryIsPlanned()
+        ? `<p class="small-note"><strong>${escapeHtml(filters.country)}:</strong> Expansion planned. This country is included in the Nordic scope but is not populated in the current dataset.</p>`
+        : '';
       return `
         <div class="explorer-grid">
           <article>
             <h3>Dataset Summary</h3>
             <div class="grid-3 compact-stats">
               <div class="mini-stat"><strong>${aggregate.totalWorks}</strong><span>Total works</span></div>
-              <div class="mini-stat"><strong>2</strong><span>Countries represented</span></div>
+              <div class="mini-stat"><strong>2</strong><span>Current verified pilot: Denmark + Iceland</span></div>
               <div class="mini-stat"><strong>6 of 55</strong><span>Preview records shown</span></div>
             </div>
             <div class="table-like">
+              <div class="table-row"><strong>Expansion target</strong><span>Nordic region — Denmark, Iceland, Norway, Sweden, Finland</span></div>
               <div class="table-row"><strong>Reader bucket distribution</strong><span>51 read now, 3 not yet confirmed, 1 coming soon</span></div>
               <div class="table-row"><strong>Verification status</strong><span>29 verified public-source rows, 26 curated rows needing check</span></div>
               <div class="table-row"><strong>Translation lag</strong><span>Min ${aggregate.translationLag.min}, median ${aggregate.translationLag.median}, mean ${aggregate.translationLag.mean}, max ${aggregate.translationLag.max} years</span></div>
@@ -170,13 +177,14 @@ document.addEventListener('DOMContentLoaded', () => {
           </article>
         </div>
         <div class="explorer-filters">
-          ${selectMarkup('Country', 'country', [{ value: 'all', label: 'All countries' }, { value: 'Denmark', label: 'Denmark' }, { value: 'Iceland', label: 'Iceland' }])}
+          ${selectMarkup('Country', 'country', [{ value: 'all', label: 'All Nordic' }, { value: 'Denmark', label: 'Denmark' }, { value: 'Iceland', label: 'Iceland' }, { value: 'Norway', label: 'Norway — Expansion planned' }, { value: 'Sweden', label: 'Sweden — Expansion planned' }, { value: 'Finland', label: 'Finland — Expansion planned' }])}
           ${selectMarkup('Verification Status', 'verificationStatus', [{ value: 'all', label: 'All statuses' }, { value: 'verified_public_source', label: 'verified_public_source' }, { value: 'curated_needs_check', label: 'curated_needs_check' }])}
           ${selectMarkup('Reader Bucket', 'readerBucket', [{ value: 'all', label: 'All buckets' }, { value: 'Read now in English', label: 'Read now in English' }, { value: 'Not yet confirmed', label: 'Not yet confirmed' }, { value: 'Coming soon', label: 'Coming soon' }])}
         </div>
-        <p class="small-note">Prototype preview table: showing ${rows.length} filtered preview records from the embedded 6-row sample, out of 55 total works.</p>
+        ${plannedMessage}
+        <p class="small-note">Prototype preview table: showing ${rows.length} filtered preview records from the embedded 6-row sample, out of 55 total pilot works.</p>
         <div class="responsive-table"><table><thead><tr><th>Country</th><th>Work</th><th>Author</th><th>Publisher</th><th>Reader Bucket</th><th>Verification</th><th>Rights Signal</th></tr></thead><tbody>
-          ${rows.map((row) => `<tr><td>${escapeHtml(row.country)}</td><td>${escapeHtml(row.workTitle)}</td><td>${escapeHtml(row.author)}</td><td>${escapeHtml(row.publisher)}</td><td>${escapeHtml(row.readerBucket)}</td><td><span class="status-pill ${row.verificationStatus === 'verified_public_source' ? 'verified' : 'needs-check'}">${escapeHtml(row.verificationStatus)}</span></td><td>${escapeHtml(row.rightsSignal)}</td></tr>`).join('') || '<tr><td colspan="7">No preview rows match the selected filters.</td></tr>'}
+          ${rows.map((row) => `<tr><td>${escapeHtml(row.country)}</td><td>${escapeHtml(row.workTitle)}</td><td>${escapeHtml(row.author)}</td><td>${escapeHtml(row.publisher)}</td><td>${escapeHtml(row.readerBucket)}</td><td><span class="status-pill ${row.verificationStatus === 'verified_public_source' ? 'verified' : 'needs-check'}">${escapeHtml(row.verificationStatus)}</span></td><td>${escapeHtml(row.rightsSignal)}</td></tr>`).join('') || `<tr><td colspan="7">${selectedCountryIsPlanned() ? `${escapeHtml(filters.country)} is marked as expansion planned, not populated.` : 'No preview rows match the selected filters.'}</td></tr>`}
         </tbody></table></div>
       `;
     };
@@ -188,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { status: 'Warning', title: 'Translation path cardinality', detail: '52 records are Direct and 3 are Unknown.', why: 'A near-constant categorical feature will not teach a model much and should be flagged before training.' },
         { status: 'Warning', title: 'Reader bucket imbalance', detail: '51 of 55 works are in Read now in English, with only 4 records outside the majority class.', why: 'A classifier can look accurate while ignoring the minority classes.' },
         { status: 'Warning', title: 'Outlier translation lag', detail: 'Translation lag ranges from 1 to 88 years, with a median of 3 and a mean of 9.2.', why: 'Outliers can distort averages and should be reviewed before summary reporting.' },
-        { status: 'Warning', title: 'Country coverage', detail: 'The dataset currently covers Denmark and Iceland only.', why: 'Models trained on two Nordic countries should not be generalized to all European publishing markets.' }
+        { status: 'Warning', title: 'Country coverage', detail: 'The current verified pilot covers Denmark and Iceland. Norway, Sweden, and Finland are expansion planned.', why: 'Models trained on two Nordic countries should not be generalized to the full Nordic region until broader coverage exists.' }
       ];
       return `<div class="quality-grid">${checks.map(renderCheck).join('')}</div>`;
     };
@@ -200,12 +208,12 @@ document.addEventListener('DOMContentLoaded', () => {
         { status: 'Fail', title: 'Minority class count', detail: 'Only 3 works are Not yet confirmed and 1 is Coming soon.', why: 'Minority classes are too small for trustworthy precision and recall estimates.' },
         { status: 'Warning', title: 'Feature cardinality', detail: 'translation_path is near-constant with 52 Direct and 3 Unknown values.', why: 'Low-variation features add little predictive signal and can create false confidence.' },
         { status: 'Warning', title: 'Verification coverage', detail: '26 of 55 rows are curated_needs_check.', why: 'Training data quality should be disclosed and reviewed before model claims.' },
-        { status: 'Warning', title: 'Scope/domain coverage', detail: 'Current coverage is Denmark and Iceland.', why: 'Predictions outside this domain should return a warning or be blocked.' }
+        { status: 'Warning', title: 'Scope/domain coverage', detail: 'Current verified coverage is Denmark and Iceland; Norway, Sweden, and Finland are expansion planned.', why: 'Predictions outside the populated pilot should return a warning or be blocked.' }
       ];
       return `
         <div class="readiness-summary">
           <span class="status-pill fail">Prototype / Not production-ready</span>
-          <p>This dataset is currently better suited for exploratory analysis, data modeling, QA checks, and prototype dashboards than for training a reliable predictive model.</p>
+          <p>The current dataset is suitable for exploratory analysis, metadata QA, trust/provenance design, and dashboard prototyping. Predictive ML should wait until the dataset has broader country coverage, more negative examples, and stronger class balance.</p>
         </div>
         <div class="quality-grid">${checks.map(renderCheck).join('')}</div>
       `;
@@ -321,10 +329,10 @@ document.addEventListener('DOMContentLoaded', () => {
       deck: 'WPH Dataset Readiness',
       level: 'Level 4: Failure Case',
       visualKey: 'edge-cases',
-      visualCue: 'A two-country pilot should not claim Europe-wide prediction coverage.',
-      front: 'WPH currently covers Denmark, 25 works, and Iceland, 30 works. Can a model trained on this predict translation likelihood for any European book?',
-      back: 'No. The dataset’s current domain is two Nordic countries. A Portuguese, Romanian, Polish, or Greek book would be out of distribution. The honest scope is Nordic-focused until more countries and publishing contexts are added.',
-      qaAngle: 'Every model needs a domain of validity. Predictions outside the supported scope should return a warning or be blocked rather than presented as reliable scores.',
+      visualCue: 'A two-country pilot should not claim full Nordic prediction coverage.',
+      front: 'WPH currently has populated pilot data for Denmark, 25 works, and Iceland, 30 works. Can a model trained on this predict translation likelihood for all Nordic books?',
+      back: 'No. The dataset’s current populated domain is Denmark and Iceland. Norway, Sweden, and Finland are expansion planned, so the honest scope is a Nordic roadmap with a two-country verified pilot.',
+      qaAngle: 'Every model needs a domain of validity. Predictions outside the populated pilot should return a warning or be blocked rather than presented as reliable Nordic scores.',
       projectLinkLabel: 'wph_countries.csv and wph_works.csv → country_iso distribution',
       projectLinkHref: '../projects/world-publishing-houses-dataset/#dataset-explorer'
     },
