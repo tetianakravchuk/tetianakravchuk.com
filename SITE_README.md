@@ -49,7 +49,7 @@ Manual steps after the domain is live:
 1. Add `https://tetianakravchuk.com` in Google Search Console.
 2. Prefer Domain property verification with a DNS TXT record.
 3. Submit `https://tetianakravchuk.com/sitemap.xml`.
-4. Use URL Inspection to request indexing for `https://tetianakravchuk.com/pages/data-science.html`.
+4. Use URL Inspection to request indexing for `https://tetianakravchuk.com/pages/data-science`.
 
 ## Contact currently used
 
