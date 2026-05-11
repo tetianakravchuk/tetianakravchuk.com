@@ -1,12 +1,12 @@
 {
   "summary": {
-    "works": 55,
-    "publishers": 29,
-    "translationRecords": 55,
-    "events": 60,
-    "rightsSignals": 19,
-    "pilotCountries": ["Denmark", "Iceland"],
-    "expansionCountries": ["Norway", "Sweden", "Finland"],
+    "works": 70,
+    "publishers": 44,
+    "translationRecords": 70,
+    "events": 82,
+    "rightsSignals": 34,
+    "pilotCountries": ["Denmark", "Iceland", "Norway", "Sweden", "Finland"],
+    "expansionCountries": [],
     "regionGroup": "Nordic",
     "verifiedPublicSourceRows": 29,
     "curatedNeedsCheckRows": 26

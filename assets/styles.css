@@ -84,6 +84,7 @@ a { color: inherit; text-decoration: none; }
   padding: 10px 14px;
   font-weight: 800;
   box-shadow: 0 12px 28px rgba(31, 42, 33, 0.24);
+  z-index: -1;
 }
 
 .skip-link:focus {
@@ -153,6 +154,10 @@ a { color: inherit; text-decoration: none; }
   font-weight: 650;
 }
 
+.nav:not(.is-open) .nav-links {
+  visibility: visible;
+}
+
 .nav-links a {
   border-bottom: 2px solid transparent;
   padding: 4px 0 6px;
@@ -188,6 +193,8 @@ a { color: inherit; text-decoration: none; }
 
   .nav-links {
     display: flex !important;
+    position: static;
+    visibility: visible !important;
   }
 }
 
@@ -302,7 +309,7 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin-top: 28px;
+  margin-top: 20px;
 }
 
 .download-note {
@@ -736,6 +743,7 @@ a { color: inherit; text-decoration: none; }
   .menu-toggle { display: inline-flex; margin-left: auto; }
   .nav-links {
     display: none;
+    visibility: hidden;
     flex-basis: 100%;
     width: 100%;
     justify-content: flex-start;
@@ -743,7 +751,11 @@ a { color: inherit; text-decoration: none; }
     font-size: 1rem;
     padding: 8px 0 4px;
   }
-  .nav.is-open .nav-links { display: grid; grid-template-columns: 1fr; }
+  .nav.is-open .nav-links {
+    display: grid;
+    grid-template-columns: 1fr;
+    visibility: visible;
+  }
   .nav-links a {
     display: block;
     border-bottom: 0;

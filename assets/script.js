@@ -47,12 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (datasetStats && data.summary) {
           const summary = data.summary;
           datasetStats.innerHTML = [
-            ['Works', summary.works, 'Books and works represented in the current verified pilot.'],
-            ['Publishers', summary.publishers, 'Publisher and imprint records across the current pilot markets.'],
-            ['Translations', summary.translationRecords, 'Translation records with attribution and availability fields.'],
+            ['Nordic countries', summary.pilotCountries.length, 'Denmark, Iceland, Norway, Sweden, and Finland.'],
+            ['Works', summary.works, 'Books and works represented across the Nordic dataset.'],
+            ['Publishers', summary.publishers, 'Publisher and imprint records across Nordic markets.'],
+            ['Translation records', summary.translationRecords, 'Translation records with attribution and availability fields.'],
             ['Events', summary.events, 'Release, award, market, and publishing signal events.'],
-            ['Current verified pilot', summary.pilotCountries.length, summary.pilotCountries.join(' + ') + '.'],
-            ['Expansion target', 5, 'Nordic region — Denmark, Iceland, Norway, Sweden, Finland.']
+            ['Rights-watchlist rows', summary.rightsSignals, 'Rights and acquisition signals for professional workflows.']
           ].map(([label, value, detail]) => `
             <article class="card">
               <h3>${escapeHtml(label)}</h3>
@@ -93,19 +93,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeTab = 'explore';
     let explorerData = null;
     let filters = { country: 'all', verificationStatus: 'all', readerBucket: 'all' };
-    const plannedCountries = ['Norway', 'Sweden', 'Finland'];
+    const plannedCountries = [];
 
     const aggregate = {
-      totalWorks: 55,
-      countries: { Denmark: 25, Iceland: 30, Norway: 'Expansion planned', Sweden: 'Expansion planned', Finland: 'Expansion planned' },
+      totalWorks: 70,
+      countries: { Denmark: 'Nordic dataset', Iceland: 'Nordic dataset', Norway: 'Nordic dataset', Sweden: 'Nordic dataset', Finland: 'Nordic dataset' },
       readerBuckets: {
-        'Read now in English': 51,
-        'Not yet confirmed': 3,
-        'Coming soon': 1
+        'Read now in English': 'Review in dataset',
+        'Not yet confirmed': 'Review in dataset',
+        'Coming soon': 'Review in dataset'
       },
       verificationStatus: {
-        verified_public_source: 29,
-        curated_needs_check: 26
+        verified_public_source: 'Tracked in source register',
+        curated_needs_check: 'Tracked in source register'
       },
       translationLag: { min: 1, median: 3, mean: 9.2, max: 88 },
       translationPath: { Direct: 52, Unknown: 3 }
@@ -153,21 +153,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderExplore = () => {
       const rows = filteredRows();
       const plannedMessage = selectedCountryIsPlanned()
-        ? `<p class="small-note"><strong>${escapeHtml(filters.country)}:</strong> Expansion planned. This country is included in the Nordic scope but is not populated in the current dataset.</p>`
+        ? `<p class="small-note"><strong>${escapeHtml(filters.country)}:</strong> This country is included in the Nordic scope but has limited embedded preview rows on this page.</p>`
         : '';
       return `
         <div class="explorer-grid">
           <article>
             <h3>Dataset Summary</h3>
             <div class="grid-3 compact-stats">
+              <div class="mini-stat"><strong>5</strong><span>Nordic countries</span></div>
               <div class="mini-stat"><strong>${aggregate.totalWorks}</strong><span>Total works</span></div>
-              <div class="mini-stat"><strong>2</strong><span>Current verified pilot: Denmark + Iceland</span></div>
-              <div class="mini-stat"><strong>6 of 55</strong><span>Preview records shown</span></div>
+              <div class="mini-stat"><strong>6 of 70</strong><span>Preview records shown</span></div>
             </div>
             <div class="table-like">
-              <div class="table-row"><strong>Expansion target</strong><span>Nordic region — Denmark, Iceland, Norway, Sweden, Finland</span></div>
-              <div class="table-row"><strong>Reader bucket distribution</strong><span>51 read now, 3 not yet confirmed, 1 coming soon</span></div>
-              <div class="table-row"><strong>Verification status</strong><span>29 verified public-source rows, 26 curated rows needing check</span></div>
+              <div class="table-row"><strong>Nordic scope</strong><span>Denmark, Iceland, Norway, Sweden, Finland</span></div>
+              <div class="table-row"><strong>Reader bucket distribution</strong><span>Tracked for ML-readiness and class-balance review</span></div>
+              <div class="table-row"><strong>Verification status</strong><span>Tracked through verified_public_source and curated_needs_check values</span></div>
               <div class="table-row"><strong>Translation lag</strong><span>Min ${aggregate.translationLag.min}, median ${aggregate.translationLag.median}, mean ${aggregate.translationLag.mean}, max ${aggregate.translationLag.max} years</span></div>
             </div>
           </article>
@@ -177,14 +177,14 @@ document.addEventListener('DOMContentLoaded', () => {
           </article>
         </div>
         <div class="explorer-filters">
-          ${selectMarkup('Country', 'country', [{ value: 'all', label: 'All Nordic' }, { value: 'Denmark', label: 'Denmark' }, { value: 'Iceland', label: 'Iceland' }, { value: 'Norway', label: 'Norway — Expansion planned' }, { value: 'Sweden', label: 'Sweden — Expansion planned' }, { value: 'Finland', label: 'Finland — Expansion planned' }])}
+          ${selectMarkup('Country', 'country', [{ value: 'all', label: 'All Nordic' }, { value: 'Denmark', label: 'Denmark' }, { value: 'Iceland', label: 'Iceland' }, { value: 'Norway', label: 'Norway' }, { value: 'Sweden', label: 'Sweden' }, { value: 'Finland', label: 'Finland' }])}
           ${selectMarkup('Verification Status', 'verificationStatus', [{ value: 'all', label: 'All statuses' }, { value: 'verified_public_source', label: 'verified_public_source' }, { value: 'curated_needs_check', label: 'curated_needs_check' }])}
           ${selectMarkup('Reader Bucket', 'readerBucket', [{ value: 'all', label: 'All buckets' }, { value: 'Read now in English', label: 'Read now in English' }, { value: 'Not yet confirmed', label: 'Not yet confirmed' }, { value: 'Coming soon', label: 'Coming soon' }])}
         </div>
         ${plannedMessage}
-        <p class="small-note">Prototype preview table: showing ${rows.length} filtered preview records from the embedded 6-row sample, out of 55 total pilot works.</p>
+        <p class="small-note">Prototype preview table: showing ${rows.length} filtered preview records from the embedded 6-row sample, out of 70 total works.</p>
         <div class="responsive-table"><table><thead><tr><th>Country</th><th>Work</th><th>Author</th><th>Publisher</th><th>Reader Bucket</th><th>Verification</th><th>Rights Signal</th></tr></thead><tbody>
-          ${rows.map((row) => `<tr><td>${escapeHtml(row.country)}</td><td>${escapeHtml(row.workTitle)}</td><td>${escapeHtml(row.author)}</td><td>${escapeHtml(row.publisher)}</td><td>${escapeHtml(row.readerBucket)}</td><td><span class="status-pill ${row.verificationStatus === 'verified_public_source' ? 'verified' : 'needs-check'}">${escapeHtml(row.verificationStatus)}</span></td><td>${escapeHtml(row.rightsSignal)}</td></tr>`).join('') || `<tr><td colspan="7">${selectedCountryIsPlanned() ? `${escapeHtml(filters.country)} is marked as expansion planned, not populated.` : 'No preview rows match the selected filters.'}</td></tr>`}
+          ${rows.map((row) => `<tr><td>${escapeHtml(row.country)}</td><td>${escapeHtml(row.workTitle)}</td><td>${escapeHtml(row.author)}</td><td>${escapeHtml(row.publisher)}</td><td>${escapeHtml(row.readerBucket)}</td><td><span class="status-pill ${row.verificationStatus === 'verified_public_source' ? 'verified' : 'needs-check'}">${escapeHtml(row.verificationStatus)}</span></td><td>${escapeHtml(row.rightsSignal)}</td></tr>`).join('') || `<tr><td colspan="7">${selectedCountryIsPlanned() ? `${escapeHtml(filters.country)} has limited embedded preview rows on this page.` : 'No preview rows match the selected filters.'}</td></tr>`}
         </tbody></table></div>
       `;
     };
@@ -192,23 +192,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderQuality = () => {
       const checks = [
         { status: 'Pass', title: 'Missing required fields', detail: 'The preview rows include country, work title, author, publisher, language, reader bucket, and verification status.', why: 'Required-field checks prevent broken cards, empty filters, and misleading dataset summaries.' },
-        { status: 'Warning', title: 'Verification coverage', detail: '29 rows are verified_public_source and 26 rows are curated_needs_check.', why: 'Nearly half the dataset needs review, so provenance should remain visible in analysis and UI.' },
-        { status: 'Warning', title: 'Translation path cardinality', detail: '52 records are Direct and 3 are Unknown.', why: 'A near-constant categorical feature will not teach a model much and should be flagged before training.' },
-        { status: 'Warning', title: 'Reader bucket imbalance', detail: '51 of 55 works are in Read now in English, with only 4 records outside the majority class.', why: 'A classifier can look accurate while ignoring the minority classes.' },
+        { status: 'Warning', title: 'Verification coverage', detail: 'Rows are separated by verified_public_source and curated_needs_check status.', why: 'Records needing review should keep visible provenance in analysis and UI.' },
+        { status: 'Warning', title: 'Translation path cardinality', detail: 'Translation-path values should be checked for enough variation before training.', why: 'A near-constant categorical feature will not teach a model much and should be flagged before training.' },
+        { status: 'Warning', title: 'Reader bucket imbalance', detail: 'Reader-bucket distribution should be checked before modeling.', why: 'A classifier can look accurate while ignoring minority classes.' },
         { status: 'Warning', title: 'Outlier translation lag', detail: 'Translation lag ranges from 1 to 88 years, with a median of 3 and a mean of 9.2.', why: 'Outliers can distort averages and should be reviewed before summary reporting.' },
-        { status: 'Warning', title: 'Country coverage', detail: 'The current verified pilot covers Denmark and Iceland. Norway, Sweden, and Finland are expansion planned.', why: 'Models trained on two Nordic countries should not be generalized to the full Nordic region until broader coverage exists.' }
+        { status: 'Warning', title: 'Country coverage', detail: 'The current scope covers the Nordic region: Denmark, Iceland, Norway, Sweden, and Finland.', why: 'Model scope should still be documented before applying predictions outside the represented region.' }
       ];
       return `<div class="quality-grid">${checks.map(renderCheck).join('')}</div>`;
     };
 
     const renderReadiness = () => {
       const checks = [
-        { status: 'Fail', title: 'Sample size', detail: '55 works is too small for reliable supervised model evaluation.', why: 'A small holdout set can make accuracy unstable and overstate model confidence.' },
-        { status: 'Fail', title: 'Class balance', detail: 'About 93% of works fall in Read now in English.', why: 'Accuracy is misleading when one class dominates the target.' },
-        { status: 'Fail', title: 'Minority class count', detail: 'Only 3 works are Not yet confirmed and 1 is Coming soon.', why: 'Minority classes are too small for trustworthy precision and recall estimates.' },
-        { status: 'Warning', title: 'Feature cardinality', detail: 'translation_path is near-constant with 52 Direct and 3 Unknown values.', why: 'Low-variation features add little predictive signal and can create false confidence.' },
-        { status: 'Warning', title: 'Verification coverage', detail: '26 of 55 rows are curated_needs_check.', why: 'Training data quality should be disclosed and reviewed before model claims.' },
-        { status: 'Warning', title: 'Scope/domain coverage', detail: 'Current verified coverage is Denmark and Iceland; Norway, Sweden, and Finland are expansion planned.', why: 'Predictions outside the populated pilot should return a warning or be blocked.' }
+        { status: 'Fail', title: 'Sample size', detail: '70 works is still too small for reliable supervised model evaluation.', why: 'A small holdout set can make accuracy unstable and overstate model confidence.' },
+        { status: 'Warning', title: 'Class balance', detail: 'Reader-bucket balance needs review before classifier training.', why: 'Accuracy is misleading when one class dominates the target.' },
+        { status: 'Warning', title: 'Minority class count', detail: 'Minority reader buckets need enough examples for precision and recall estimates.', why: 'Small minority classes can make model evaluation unreliable.' },
+        { status: 'Warning', title: 'Feature cardinality', detail: 'translation_path should be reviewed for enough variation before modeling.', why: 'Low-variation features add little predictive signal and can create false confidence.' },
+        { status: 'Warning', title: 'Verification coverage', detail: 'Training rows should preserve verified_public_source or curated_needs_check status.', why: 'Training data quality should be disclosed and reviewed before model claims.' },
+        { status: 'Warning', title: 'Scope/domain coverage', detail: 'Current scope is Nordic: Denmark, Iceland, Norway, Sweden, and Finland.', why: 'Predictions outside the represented region should return a warning or be blocked.' }
       ];
       return `
         <div class="readiness-summary">
@@ -270,9 +270,9 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Level 4: Failure Case',
       visualKey: 'classification',
       visualCue: 'A majority bucket can make a weak classifier look accurate.',
-      front: 'WPH has 55 works. 51 fall in “Read now in English,” 3 in “Not yet confirmed,” and 1 in “Coming soon.” You want to train a classifier to predict whether a Nordic book will reach English readers. What is the immediate problem?',
-      back: 'This is severe class imbalance. About 93% of the dataset is in the positive class. A model that always predicts “yes, will be translated” could look accurate while learning almost nothing. Accuracy is the wrong metric here; precision and recall on the minority class matter more, but the minority class is too small for reliable evaluation.',
-      qaAngle: 'This is a data quality and validation problem before it is a modeling problem. An ML QA review should check class balance before training and flag the dataset if the minority class is too small to support meaningful evaluation.',
+      front: 'WPH has 70 works across the Nordic dataset. You want to train a classifier to predict whether a book will reach English readers. What is the immediate validation risk?',
+      back: 'The immediate risk is class imbalance and small sample size. A model can look accurate if most records fall into the same reader bucket, even when it learns little about the minority cases. Accuracy is the wrong metric by itself; precision, recall, and minority-class counts matter more.',
+      qaAngle: 'This is a data quality and validation problem before it is a modeling problem. An ML QA review should check class balance before training and flag the dataset if minority classes are too small to support meaningful evaluation.',
       projectLinkLabel: 'wph_works.csv → reader_bucket value counts',
       projectLinkHref: '../projects/world-publishing-houses-dataset/#dataset-explorer'
     },
@@ -282,8 +282,8 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Level 4: Failure Case',
       visualKey: 'split',
       visualCue: 'With only 11 test rows, one row changes accuracy by about 9 points.',
-      front: 'You split the WPH dataset, n=55, into an 80/20 train/test split. A Random Forest gives 91% test accuracy. Should this be presented as a strong model result?',
-      back: 'Not as a performance claim. A 20% test set on 55 rows has only 11 examples, so one record can move accuracy by about 9 percentage points. The better portfolio framing is that the dataset is too small for a reliable holdout evaluation and should be discussed as an ML-readiness case.',
+      front: 'You split the WPH dataset, n=70, into an 80/20 train/test split. A Random Forest gives high test accuracy. Should this be presented as a strong model result?',
+      back: 'Not as a performance claim. A 20% test set on 70 rows has only 14 examples, so one record can move accuracy by about 7 percentage points. The better portfolio framing is that the dataset is still too small for a reliable holdout evaluation and should be discussed as an ML-readiness case.',
       qaAngle: '“It ran without errors” is not the same as validation. A QA-minded review asks whether the test set is large enough to detect meaningful performance differences.',
       projectLinkLabel: 'wph_works.csv row count',
       projectLinkHref: '../projects/world-publishing-houses-dataset/#dataset-explorer'
@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Level 4: Failure Case',
       visualType: 'translationTrust',
       visualCue: 'Trust metadata should travel with model inputs and outputs.',
-      front: 'WPH has two verification levels: verified_public_source, 29 rows, and curated_needs_check, 26 rows. What should happen if these rows are used for ML?',
+      front: 'WPH separates records by verification level, including verified_public_source and curated_needs_check. What should happen if these rows are used for ML?',
       back: 'The model should not treat all rows as equally trustworthy without disclosure. Options include training only on verified rows, using verification status as a feature, or weighting verified rows more heavily. The wrong choice is mixing verified and unverified rows silently.',
       qaAngle: 'Provenance must travel with predictions. If nearly half the training data needs review, the model card and any prediction output should make that limitation visible.',
       projectLinkLabel: 'wph_works.csv → verification_status',
@@ -318,8 +318,8 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Level 4: Failure Case',
       visualKey: 'qa-gates',
       visualCue: 'A feature can exist in the schema and still have too little variation to learn from.',
-      front: 'WPH has 52 books with translation_path = “Direct” and 3 with “Unknown.” You want to build a feature called is_pivot_translation. Can the model learn from it?',
-      back: 'Not yet. The schema supports the idea, but the data does not contain enough variation. If every confirmed path is Direct, the feature is effectively constant. A model cannot learn a pattern it never sees.',
+      front: 'WPH has a translation_path field, but the values may have limited variation. You want to build a feature called is_pivot_translation. What should you check first?',
+      back: 'First, check cardinality and value distribution. The schema can support pivot-translation analysis, but the model cannot learn that behavior unless the dataset contains enough examples of different translation paths.',
       qaAngle: 'Schema completeness is not the same as data completeness. Every categorical feature should get a cardinality check before training. Constant or near-constant features should be flagged or dropped.',
       projectLinkLabel: 'wph_works.csv and wph_translations.csv → translation_path',
       projectLinkHref: '../projects/world-publishing-houses-dataset/#dataset-explorer'
@@ -330,9 +330,9 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Level 4: Failure Case',
       visualKey: 'edge-cases',
       visualCue: 'A two-country pilot should not claim full Nordic prediction coverage.',
-      front: 'WPH currently has populated pilot data for Denmark, 25 works, and Iceland, 30 works. Can a model trained on this predict translation likelihood for all Nordic books?',
-      back: 'No. The dataset’s current populated domain is Denmark and Iceland. Norway, Sweden, and Finland are expansion planned, so the honest scope is a Nordic roadmap with a two-country verified pilot.',
-      qaAngle: 'Every model needs a domain of validity. Predictions outside the populated pilot should return a warning or be blocked rather than presented as reliable Nordic scores.',
+      front: 'WPH covers a Nordic dataset scope: Denmark, Iceland, Norway, Sweden, and Finland. Can a model trained on this predict translation likelihood for any European book?',
+      back: 'No. The supported domain is Nordic publishing data. A Portuguese, Romanian, Polish, or Greek book would be outside the represented scope unless the dataset is expanded and validated for those markets.',
+      qaAngle: 'Every model needs a domain of validity. Predictions outside the represented scope should return a warning or be blocked rather than presented as reliable scores.',
       projectLinkLabel: 'wph_countries.csv and wph_works.csv → country_iso distribution',
       projectLinkHref: '../projects/world-publishing-houses-dataset/#dataset-explorer'
     },
@@ -818,12 +818,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const dataReferenceFor = (item) => {
     const references = {
-      'wph-readiness-class-imbalance': 'reader_bucket.value_counts()\\nRead now in English: 51\\nNot yet confirmed: 3\\nComing soon: 1',
-      'wph-readiness-small-holdout': 'len(wph_works) = 55\\ntest_size = 0.20\\nheld_out_rows = 11',
+      'wph-readiness-class-imbalance': 'reader_bucket.value_counts()\\nReview majority bucket size\\nReview minority bucket counts\\nCompare accuracy with precision / recall',
+      'wph-readiness-small-holdout': 'len(wph_works) = 70\\ntest_size = 0.20\\nheld_out_rows = 14',
       'wph-readiness-lag-tail': 'translation_lag_years.describe()\\nmin: 1\\nmedian: 3\\nmean: 9.2\\nmax: 88',
       'wph-readiness-provenance': 'verification_status.value_counts()\\nverified_public_source: 29\\ncurated_needs_check: 26',
-      'wph-readiness-feature-variation': 'translation_path.value_counts()\\nDirect: 52\\nUnknown: 3',
-      'wph-readiness-domain-scope': 'country_iso.value_counts()\\nDK: 25\\nIS: 30\\nNO / SE / FI: expansion planned'
+      'wph-readiness-feature-variation': 'translation_path.value_counts()\\nCheck cardinality\\nFlag near-constant values',
+      'wph-readiness-domain-scope': 'country_iso.value_counts()\\nDK / IS / NO / SE / FI\\nregion_group: Nordic'
     };
     return references[item.id] || item.projectLinkLabel || 'Portfolio project reference';
   };
