@@ -893,8 +893,10 @@ document.addEventListener('DOMContentLoaded', () => {
       position.textContent = 'Card 0 of 0';
       if (progress) progress.style.width = '0%';
       card.classList.add('is-flipped');
-      toggleAnswer.textContent = 'Show QA Angle';
-      toggleAnswer.setAttribute('aria-expanded', 'false');
+      if (toggleAnswer) {
+        toggleAnswer.textContent = 'Show QA Angle';
+        toggleAnswer.setAttribute('aria-expanded', 'false');
+      }
       hint.textContent = 'Add a card below';
       setButtonState(prevBtn, true);
       setButtonState(nextBtn, true);
@@ -912,8 +914,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (progress) progress.style.width = `${((currentIndex + 1) / filteredCards.length) * 100}%`;
 
     card.classList.toggle('is-flipped', isFlipped);
-    toggleAnswer.textContent = isFlipped ? 'Hide QA Angle' : 'Show QA Angle';
-    toggleAnswer.setAttribute('aria-expanded', String(isFlipped));
+    if (toggleAnswer) {
+      toggleAnswer.textContent = isFlipped ? 'Hide QA Angle' : 'Show QA Angle';
+      toggleAnswer.setAttribute('aria-expanded', String(isFlipped));
+    }
     hint.textContent = isFlipped ? 'Answer, QA angle, and project connection are visible.' : 'Click “Show QA Angle” below to reveal the answer, QA angle, and project connection.';
     setButtonState(prevBtn, currentIndex === 0);
     setButtonState(nextBtn, currentIndex === filteredCards.length - 1);
@@ -941,7 +945,7 @@ document.addEventListener('DOMContentLoaded', () => {
       flipCard();
     }
   });
-  toggleAnswer.addEventListener('click', flipCard);
+  if (toggleAnswer) toggleAnswer.addEventListener('click', flipCard);
   if (showProjectBtn) {
     showProjectBtn.addEventListener('click', () => {
       isFlipped = true;
@@ -959,51 +963,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  addForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const q = newQuestion.value.trim();
-    const a = newAnswer.value.trim();
-    const d = newDeck.value.trim() || 'Custom';
-    const m = newMemory.value.trim() || 'Picture the idea as a simple flow: input → process → result.';
+  if (addForm) {
+    addForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const q = newQuestion.value.trim();
+      const a = newAnswer.value.trim();
+      const d = newDeck.value.trim() || 'Custom';
+      const m = newMemory.value.trim() || 'Picture the idea as a simple flow: input → process → result.';
 
-    if (!q || !a) {
-      formMessage.textContent = 'Please add both a question and an answer.';
-      return;
-    }
+      if (!q || !a) {
+        formMessage.textContent = 'Please add both a question and an answer.';
+        return;
+      }
 
-    const customCards = getCustomCards();
-    const cardToAdd = {
-      id: `custom-${Date.now()}`,
-      deck: d,
-      level: 'Custom',
-      visualKey: 'custom',
-      memoryHook: m,
-      front: q,
-      back: a,
-      qaAngle: 'Custom author-mode card. Add a QA angle before publishing this card.',
-      projectLinkLabel: 'Portfolio project',
-      projectLinkHref: 'projects.html'
-    };
+      const customCards = getCustomCards();
+      const cardToAdd = {
+        id: `custom-${Date.now()}`,
+        deck: d,
+        level: 'Custom',
+        visualKey: 'custom',
+        memoryHook: m,
+        front: q,
+        back: a,
+        qaAngle: 'Custom author-mode card. Add a QA angle before publishing this card.',
+        projectLinkLabel: 'Portfolio project',
+        projectLinkHref: 'projects.html'
+      };
 
-    customCards.push(cardToAdd);
-    setCustomCards(customCards);
-    newQuestion.value = '';
-    newAnswer.value = '';
-    newMemory.value = '';
-    newDeck.value = 'Custom';
-    formMessage.textContent = 'Flashcard added on this device with a visual memory cue.';
-    deckFilter.value = Array.from(deckFilter.options).some((option) => option.value === d) ? d : 'WPH Dataset Readiness';
-    applyFilter();
-  });
+      customCards.push(cardToAdd);
+      setCustomCards(customCards);
+      newQuestion.value = '';
+      newAnswer.value = '';
+      newMemory.value = '';
+      newDeck.value = 'Custom';
+      formMessage.textContent = 'Flashcard added on this device with a visual memory cue.';
+      deckFilter.value = Array.from(deckFilter.options).some((option) => option.value === d) ? d : 'WPH Dataset Readiness';
+      applyFilter();
+    });
+  }
 
-  clearCustomBtn.addEventListener('click', () => {
-    const confirmed = window.confirm('Clear all custom flashcards saved in this browser?');
-    if (!confirmed) return;
-    setCustomCards([]);
-    formMessage.textContent = 'Custom cards cleared from this device.';
-    if (deckFilter.value === 'Custom') deckFilter.value = 'WPH Dataset Readiness';
-    applyFilter();
-  });
+  if (clearCustomBtn) {
+    clearCustomBtn.addEventListener('click', () => {
+      const confirmed = window.confirm('Clear all custom flashcards saved in this browser?');
+      if (!confirmed) return;
+      setCustomCards([]);
+      formMessage.textContent = 'Custom cards cleared from this device.';
+      if (deckFilter.value === 'Custom') deckFilter.value = 'WPH Dataset Readiness';
+      applyFilter();
+    });
+  }
 
   applyFilter();
 });
