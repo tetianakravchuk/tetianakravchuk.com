@@ -753,6 +753,7 @@ document.addEventListener('DOMContentLoaded', () => {
     classification: `
       <div class="visual-flow wide"><span class="visual-pill">text</span><span class="visual-arrow">→</span><span class="visual-pill">embedding</span><span class="visual-arrow">→</span><span class="visual-pill strong">label</span></div>
       <div class="label-row"><span>children’s</span><span>translation</span><span>rights</span></div>
+      <p class="visual-caption">Highlighted step shows the predicted output or classification target.</p>
     `,
     'qa-gates': `
       <div class="gate-flow"><span>data QA</span><span>model QA</span><span>release QA</span></div>
@@ -846,6 +847,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const memory = el('[data-card-memory]');
   const visual = el('[data-card-visual]');
   const position = el('[data-card-position]');
+  const progress = el('[data-card-progress]');
   const toggleAnswer = el('[data-toggle-answer]');
   const showProjectBtn = el('[data-show-project]');
   const prevBtn = el('[data-prev-card]');
@@ -865,6 +867,12 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentIndex = 0;
   let isFlipped = false;
 
+  const setButtonState = (button, disabled) => {
+    if (!button) return;
+    button.disabled = disabled;
+    button.setAttribute('aria-disabled', String(disabled));
+  };
+
   const applyFilter = () => {
     const selectedDeck = deckFilter.value;
     allCards = [...baseFlashcards, ...getCustomCards()];
@@ -883,9 +891,13 @@ document.addEventListener('DOMContentLoaded', () => {
       memory.textContent = 'Visual cue: create one small picture in your mind before checking the answer.';
       visual.innerHTML = visualTemplates.custom;
       position.textContent = 'Card 0 of 0';
+      if (progress) progress.style.width = '0%';
       card.classList.add('is-flipped');
       toggleAnswer.textContent = 'Show QA Angle';
+      toggleAnswer.setAttribute('aria-expanded', 'false');
       hint.textContent = 'Add a card below';
+      setButtonState(prevBtn, true);
+      setButtonState(nextBtn, true);
       return;
     }
 
@@ -896,16 +908,22 @@ document.addEventListener('DOMContentLoaded', () => {
     level.textContent = active.level || 'Study';
     memory.textContent = active.visualCue || active.memoryHook || 'Visual cue: connect the concept to a product failure mode or validation check.';
     visual.innerHTML = renderVisual(active);
-    position.textContent = `Card ${currentIndex + 1} of ${filteredCards.length}`;
+    position.textContent = `${currentIndex + 1} / ${filteredCards.length}`;
+    if (progress) progress.style.width = `${((currentIndex + 1) / filteredCards.length) * 100}%`;
 
     card.classList.toggle('is-flipped', isFlipped);
-    toggleAnswer.textContent = isFlipped ? 'Hide Answer' : 'Show QA Angle';
+    toggleAnswer.textContent = isFlipped ? 'Hide QA Angle' : 'Show QA Angle';
+    toggleAnswer.setAttribute('aria-expanded', String(isFlipped));
     hint.textContent = isFlipped ? 'Answer, QA angle, and project connection are visible.' : 'Click “Show QA Angle” below to reveal the answer, QA angle, and project connection.';
+    setButtonState(prevBtn, currentIndex === 0);
+    setButtonState(nextBtn, currentIndex === filteredCards.length - 1);
   };
 
   const moveCard = (step) => {
     if (!filteredCards.length) return;
-    currentIndex = (currentIndex + step + filteredCards.length) % filteredCards.length;
+    const nextIndex = currentIndex + step;
+    if (nextIndex < 0 || nextIndex >= filteredCards.length) return;
+    currentIndex = nextIndex;
     isFlipped = false;
     renderCard();
   };
@@ -979,6 +997,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   clearCustomBtn.addEventListener('click', () => {
+    const confirmed = window.confirm('Clear all custom flashcards saved in this browser?');
+    if (!confirmed) return;
     setCustomCards([]);
     formMessage.textContent = 'Custom cards cleared from this device.';
     if (deckFilter.value === 'Custom') deckFilter.value = 'WPH Dataset Readiness';

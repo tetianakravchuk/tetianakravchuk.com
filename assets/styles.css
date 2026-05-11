@@ -16,6 +16,10 @@
 
 * { box-sizing: border-box; }
 
+[hidden] {
+  display: none !important;
+}
+
 html,
 body {
   overflow-x: hidden;
@@ -52,6 +56,18 @@ a { color: inherit; text-decoration: none; }
 :where(a, button, input, select, textarea, [tabindex]):focus-visible {
   outline: 3px solid rgba(65, 95, 70, 0.58);
   outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .skip-link {
@@ -303,10 +319,17 @@ a { color: inherit; text-decoration: none; }
 .button:hover { transform: translateY(-2px); }
 
 .button.disabled,
-.button[aria-disabled="true"] {
+.button[aria-disabled="true"],
+.button:disabled {
   cursor: not-allowed;
   opacity: 0.68;
   transform: none;
+}
+
+.button.danger {
+  border-color: #a05a3a;
+  color: #8a3d20;
+  background: #fbede8;
 }
 
 .section { padding: 58px 0; }
@@ -393,6 +416,18 @@ a { color: inherit; text-decoration: none; }
 .contact-strip a {
   color: var(--button-outline);
   font-weight: 760;
+}
+
+.opportunity-strip {
+  border-left: 4px solid var(--accent-2);
+  background: rgba(248, 239, 227, 0.86);
+  margin-top: 24px;
+}
+
+.opportunity-strip strong::before {
+  content: "•";
+  color: var(--accent-2);
+  margin-right: 8px;
 }
 
 .footer {
@@ -649,7 +684,7 @@ code {
   display: grid;
   grid-template-columns: minmax(240px, 0.34fr) minmax(0, 0.66fr);
   gap: 20px;
-  align-items: stretch;
+  align-items: start;
 }
 
 .flashcard-layout > * {
@@ -660,6 +695,14 @@ code {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+@media (min-width: 851px) {
+  .flashcard-sidebar {
+    position: sticky;
+    top: 88px;
+    align-self: start;
+  }
 }
 
 .field-label {
@@ -690,11 +733,11 @@ textarea.input {
 }
 
 .mini-progress {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
   gap: 12px;
-  color: var(--muted);
-  font-size: 0.9rem;
+  color: #263528;
+  font-size: 0.98rem;
+  font-weight: 850;
   margin-top: 6px;
 }
 
@@ -731,6 +774,7 @@ textarea.input {
 
 .flashcard-card {
   min-height: 360px;
+  max-height: none;
   border-radius: 30px;
   border: 1px solid #dfc9b0;
   background:
@@ -753,7 +797,8 @@ textarea.input {
 }
 
 .flashcard-card h3 {
-  font-size: 2.8rem;
+  font-size: clamp(1.1rem, 2.5vw, 1.75rem);
+  line-height: 1.25;
   max-width: 780px;
 }
 
@@ -833,7 +878,7 @@ textarea.input {
 }
 
 .flashcard-card.is-flipped h3 {
-  font-size: 1.9rem;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
   color: var(--accent);
 }
 
@@ -885,8 +930,8 @@ textarea.input {
 @media (max-width: 850px) {
   .flashcard-layout { grid-template-columns: 1fr; }
   .flashcard-card { min-height: 300px; padding: 28px; }
-  .flashcard-card h3 { font-size: 2rem; }
-  .flashcard-card.is-flipped h3 { font-size: 1.55rem; }
+  .flashcard-card h3 { font-size: clamp(1.1rem, 5vw, 1.5rem); }
+  .flashcard-card.is-flipped h3 { font-size: clamp(1rem, 4vw, 1.28rem); }
   .flashcard-answer { font-size: 1.08rem; }
 }
 
@@ -1554,6 +1599,10 @@ textarea.input {
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.responsive-table tbody tr:nth-child(even) {
+  background: rgba(248, 239, 227, 0.42);
 }
 
 .responsive-table tr:last-child td {
