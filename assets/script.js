@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-readiness-class-imbalance',
       deck: 'WPH Dataset Readiness',
-      level: 'ML Readiness',
+      level: 'Level 4: Failure Case',
       visualKey: 'classification',
       visualCue: 'A majority bucket can make a weak classifier look accurate.',
       front: 'WPH has 55 works. 51 fall in “Read now in English,” 3 in “Not yet confirmed,” and 1 in “Coming soon.” You want to train a classifier to predict whether a Nordic book will reach English readers. What is the immediate problem?',
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-readiness-small-holdout',
       deck: 'WPH Dataset Readiness',
-      level: 'ML Readiness',
+      level: 'Level 4: Failure Case',
       visualKey: 'split',
       visualCue: 'With only 11 test rows, one row changes accuracy by about 9 points.',
       front: 'You split the WPH dataset, n=55, into an 80/20 train/test split. A Random Forest gives 91% test accuracy. Should this be presented as a strong model result?',
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-readiness-lag-tail',
       deck: 'WPH Dataset Readiness',
-      level: 'ML Readiness',
+      level: 'Level 4: Failure Case',
       visualKey: 'rmse',
       visualCue: 'A long right tail means the average alone does not tell the full story.',
       front: 'WPH translation lag ranges from 1 to 88 years, with a median of 3 and a mean of 9.2. What does the gap between median and mean tell you?',
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-readiness-provenance',
       deck: 'WPH Dataset Readiness',
-      level: 'ML Readiness',
+      level: 'Level 4: Failure Case',
       visualType: 'translationTrust',
       visualCue: 'Trust metadata should travel with model inputs and outputs.',
       front: 'WPH has two verification levels: verified_public_source, 29 rows, and curated_needs_check, 26 rows. What should happen if these rows are used for ML?',
@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-readiness-feature-variation',
       deck: 'WPH Dataset Readiness',
-      level: 'ML Readiness',
+      level: 'Level 4: Failure Case',
       visualKey: 'qa-gates',
       visualCue: 'A feature can exist in the schema and still have too little variation to learn from.',
       front: 'WPH has 52 books with translation_path = “Direct” and 3 with “Unknown.” You want to build a feature called is_pivot_translation. Can the model learn from it?',
@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-readiness-domain-scope',
       deck: 'WPH Dataset Readiness',
-      level: 'ML Readiness',
+      level: 'Level 4: Failure Case',
       visualKey: 'edge-cases',
       visualCue: 'A two-country pilot should not claim Europe-wide prediction coverage.',
       front: 'WPH currently covers Denmark, 25 works, and Iceland, 30 works. Can a model trained on this predict translation likelihood for any European book?',
@@ -331,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-dq-entity-resolution',
       deck: 'WPH: Data Quality',
-      level: 'Portfolio',
+      level: 'Level 4: Failure Case',
       visualType: 'entityResolution',
       visualCue: 'Publisher variants should be reviewed before merging into one trusted entity.',
       front: 'WPH has “Penguin Random House UK” and “Penguin Books Ltd” as separate publisher entries. What ML/data problem is this?',
@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-dq-language-code',
       deck: 'WPH: Data Quality',
-      level: 'Portfolio',
+      level: 'Level 4: Failure Case',
       visualType: 'conflictDetection',
       visualCue: 'A small code casing issue can change meaning for users.',
       front: 'A book page shows “UK” as the original language for a Ukrainian work. What kind of data quality bug is this?',
@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-dq-translator-conflict',
       deck: 'WPH: Data Quality',
-      level: 'Portfolio',
+      level: 'Level 4: Failure Case',
       visualType: 'translationTrust',
       visualCue: 'Conflicting translator metadata needs provenance, not silent overwrite.',
       front: 'Two sources disagree about the translator of the same book edition. What should the system do?',
@@ -367,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-dq-count-mismatch',
       deck: 'WPH: Data Quality',
-      level: 'Portfolio',
+      level: 'Level 4: Failure Case',
       visualKey: 'qa-gates',
       visualCue: 'Hero metrics and rendered content must agree under the same filters.',
       front: 'A WPH country page has 0 translations in the hero but translation cards lower on the page. What type of bug is this?',
@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-dq-availability-confidence',
       deck: 'WPH: Data Quality',
-      level: 'Portfolio',
+      level: 'Level 4: Failure Case',
       visualType: 'classificationWph',
       visualCue: 'Reader-facing availability labels need source evidence.',
       front: 'A book is listed as “Coming soon in English,” but there is no release date or publisher source. What should happen?',
@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-dq-evidence-levels',
       deck: 'WPH: Data Quality',
-      level: 'Portfolio',
+      level: 'Level 4: Failure Case',
       visualType: 'translationTrust',
       visualCue: 'Verified rows and curated research leads should never share the same trust badge.',
       front: 'Why should WPH separate verified public-source rows from curated demonstration rows?',
@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-ml-rights-ranking',
       deck: 'WPH: ML Applications',
-      level: 'Portfolio',
+      level: 'Level 3: Applied Reasoning',
       visualType: 'modelEvaluationWph',
       visualCue: 'A rights watchlist model should support decisions, not replace editorial judgment.',
       front: 'How could WPH predict which untranslated books may be good candidates for English translation?',
@@ -415,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-ml-publisher-clusters',
       deck: 'WPH: ML Applications',
-      level: 'Portfolio',
+      level: 'Level 3: Applied Reasoning',
       visualType: 'embeddingsWph',
       visualCue: 'Embeddings can group publishers, but clusters still need human-readable reasons.',
       front: 'How could embeddings help WPH organize publishers?',
@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-ml-reader-buckets',
       deck: 'WPH: ML Applications',
-      level: 'Portfolio',
+      level: 'Level 3: Applied Reasoning',
       visualType: 'classificationWph',
       visualCue: 'Reader-facing availability buckets are high-trust labels.',
       front: 'How could WPH classify books into reader buckets like “Read now,” “Coming soon,” and “Not yet in English”?',
@@ -439,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'wph-ml-recommendation-baseline',
       deck: 'WPH: ML Applications',
-      level: 'Portfolio',
+      level: 'Level 2: Tradeoff',
       visualKey: 'split',
       visualCue: 'Transparent rules are the baseline before claiming ML adds value.',
       front: 'What is the simplest baseline before building an ML recommendation model for WPH?',
@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'capstone-r2-production',
       deck: 'Capstone: Model Validation',
-      level: 'ML QA',
+      level: 'Level 4: Failure Case',
       visualKey: 'r2',
       visualCue: 'R² around 0.517 is useful signal, not production appraisal confidence.',
       front: 'The housing model has R² ≈ 0.517. Is that good enough for production appraisal?',
@@ -463,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'capstone-rmse-risk',
       deck: 'Capstone: Model Validation',
-      level: 'ML QA',
+      level: 'Level 4: Failure Case',
       visualKey: 'rmse',
       visualCue: 'RMSE makes large valuation mistakes more visible.',
       front: 'Why is RMSE useful in the property-value capstone?',
@@ -475,7 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'capstone-naive-baseline',
       deck: 'Capstone: Model Validation',
-      level: 'ML QA',
+      level: 'Level 4: Failure Case',
       visualKey: 'split',
       visualCue: 'A simple baseline keeps model claims honest.',
       front: 'Why should the capstone include a naive mean-prediction baseline?',
@@ -487,7 +487,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'capstone-location-fairness',
       deck: 'Capstone: Model Validation',
-      level: 'ML QA',
+      level: 'Level 4: Failure Case',
       visualKey: 'edge-cases',
       visualCue: 'Location can act as a proxy feature and create uneven error patterns.',
       front: 'Why can location features create fairness risk in a housing model?',
@@ -499,7 +499,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'qa-ml-vs-software',
       deck: 'QA for ML',
-      level: 'ML QA',
+      level: 'Level 4: Failure Case',
       visualKey: 'qa-gates',
       visualCue: 'ML QA checks model behavior, not just whether code executes.',
       front: 'How is testing an ML model different from testing regular software?',
@@ -511,7 +511,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'qa-ml-golden-dataset',
       deck: 'QA for ML',
-      level: 'ML QA',
+      level: 'Level 4: Failure Case',
       visualKey: 'qa-gates',
       visualCue: 'A small trusted dataset can catch behavior regressions over time.',
       front: 'What is a golden dataset?',
@@ -523,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'qa-ml-data-drift',
       deck: 'QA for ML',
-      level: 'ML QA',
+      level: 'Level 4: Failure Case',
       visualKey: 'edge-cases',
       visualCue: 'Production data can move away from the training distribution.',
       front: 'What is data drift?',
@@ -535,7 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'qa-ml-release-checklist',
       deck: 'QA for ML',
-      level: 'ML QA',
+      level: 'Level 4: Failure Case',
       visualKey: 'qa-gates',
       visualCue: 'Release readiness means the model is understood, monitored, and bounded by use case.',
       front: 'What should be checked before releasing an ML model?',
@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'fundamentals-supervised-learning',
       deck: 'Fundamentals for Study',
-      level: 'Foundation',
+      level: 'Level 1: Definition',
       visualType: 'supervisedWph',
       visualCue: 'X features plus known y teach the model a prediction pattern.',
       front: 'What is supervised learning?',
@@ -559,7 +559,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'fundamentals-train-test',
       deck: 'Fundamentals for Study',
-      level: 'Foundation',
+      level: 'Level 1: Definition',
       visualKey: 'split',
       visualCue: 'Holdout data is the model’s first reality check.',
       front: 'Why do we split data into training and test sets?',
@@ -571,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'fundamentals-rmse-mae',
       deck: 'Fundamentals for Study',
-      level: 'Foundation',
+      level: 'Level 1: Definition',
       visualKey: 'mae',
       visualCue: 'RMSE highlights large errors; MAE explains average absolute error.',
       front: 'Why compare RMSE and MAE?',
@@ -583,7 +583,7 @@ document.addEventListener('DOMContentLoaded', () => {
     {
       id: 'fundamentals-embeddings',
       deck: 'Fundamentals for Study',
-      level: 'Foundation',
+      level: 'Level 1: Definition',
       visualType: 'embeddingsWph',
       visualCue: 'Embeddings compare meaning, but similarity still needs product validation.',
       front: 'What are embeddings?',
