@@ -96,10 +96,10 @@ document.addEventListener('DOMContentLoaded', () => {
       visualType: 'entityResolution',
       visualCue: 'Publisher variants should be reviewed before merging into one trusted entity.',
       front: 'WPH has “Penguin Random House UK” and “Penguin Books Ltd” as separate publisher entries. What ML/data problem is this?',
-      back: 'Entity resolution / record linkage. Start with a heuristic baseline: normalize names, remove suffixes like Ltd/GmbH/AB, compare country, imprint, ISBN prefix, and author overlap. Use embeddings only after simple rules fail.',
-      qaAngle: 'False merges are more dangerous than false splits. Merging two real publishers can permanently corrupt lineage; splitting one publisher is easier to repair.',
-      projectLinkLabel: 'WPH Dataset / Publishers section',
-      projectLinkHref: '../projects/world-publishing-houses-dataset/'
+      back: 'This is entity resolution, also called record linkage. A simple baseline would normalize publisher names, remove legal suffixes like Ltd or AB, compare country and imprint information, and check overlap in authors or ISBN prefixes before using heavier ML methods.',
+      qaAngle: 'False merges are more dangerous than false splits. Merging two real publishers can permanently corrupt lineage and attribution, while splitting one publisher into two records is usually easier to detect and repair.',
+      projectLinkLabel: 'WPH Dataset — Publishers',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#publishers'
     },
     {
       id: 'wph-dq-language-code',
@@ -108,10 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
       visualType: 'conflictDetection',
       visualCue: 'A small code casing issue can change meaning for users.',
       front: 'A book page shows “UK” as the original language for a Ukrainian work. What kind of data quality bug is this?',
-      back: 'ISO/code mapping error. “uk” can mean Ukrainian as a language code, but “UK” visually reads as United Kingdom. The UI must distinguish language codes from country codes.',
-      qaAngle: 'Test language labels with real examples, especially Ukrainian, Norwegian Bokmål, Danish, Icelandic, and English. Check that backend codes render as human-readable names.',
-      projectLinkLabel: 'WPH QA / Trust section',
-      projectLinkHref: 'world-publishing-houses.html'
+      back: 'This is a code-mapping and display-label bug. The ISO language code “uk” means Ukrainian, but visually “UK” reads as United Kingdom. The system needs to distinguish language codes from country codes and render human-readable labels.',
+      qaAngle: 'This is exactly the kind of bug QA should catch with real multilingual test data. I would test Ukrainian, Norwegian Bokmål, Danish, Icelandic, and English examples to make sure backend codes display correctly in the UI.',
+      projectLinkLabel: 'WPH Trust & Verification',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#trust'
     },
     {
       id: 'wph-dq-translator-conflict',
@@ -120,10 +120,10 @@ document.addEventListener('DOMContentLoaded', () => {
       visualType: 'translationTrust',
       visualCue: 'Conflicting translator metadata needs provenance, not silent overwrite.',
       front: 'Two sources disagree about the translator of the same book edition. What should the system do?',
-      back: 'Store conflicting attribution with source provenance instead of overwriting one value. Mark the translator field as verified, unverified, or disputed.',
-      qaAngle: 'Never silently collapse conflicting metadata. A QA test should verify that disputed records show a warning and source trail.',
-      projectLinkLabel: 'WPH Translation Trust section',
-      projectLinkHref: 'world-publishing-houses.html'
+      back: 'The system should not overwrite one value silently. It should store both claims with source provenance and mark the translator attribution as verified, unverified, or disputed.',
+      qaAngle: 'Conflicting metadata is not just a content issue; it is a trust issue. I would test that disputed records show a visible warning, source trail, and no false verified badge.',
+      projectLinkLabel: 'WPH Translation Trust',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#translations'
     },
     {
       id: 'wph-dq-count-mismatch',
@@ -132,10 +132,34 @@ document.addEventListener('DOMContentLoaded', () => {
       visualKey: 'qa-gates',
       visualCue: 'Hero metrics and rendered content must agree under the same filters.',
       front: 'A WPH country page has 0 translations in the hero but translation cards lower on the page. What type of bug is this?',
-      back: 'Metric-content mismatch. Aggregated counts and visible page content are being calculated from different sources or filters.',
-      qaAngle: 'Add regression tests comparing hero counts against rendered module counts for the same country/month/filter.',
+      back: 'This is a metric-content mismatch. The aggregate count and the visible module are likely using different filters, data sources, or month logic.',
+      qaAngle: 'I would add regression checks comparing hero counts against rendered module counts for the same country, month, and view mode. If the page says 0, the user should not see contradictory records below.',
       projectLinkLabel: 'WPH Country Page QA',
-      projectLinkHref: 'world-publishing-houses.html'
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#dashboard'
+    },
+    {
+      id: 'wph-dq-availability-confidence',
+      deck: 'WPH: Data Quality',
+      level: 'Portfolio',
+      visualType: 'classificationWph',
+      visualCue: 'Reader-facing availability labels need source evidence.',
+      front: 'A book is listed as “Coming soon in English,” but there is no release date or publisher source. What should happen?',
+      back: 'The system should downgrade the confidence level. It can show the item as a potential signal, but it should not present it as a confirmed upcoming English release without source evidence.',
+      qaAngle: 'Reader-facing labels need stricter standards than internal research notes. I would test that uncertain records appear as unverified signals, not confirmed availability.',
+      projectLinkLabel: 'WPH Reader Mode',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#reader-professional'
+    },
+    {
+      id: 'wph-dq-evidence-levels',
+      deck: 'WPH: Data Quality',
+      level: 'Portfolio',
+      visualType: 'translationTrust',
+      visualCue: 'Verified rows and curated research leads should never share the same trust badge.',
+      front: 'Why should WPH separate verified public-source rows from curated demonstration rows?',
+      back: 'Because the product depends on trust. Verified rows can support user-facing claims, while curated rows are useful for prototyping, demos, and schema testing but need manual review before production use.',
+      qaAngle: 'A data product should make uncertainty visible. I would test that curated_needs_check records never receive the same trust badge as verified_public_source records.',
+      projectLinkLabel: 'WPH Source Register',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#verification'
     },
     {
       id: 'wph-ml-rights-ranking',
@@ -144,10 +168,10 @@ document.addEventListener('DOMContentLoaded', () => {
       visualType: 'modelEvaluationWph',
       visualCue: 'A rights watchlist model should support decisions, not replace editorial judgment.',
       front: 'How could WPH predict which untranslated books may be good candidates for English translation?',
-      back: 'A ranking model could use awards, publisher activity, author visibility, prior translations, genre, country momentum, and similar-title signals.',
-      qaAngle: 'The model should be decision-support only. Test for over-ranking already famous markets and under-ranking smaller-language authors.',
+      back: 'A ranking model could use awards, publisher activity, author visibility, prior translation history, genre, market events, country momentum, and similar-title signals.',
+      qaAngle: 'This should be decision-support, not an automatic truth engine. I would test whether the model over-ranks already famous markets and under-ranks smaller-language authors or publishers.',
       projectLinkLabel: 'WPH Rights Watchlist',
-      projectLinkHref: '../projects/world-publishing-houses-dataset/'
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#rights'
     },
     {
       id: 'wph-ml-publisher-clusters',
@@ -156,10 +180,10 @@ document.addEventListener('DOMContentLoaded', () => {
       visualType: 'embeddingsWph',
       visualCue: 'Embeddings can group publishers, but clusters still need human-readable reasons.',
       front: 'How could embeddings help WPH organize publishers?',
-      back: 'Publisher descriptions, catalogs, genres, and author lists could be embedded and clustered to reveal similar publishers or market niches.',
-      qaAngle: 'Clusters must be explainable. QA should check whether clusters make editorial sense, not just mathematical sense.',
+      back: 'Publisher descriptions, catalogs, genres, author lists, and rights activity could be embedded and clustered to identify similar publishers or market niches.',
+      qaAngle: 'Clusters need editorial sense, not just mathematical closeness. I would review examples from each cluster and check whether the grouping is explainable to a publishing user.',
       projectLinkLabel: 'WPH Publisher Intelligence',
-      projectLinkHref: 'world-publishing-houses.html'
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#publishers'
     },
     {
       id: 'wph-ml-reader-buckets',
@@ -167,11 +191,11 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Portfolio',
       visualType: 'classificationWph',
       visualCue: 'Reader-facing availability buckets are high-trust labels.',
-      front: 'How could WPH classify books into reader buckets?',
-      back: 'A classifier or rule-based system could assign: “Read now in English,” “Coming soon in English,” or “Not yet in English” based on release and translation metadata.',
-      qaAngle: 'Bucket assignment is user-facing and high trust. Test edge cases where rights are acquired but no release date exists.',
-      projectLinkLabel: 'WPH Reader Mode',
-      projectLinkHref: 'world-publishing-houses.html'
+      front: 'How could WPH classify books into reader buckets like “Read now,” “Coming soon,” and “Not yet in English”?',
+      back: 'A rule-based classifier or ML model could use translation records, release dates, publisher announcements, language paths, and source confidence to assign reader-facing availability buckets.',
+      qaAngle: 'Bucket labels are high-trust UI. I would test edge cases where rights are acquired but no English release exists, because those should not be shown as available to readers.',
+      projectLinkLabel: 'WPH Reader Buckets',
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#reader-professional'
     },
     {
       id: 'wph-ml-recommendation-baseline',
@@ -179,11 +203,11 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'Portfolio',
       visualKey: 'split',
       visualCue: 'Transparent rules are the baseline before claiming ML adds value.',
-      front: 'What is the simplest baseline before using ML for WPH recommendations?',
-      back: 'A rules-based baseline: prioritize verified English availability, recent awards, active publishers, known translators, and recent market events.',
-      qaAngle: 'Always compare ML suggestions against a transparent rule-based baseline before claiming the model adds value.',
+      front: 'What is the simplest baseline before building an ML recommendation model for WPH?',
+      back: 'A transparent rule-based baseline: prioritize verified English availability, recent awards, active publishers, known translators, recent market events, and source-backed translation signals.',
+      qaAngle: 'Before claiming ML value, I would compare model recommendations against this baseline. If the ML model cannot beat simple rules, it is not ready.',
       projectLinkLabel: 'WPH Recommendation Logic',
-      projectLinkHref: 'world-publishing-houses.html'
+      projectLinkHref: '../projects/world-publishing-houses-dataset/#product-insight'
     },
     {
       id: 'capstone-r2-production',
@@ -192,8 +216,8 @@ document.addEventListener('DOMContentLoaded', () => {
       visualKey: 'r2',
       visualCue: 'R² around 0.517 is useful signal, not production appraisal confidence.',
       front: 'The housing model has R² ≈ 0.517. Is that good enough for production appraisal?',
-      back: 'No. It shows meaningful signal, but it is not strong enough for high-stakes valuation without more validation, feature engineering, fairness checks, and monitoring.',
-      qaAngle: 'A QA-minded model review asks: where does it fail, for whom, and under what market conditions?',
+      back: 'No. It shows meaningful signal, but it is not strong enough for high-stakes valuation without more validation, feature engineering, fairness checks, market-specific testing, and monitoring.',
+      qaAngle: 'A QA-minded model review asks where the model fails, for whom, and under what market conditions. The result is useful as a validation case study, not as a production-ready appraisal tool.',
       projectLinkLabel: 'Capstone Results',
       projectLinkHref: 'data-science.html#housing'
     },
@@ -204,8 +228,8 @@ document.addEventListener('DOMContentLoaded', () => {
       visualKey: 'rmse',
       visualCue: 'RMSE makes large valuation mistakes more visible.',
       front: 'Why is RMSE useful in the property-value capstone?',
-      back: 'RMSE penalizes large prediction errors more heavily, which matters when expensive valuation mistakes are risky.',
-      qaAngle: 'Also inspect MAE and residuals. A model can have acceptable average error but still fail badly on expensive homes or specific regions.',
+      back: 'RMSE penalizes large prediction errors more heavily, which matters when expensive valuation mistakes create higher business risk.',
+      qaAngle: 'I would still inspect MAE and residuals. A model can look acceptable on average while failing badly for high-end homes, rural properties, or underrepresented regions.',
       projectLinkLabel: 'Capstone Metrics',
       projectLinkHref: 'data-science.html#housing'
     },
@@ -215,9 +239,9 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'ML QA',
       visualKey: 'split',
       visualCue: 'A simple baseline keeps model claims honest.',
-      front: 'Why add a naive mean-prediction baseline?',
+      front: 'Why should the capstone include a naive mean-prediction baseline?',
       back: 'A baseline shows whether the ML model improves over a simple non-ML approach. Without it, model metrics lack context.',
-      qaAngle: 'Every model evaluation should include at least one simple baseline before claiming success.',
+      qaAngle: 'Every model evaluation should include a simple benchmark before claiming model value. This is a release-readiness requirement, not just a notebook improvement.',
       projectLinkLabel: 'Capstone Model Comparison',
       projectLinkHref: 'data-science.html#housing'
     },
@@ -227,9 +251,9 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'ML QA',
       visualKey: 'edge-cases',
       visualCue: 'Location can act as a proxy feature and create uneven error patterns.',
-      front: 'Why can location features create fairness risk?',
-      back: 'Latitude, longitude, region, and ZIP-like fields can proxy socioeconomic patterns. The model may learn historical inequality rather than property value alone.',
-      qaAngle: 'Test error rates by region, price band, and property type. Require fairness review before production use.',
+      front: 'Why can location features create fairness risk in a housing model?',
+      back: 'Latitude, longitude, region, and ZIP-like fields can proxy socioeconomic patterns. The model may learn historical inequality or market segmentation instead of only property characteristics.',
+      qaAngle: 'I would compare residuals by region, price band, and property type. If one group has much higher error, the model needs scope limits, feature review, or separate treatment.',
       projectLinkLabel: 'Capstone Ethics Lens',
       projectLinkHref: 'data-science.html#model-validation'
     },
@@ -239,9 +263,9 @@ document.addEventListener('DOMContentLoaded', () => {
       level: 'ML QA',
       visualKey: 'qa-gates',
       visualCue: 'ML QA checks model behavior, not just whether code executes.',
-      front: 'How is testing an ML model different from testing normal software?',
-      back: 'Traditional software has expected outputs. ML systems produce probabilistic outputs, so QA must validate data, metrics, drift, edge cases, and failure patterns.',
-      qaAngle: 'A passing unit test does not mean the model is trustworthy. Model QA needs statistical and production checks.',
+      front: 'How is testing an ML model different from testing regular software?',
+      back: 'Traditional software often has deterministic expected outputs. ML systems produce probabilistic outputs, so QA must validate data quality, metrics, drift, edge cases, failure patterns, and monitoring.',
+      qaAngle: 'A passing unit test does not mean the model is trustworthy. ML QA needs statistical checks, production-risk review, and clear acceptance criteria.',
       projectLinkLabel: 'ML QA Case Study',
       projectLinkHref: 'data-science.html#model-validation'
     },
@@ -252,8 +276,8 @@ document.addEventListener('DOMContentLoaded', () => {
       visualKey: 'qa-gates',
       visualCue: 'A small trusted dataset can catch behavior regressions over time.',
       front: 'What is a golden dataset?',
-      back: 'A small, trusted dataset with verified labels or expected outcomes used to test model behavior over time.',
-      qaAngle: 'Golden datasets help catch regressions when retraining or changing features.',
+      back: 'A golden dataset is a small, trusted set of verified examples used to test model behavior and catch regressions over time.',
+      qaAngle: 'For WPH, a golden dataset could include verified publisher names, language labels, translator credits, and known translation paths. For the capstone, it could include carefully reviewed property records.',
       projectLinkLabel: 'QA for ML',
       projectLinkHref: 'data-science.html#model-validation'
     },
@@ -264,8 +288,8 @@ document.addEventListener('DOMContentLoaded', () => {
       visualKey: 'edge-cases',
       visualCue: 'Production data can move away from the training distribution.',
       front: 'What is data drift?',
-      back: 'Data drift happens when production data changes from the training data distribution.',
-      qaAngle: 'Monitor input distributions, prediction errors, and business conditions. Housing data is especially drift-prone because markets change.',
+      back: 'Data drift happens when production data changes from the training data distribution. In housing, market conditions, interest rates, and regional demand can shift quickly.',
+      qaAngle: 'I would monitor input distributions, prediction errors, and residuals over time. A model that worked last year may become unreliable after market changes.',
       projectLinkLabel: 'Capstone Monitoring',
       projectLinkHref: 'data-science.html#model-validation'
     },
@@ -277,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
       visualCue: 'Release readiness means the model is understood, monitored, and bounded by use case.',
       front: 'What should be checked before releasing an ML model?',
       back: 'Baseline comparison, validation split, data quality, fairness review, residual analysis, monitoring plan, rollback plan, and documentation.',
-      qaAngle: 'Release readiness for ML is not just “model runs.” It is “model is understood, monitored, and safe enough for its use case.”',
+      qaAngle: 'Release readiness for ML is not just “the model runs.” It means the model is understood, monitored, limited to a safe use case, and documented well enough for others to challenge.',
       projectLinkLabel: 'ML QA Checklist',
       projectLinkHref: 'data-science.html#model-validation'
     },
@@ -711,16 +735,16 @@ document.addEventListener('DOMContentLoaded', () => {
     newMemory.value = '';
     newDeck.value = 'Custom';
     formMessage.textContent = 'Flashcard added on this device with a visual memory cue.';
-    deckFilter.value = d === 'Custom' ? 'Custom' : 'all';
+    deckFilter.value = Array.from(deckFilter.options).some((option) => option.value === d) ? d : 'WPH: Data Quality';
     applyFilter();
   });
 
   clearCustomBtn.addEventListener('click', () => {
     setCustomCards([]);
     formMessage.textContent = 'Custom cards cleared from this device.';
-    if (deckFilter.value === 'Custom') deckFilter.value = 'all';
+    if (deckFilter.value === 'Custom') deckFilter.value = 'WPH: Data Quality';
     applyFilter();
   });
 
-  renderCard();
+  applyFilter();
 });
