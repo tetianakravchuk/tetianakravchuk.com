@@ -18,17 +18,16 @@
 </head>
 <body>
   <a href="#main" class="skip-link">Skip to main content</a>
-  <nav class="nav">
+  <nav class="nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a class="brand" href="index.html"><span class="brand-mark">TK</span> Tetiana Kravchuk</a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" data-menu-toggle>
+      <button class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-navigation" data-menu-toggle>
         <span class="menu-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
         <span>Menu</span>
       </button>
       <div class="nav-links" id="site-navigation" data-nav-links>
         <a href="pages/about.html">About</a>
         <a href="pages/projects.html">Projects</a>
-        <a href="pages/world-publishing-houses.html">World Publishing Houses</a>
         <a href="pages/qa-impact.html">QA Impact</a>
         <a href="pages/data-science.html">Data Science</a>
         <a href="pages/resume.html">Resume</a>
@@ -38,37 +37,38 @@
   </nav>
 
   <main id="main">
-    <section class="hero">
+    <section class="hero" aria-labelledby="home-hero-heading">
       <div class="container hero-grid">
         <div>
           <div class="eyebrow">QA Automation · Data Science · Production-minded ML</div>
-          <h1>I build reliable software, test systems, and data products with an engineering-first mindset.</h1>
+          <h1 id="home-hero-heading">I build reliable software, test systems, and data products with an engineering-first mindset.</h1>
           <p class="lead">I’m Tetiana Kravchuk, a Software QA Engineer with 9+ years of automation and release-quality experience, currently completing a Master’s in Data Science at Boston University. My work connects careful testing, Python automation, data validation, and machine learning.</p>
           <div class="actions">
             <a class="button primary" href="pages/projects.html">View Projects</a>
             <a class="button" href="pages/resume.html">View Resume</a>
           </div>
         </div>
-        <aside class="hero-panel">
+        <aside class="hero-panel" aria-label="Career highlights">
           <div class="stat-row">
             <div class="stat"><strong>9+ yrs</strong><span>software QA, automation, regression, release support</span></div>
             <div class="stat"><strong>512</strong><span>bugs reported, with 474 closed across tracked QA workflows</span></div>
-            <div class="stat"><strong>MS DS</strong><span>Boston University, Data Science and AI/ML coursework</span></div>
+            <div class="stat"><strong>MS, Data Science</strong><span>Boston University, Data Science and AI/ML coursework</span></div>
           </div>
         </aside>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" aria-labelledby="roles-heading">
       <div class="container">
         <div class="section-header">
-          <h2>Focused on roles where quality, data, and ML meet.</h2>
+          <h2 id="roles-heading">Focused on roles where quality, data, and ML meet.</h2>
           <p>My strongest fit is QA Automation / SDET, Data Quality, ML QA, AI testing, and applied data science roles where reliability, clear metrics, and production behavior matter.</p>
         </div>
         <div class="grid-3">
           <article class="card">
             <h3>QA Automation & SDET</h3>
             <p>Python automation, Appium, Sauce Labs, regression strategy, release validation, logs, defect triage, and cross-team QA planning.</p>
+            <div class="actions"><a class="button" href="pages/qa-impact.html">View QA Work</a></div>
           </article>
           <article class="card">
             <h3>Data Science & ML</h3>
@@ -78,20 +78,21 @@
           <article class="card">
             <h3>Data Products</h3>
             <p>Flagship work on World Publishing Houses, a publishing intelligence platform focused on metadata quality, translation transparency, and provenance. WPH connects my QA discipline with data product thinking.</p>
+            <div class="actions"><a class="button" href="pages/world-publishing-houses.html">View Data Product</a></div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" aria-labelledby="featured-heading">
       <div class="container">
         <div class="section-header">
-          <h2>Featured work</h2>
+          <h2 id="featured-heading">Featured work</h2>
           <p>Projects selected to show technical depth, business thinking, and the bridge from software quality to data science.</p>
         </div>
         <div class="grid-2">
           <article class="card featured">
-            <div class="kicker">Flagship product project</div>
+            <div class="kicker">End-to-end data product</div>
             <h3>World Publishing Houses</h3>
             <p>A global publishing intelligence platform designed to track publishers, books, translators, translation paths, rights signals, and country-level literary ecosystems. The project combines data modeling, QA, product design, and responsible metadata transparency.</p>
             <ul class="tag-list">
@@ -115,12 +116,12 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" aria-labelledby="principle-heading">
       <div class="container">
         <div class="callout">
-          <h2>Working principle</h2>
+          <h2 id="principle-heading">Working principle</h2>
           <p>Reliable AI and data products start with trustworthy inputs, clear assumptions, tested workflows, and honest evaluation. My QA background gives me a practical lens for building ML systems that are not only accurate in notebooks, but understandable and testable in real product conditions.</p>
-          <div class="actions"><a class="button primary" href="pages/contact.html">Contact Me</a></div>
+          <div class="actions"><a class="button primary" href="pages/contact.html">Contact Me</a><a class="button" href="pages/resume.html">View Resume</a></div>
         </div>
       </div>
     </section>
@@ -132,7 +133,7 @@
       <div class="footer-links">
         <a href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="mailto:tetiana.qa.data.jobs@gmail.com">Email</a>
+        <a href="pages/contact.html">Email</a>
         <a href="pages/resume.html">Resume</a>
         <a href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download>Download PDF</a>
       </div>
