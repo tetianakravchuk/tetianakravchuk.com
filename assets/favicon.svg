@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="TK">
-  <rect width="64" height="64" rx="18" fill="#7a4f2a"/>
-  <text x="32" y="39" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="24" font-weight="700" fill="#fffaf3">TK</text>
+  <rect width="64" height="64" rx="16" fill="#1a1917"/>
+  <text x="31" y="34" text-anchor="middle" dominant-baseline="central" font-family="'Instrument Sans', Helvetica, Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="-1.5" fill="#faf9f6">TK</text>
+  <circle cx="50" cy="50" r="4.5" fill="#2d7d85"/>
 </svg>

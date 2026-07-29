@@ -1,11 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Tetiana Kravchuk portfolio card">
-  <rect width="1200" height="630" fill="#f7f3ed"/>
-  <circle cx="160" cy="170" r="76" fill="#7a4f2a"/>
-  <text x="160" y="191" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="58" font-weight="700" fill="#fffaf3">TK</text>
-  <text x="260" y="160" font-family="Georgia, 'Times New Roman', serif" font-size="74" font-weight="700" fill="#1f2a21">Tetiana Kravchuk</text>
-  <text x="264" y="225" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" fill="#7a4f2a">QA Automation · Data Science · ML</text>
-  <rect x="82" y="330" width="1036" height="148" rx="30" fill="#fffdf8" stroke="#e7dccd" stroke-width="3"/>
-  <text x="120" y="397" font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="700" fill="#1f2a21">Reliable QA, data systems, and ML.</text>
-  <text x="120" y="448" font-family="Inter, Arial, sans-serif" font-size="28" fill="#4f5d50">Portfolio for QA, Data Quality, ML QA, and applied Data Science roles.</text>
-  <text x="82" y="560" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="700" fill="#415f46">tetianakravchuk.com</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Tetiana Kravchuk — AI QA, LLM Evaluation & Data Quality">
+  <rect width="1200" height="630" fill="#faf9f6"/>
+
+  <!-- brand lockup -->
+  <text x="80" y="98" font-family="'Instrument Sans', Helvetica, Arial, sans-serif" font-size="36" font-weight="700" letter-spacing="-1" fill="#1a1917">Tetiana Kravchuk</text>
+  <text x="82" y="134" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="18" letter-spacing="1" fill="#256d75">AI QA · LLM EVALUATION · DATA QUALITY</text>
+
+  <!-- headline -->
+  <text x="80" y="292" font-family="'Instrument Sans', Helvetica, Arial, sans-serif" font-size="58" font-weight="700" letter-spacing="-2" fill="#1a1917">A decade of QA discipline,</text>
+  <text x="80" y="360" font-family="'Instrument Sans', Helvetica, Arial, sans-serif" font-size="58" font-weight="700" letter-spacing="-2" fill="#1a1917">pointed at AI &amp; machine learning.</text>
+
+  <!-- stats row -->
+  <g font-family="'Instrument Sans', Helvetica, Arial, sans-serif">
+    <text x="80" y="470" font-size="52" font-weight="700" letter-spacing="-1.5" fill="#1a1917">474</text>
+    <text x="360" y="470" font-size="52" font-weight="700" letter-spacing="-1.5" fill="#1a1917">99.3%</text>
+    <text x="700" y="470" font-size="52" font-weight="700" letter-spacing="-1.5" fill="#1a1917">10+ yrs</text>
+  </g>
+  <g font-family="'JetBrains Mono', ui-monospace, monospace" font-size="18" fill="#6f6b62">
+    <text x="82" y="502">bugs closed</text>
+    <text x="362" y="502">story completion</text>
+    <text x="702" y="502">software QA</text>
+  </g>
+
+  <!-- footer -->
+  <line x1="80" y1="540" x2="1120" y2="540" stroke="#e6e3dc" stroke-width="2"/>
+  <circle cx="88" cy="578" r="6" fill="#3f9d5f"/>
+  <text x="106" y="585" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="20" fill="#6f6b62">Open to remote &amp; hybrid roles</text>
+  <text x="1120" y="585" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="22" font-weight="500" fill="#256d75">tetianakravchuk.com</text>
 </svg>
