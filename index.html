@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/styles.css?v=2" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -108,7 +108,7 @@
         </div>
       </section>
 
-      <section class="section" aria-label="Career metrics">
+      <section class="section tight" aria-label="Career metrics">
         <div class="hp-stats">
           <div>
             <div class="num">474</div>
@@ -137,7 +137,23 @@
         <div class="work-list">
 
           <article class="work-card">
-            <div class="media"><span>residual plot +<br />model comparison chart</span></div>
+            <div class="media"><svg viewBox="0 0 360 260" role="img" aria-label="Residual plot: prediction errors scatter around zero but drift negative for high-end homes.">
+              <line x1="44" y1="24" x2="44" y2="220" stroke="#d4d0c7" stroke-width="1.5"/>
+              <line x1="44" y1="220" x2="332" y2="220" stroke="#d4d0c7" stroke-width="1.5"/>
+              <line x1="44" y1="122" x2="332" y2="122" stroke="oklch(0.52 0.075 205)" stroke-width="1.5" stroke-dasharray="5 5"/>
+              <text x="50" y="115" font-family="'JetBrains Mono', monospace" font-size="9" fill="#918d83">residual = 0</text>
+              <text x="300" y="236" font-family="'JetBrains Mono', monospace" font-size="9" fill="#918d83" text-anchor="end">price →</text>
+              <g fill="#1a1917">
+                <circle cx="70" cy="112" r="4"/><circle cx="88" cy="132" r="4"/><circle cx="104" cy="118" r="4"/>
+                <circle cx="122" cy="128" r="4"/><circle cx="140" cy="110" r="4"/><circle cx="158" cy="134" r="4"/>
+                <circle cx="176" cy="120" r="4"/><circle cx="196" cy="130" r="4"/><circle cx="214" cy="126" r="4"/>
+                <circle cx="234" cy="140" r="4"/><circle cx="252" cy="150" r="4"/>
+              </g>
+              <g fill="oklch(0.52 0.075 205)">
+                <circle cx="270" cy="158" r="4.5"/><circle cx="286" cy="172" r="4.5"/><circle cx="300" cy="182" r="4.5"/>
+                <circle cx="314" cy="196" r="4.5"/><circle cx="326" cy="190" r="4.5"/>
+              </g>
+            </svg></div>
             <div class="body">
               <div class="kicker">ML capstone · model validation</div>
               <h3>Where a housing-price model breaks, and why</h3>
@@ -163,7 +179,27 @@
                 <a class="muted" href="pages/world-publishing-houses.html">Read the case study</a>
               </div>
             </div>
-            <div class="media"><span>dataset schema /<br />coverage table</span></div>
+            <div class="media"><svg viewBox="0 0 360 260" role="img" aria-label="Dataset coverage table: works, publishers and languages with verification-status flags.">
+              <g font-family="'JetBrains Mono', monospace" font-size="10">
+                <rect x="34" y="30" width="292" height="30" rx="4" fill="#1a1917"/>
+                <text x="48" y="49" fill="#faf9f6">work</text><text x="150" y="49" fill="#faf9f6">language</text><text x="250" y="49" fill="#faf9f6">status</text>
+                <g fill="#423f39">
+                  <rect x="34" y="68" width="292" height="26" rx="4" fill="#ffffff" stroke="#e6e3dc"/>
+                  <text x="48" y="85">Hymne</text><text x="150" y="85">Danish</text>
+                  <rect x="244" y="72" width="70" height="18" rx="9" fill="oklch(0.55 0.11 155 / 0.16)"/><text x="252" y="85" fill="oklch(0.48 0.11 155)">verified</text>
+                  <rect x="34" y="100" width="292" height="26" rx="4" fill="#ffffff" stroke="#e6e3dc"/>
+                  <text x="48" y="117">Kaldet</text><text x="150" y="117">Norwegian</text>
+                  <rect x="244" y="104" width="70" height="18" rx="9" fill="oklch(0.7 0.12 70 / 0.18)"/><text x="252" y="117" fill="#8a5a12">to check</text>
+                  <rect x="34" y="132" width="292" height="26" rx="4" fill="#ffffff" stroke="#e6e3dc"/>
+                  <text x="48" y="149"> Misael</text><text x="150" y="149">Icelandic</text>
+                  <rect x="244" y="136" width="70" height="18" rx="9" fill="oklch(0.55 0.11 155 / 0.16)"/><text x="252" y="149" fill="oklch(0.48 0.11 155)">verified</text>
+                  <rect x="34" y="164" width="292" height="26" rx="4" fill="#ffffff" stroke="#e6e3dc"/>
+                  <text x="48" y="181">Vinter</text><text x="150" y="181">Swedish</text>
+                  <rect x="244" y="168" width="70" height="18" rx="9" fill="oklch(0.55 0.11 155 / 0.16)"/><text x="252" y="181" fill="oklch(0.48 0.11 155)">verified</text>
+                </g>
+                <text x="34" y="212" fill="#918d83">provenance + verification flag on every record</text>
+              </g>
+            </svg></div>
           </article>
 
           <article class="work-card dark">
@@ -251,6 +287,6 @@
       </div>
     </div>
   </footer>
-  <script src="assets/script.js"></script>
+  <script src="assets/script.js?v=2"></script>
 </body>
 </html>
