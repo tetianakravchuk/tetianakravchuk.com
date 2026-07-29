@@ -10,7 +10,7 @@
   --ink-soft: #423f39;
   --ink-2: #2c2a26;
   --muted: #6f6b62;
-  --faint: #918d83;
+  --faint: #736e64; /* AA: 4.8:1 on cream (was #918d83 at 3.15:1) */
   --line: #e6e3dc;
   --line-strong: #d4d0c7;
   --card: #ffffff;
