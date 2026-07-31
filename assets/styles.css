@@ -465,6 +465,8 @@ img, svg, object { max-width: 100%; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 22px; }
 .footer-links a { color: var(--muted); }
 .footer-links a:hover { color: var(--ink); }
+.footer-links a.coffee-link { color: var(--accent-deep); font-weight: 500; }
+.footer-links a.coffee-link:hover { color: var(--accent-hover); }
 
 /* ---------- responsive ---------- */
 @media (max-width: 900px) {
