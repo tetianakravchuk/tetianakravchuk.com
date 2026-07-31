@@ -1,6 +1,62 @@
+// ===================================================================
+// Analytics — set this ONE value after creating a free GoatCounter
+// account (https://www.goatcounter.com). If your dashboard lives at
+// https://tetianakravchuk.goatcounter.com, the code is "tetianakravchuk".
+// While this is empty, no analytics requests are made anywhere.
+// ===================================================================
+const GOATCOUNTER_CODE = '';
+
 document.addEventListener('DOMContentLoaded', () => {
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
+
+  // --- Load GoatCounter (page views) once a code is configured ---
+  if (GOATCOUNTER_CODE) {
+    const gc = document.createElement('script');
+    gc.async = true;
+    gc.src = '//gc.zgo.at/count.js';
+    gc.setAttribute('data-goatcounter', `https://${GOATCOUNTER_CODE}.goatcounter.com/count`);
+    document.head.appendChild(gc);
+  }
+
+  // --- Count outbound / download clicks as GoatCounter events ---
+  // Fires on resume-PDF downloads and outbound LinkedIn / GitHub links.
+  // Analytics must never block navigation, so every path is guarded.
+  const trackEvent = (name, title) => {
+    if (!GOATCOUNTER_CODE) return;
+    try {
+      if (window.goatcounter && typeof window.goatcounter.count === 'function') {
+        window.goatcounter.count({ path: name, title: title || name, event: true });
+        return;
+      }
+      // Fallback if the GoatCounter script has not finished loading yet:
+      // a beacon survives the page navigating away.
+      if (navigator.sendBeacon) {
+        const url = `https://${GOATCOUNTER_CODE}.goatcounter.com/count`
+          + `?p=${encodeURIComponent(name)}`
+          + `&t=${encodeURIComponent(title || name)}`
+          + '&e=true';
+        navigator.sendBeacon(url);
+      }
+    } catch (_) { /* never break the click */ }
+  };
+
+  const classifyLink = (link) => {
+    const href = (link.getAttribute('href') || '').toLowerCase();
+    if (link.hasAttribute('download') || href.endsWith('.pdf')) {
+      return { name: 'resume-download', title: 'Resume PDF' };
+    }
+    if (href.includes('linkedin.com')) return { name: 'linkedin-click', title: 'LinkedIn click' };
+    if (href.includes('github.com')) return { name: 'github-click', title: 'GitHub click' };
+    return null;
+  };
+
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a');
+    if (!link) return;
+    const hit = classifyLink(link);
+    if (hit) trackEvent(hit.name, hit.title);
+  }, true);
 
   const nav = document.querySelector('.nav');
   const menuToggle = document.querySelector('[data-menu-toggle]');
