@@ -384,6 +384,33 @@ img, svg, object { max-width: 100%; }
 .responsive-table th { font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--faint); background: var(--card-alt); }
 .responsive-table tr:last-child td { border-bottom: none; }
 
+/* ---------- LLM eval scorecard ---------- */
+.eval-panel { display: grid; gap: 24px; margin: 8px 0 4px; }
+.eval-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.eval-stat { background: var(--card-alt); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 18px 20px; }
+.eval-stat strong { display: block; font-size: 34px; font-weight: 600; letter-spacing: -1.5px; line-height: 1; color: var(--ink); }
+.eval-stat span { display: block; margin-top: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--faint); }
+
+.eval-cases { display: grid; gap: 14px; }
+.eval-case { padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.eval-case:last-child { border-bottom: none; padding-bottom: 0; }
+.eval-case-head { display: flex; align-items: center; gap: 10px; }
+.eval-icon { flex-shrink: 0; width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; line-height: 1; font-weight: 700; }
+.eval-icon.pass { background: oklch(0.55 0.11 155 / 0.16); color: var(--green-deep); }
+.eval-icon.fail { background: oklch(0.6 0.17 25 / 0.14); color: #b23b1e; }
+.eval-q { flex: 1 1 auto; min-width: 0; font-size: 15px; color: var(--ink); }
+.eval-num { font-family: var(--mono); font-size: 13px; color: var(--muted); flex-shrink: 0; }
+.eval-mini { position: relative; height: 8px; margin-top: 10px; background: var(--chip); border-radius: 999px; overflow: hidden; }
+.eval-mini-fill { position: absolute; left: 0; top: 0; height: 100%; min-width: 4px; border-radius: 999px; }
+.eval-mini-fill.pass { background: var(--green); }
+.eval-mini-fill.fail { background: oklch(0.58 0.18 25); }
+.eval-issue { margin: 8px 0 0 30px; font-family: var(--mono); font-size: 12px; line-height: 1.5; color: #8a5a12; }
+
+.eval-modes { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-top: 4px; }
+.eval-modes-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); margin-right: 4px; }
+.eval-mode { font-family: var(--mono); font-size: 11.5px; color: #b23b1e; background: oklch(0.6 0.17 25 / 0.1); border: 1px solid oklch(0.6 0.17 25 / 0.2); padding: 4px 10px; border-radius: 999px; }
+@media (max-width: 620px) { .eval-stats { grid-template-columns: 1fr; } }
+
 /* ---------- WPH dataset explorer ---------- */
 .dataset-hero { display: grid; gap: 20px; }
 .dataset-stats, .status-grid, .quality-grid, .compact-stats { display: grid; gap: 20px; }
@@ -438,6 +465,8 @@ img, svg, object { max-width: 100%; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 22px; }
 .footer-links a { color: var(--muted); }
 .footer-links a:hover { color: var(--ink); }
+.footer-links a.coffee-link { color: var(--accent-deep); font-weight: 500; }
+.footer-links a.coffee-link:hover { color: var(--accent-hover); }
 
 /* ---------- responsive ---------- */
 @media (max-width: 900px) {
