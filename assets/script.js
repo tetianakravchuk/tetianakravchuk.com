@@ -58,6 +58,70 @@ document.addEventListener('DOMContentLoaded', () => {
     if (hit) trackEvent(hit.name, hit.title);
   }, true);
 
+  // --- Booking button: only show it once a real URL is configured ---
+  // Until you replace the placeholder with your Calendly / Cal.com link,
+  // the button stays hidden so no broken link ever ships.
+  const booking = document.querySelector('[data-booking]');
+  if (booking) {
+    const url = booking.getAttribute('href') || '';
+    if (url && !url.includes('YOUR-HANDLE')) booking.hidden = false;
+  }
+
+  // --- Contact form: AJAX submit to Web3Forms, no page reload ---
+  const contactForm = document.querySelector('[data-contact-form]');
+  if (contactForm) {
+    const statusEl = contactForm.querySelector('[data-form-status]');
+    const submitBtn = contactForm.querySelector('[data-form-submit]');
+    const keyField = contactForm.querySelector('input[name="access_key"]');
+    const configured = !!keyField && !keyField.value.includes('YOUR_');
+
+    const setStatus = (message, kind) => {
+      if (!statusEl) return;
+      statusEl.textContent = message;
+      statusEl.className = 'form-status' + (kind ? ` ${kind}` : '');
+    };
+
+    contactForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      // Not configured yet — guide to email instead of a failing request.
+      if (!configured) {
+        setStatus('Email me directly at tetiana.kravchukqa@gmail.com and I’ll reply personally.', '');
+        return;
+      }
+      // Honeypot tripped — silently drop.
+      if (contactForm.querySelector('[name="botcheck"]')?.checked) return;
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+      }
+
+      if (submitBtn) submitBtn.disabled = true;
+      setStatus('Sending…', '');
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: { Accept: 'application/json' }
+        });
+        const result = await response.json().catch(() => ({}));
+        if (response.ok && result.success) {
+          contactForm.reset();
+          setStatus('Thanks — your message was sent. I’ll get back to you soon.', 'success');
+          if (window.goatcounter?.count) {
+            window.goatcounter.count({ path: 'contact-form-submit', title: 'Contact form submit', event: true });
+          }
+        } else {
+          throw new Error(result.message || 'Send failed');
+        }
+      } catch (_) {
+        setStatus('Sorry — something went wrong. Please email me at tetiana.kravchukqa@gmail.com.', 'error');
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    });
+  }
+
   const nav = document.querySelector('.nav');
   const menuToggle = document.querySelector('[data-menu-toggle]');
   const navLinks = document.querySelector('[data-nav-links]');
