@@ -4,7 +4,7 @@
 // https://tetianakravchuk.goatcounter.com, the code is "tetianakravchuk".
 // While this is empty, no analytics requests are made anywhere.
 // ===================================================================
-const GOATCOUNTER_CODE = '';
+const GOATCOUNTER_CODE = 'tetianakravchuk';
 
 document.addEventListener('DOMContentLoaded', () => {
   const year = document.querySelector('[data-year]');
