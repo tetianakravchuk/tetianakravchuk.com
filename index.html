@@ -43,10 +43,7 @@
       "Regression Testing",
       "Data Science"
     ],
-    "alumniOf": {
-      "@type": "CollegeOrUniversity",
-      "name": "Boston University"
-    }
+    "alumniOf": {"@type": "CollegeOrUniversity", "name": "Boston University"}
   }
   </script>
 </head>
@@ -88,22 +85,10 @@
           <aside class="snapshot" aria-label="Recruiter snapshot">
             <div class="snapshot-label">Recruiter snapshot</div>
             <dl>
-              <div>
-                <dt>PRIMARY</dt>
-                <dd>Applied AI · AI Evaluation · AI Platform</dd>
-              </div>
-              <div>
-                <dt>QUALITY SPECIALTY</dt>
-                <dd class="soft">LLM Evaluation · AI Quality · Data Quality · Source Grounding</dd>
-              </div>
-              <div>
-                <dt>CORE STACK</dt>
-                <dd class="soft">Python · SQL · FastAPI · PostgreSQL · Next.js · TypeScript</dd>
-              </div>
-              <div>
-                <dt>EXPERIENCE</dt>
-                <dd class="soft">10+ years Software Quality Engineering → Applied AI</dd>
-              </div>
+              <div><dt>PRIMARY</dt><dd>Applied AI · AI Evaluation · AI Platform</dd></div>
+              <div><dt>QUALITY SPECIALTY</dt><dd class="soft">LLM Evaluation · AI Quality · Data Quality · Source Grounding</dd></div>
+              <div><dt>CORE STACK</dt><dd class="soft">Python · SQL · FastAPI · PostgreSQL · Next.js · TypeScript</dd></div>
+              <div><dt>EXPERIENCE</dt><dd class="soft">10+ years Software Quality Engineering → Applied AI</dd></div>
             </dl>
           </aside>
         </div>
@@ -149,28 +134,45 @@
 
       <section class="section" id="work" aria-labelledby="work-heading">
         <div class="work-head">
-          <div><div class="eyebrow">Selected work</div><h2 id="work-heading">Evidence across AI, data science, and quality</h2></div>
-          <p>Projects that show how I reason about model behavior, source quality, and production failure modes.</p>
+          <div>
+            <div class="eyebrow">Additional evidence</div>
+            <h2 id="work-heading">Data science and engineering quality</h2>
+          </div>
+          <p>WPH is the flagship above. These projects show the modeling and quality-engineering foundation behind how I build AI systems.</p>
         </div>
         <div class="work-list">
-          <article class="work-card flip">
-            <div class="body">
-              <div class="kicker">Flagship · Applied AI platform</div>
-              <h3>World Publishing Houses</h3>
-              <p>A source-backed publishing intelligence platform with controlled AI research, immutable prompt versions, model/cost telemetry, evaluation datasets, regression gates, and deterministic rights-safety controls.</p>
-              <p class="outcome"><strong>Engineering focus:</strong> data provenance, reproducibility, evaluation, observability, safety boundaries, and testable release workflows.</p>
-              <ul class="tag-list"><li>FastAPI</li><li>PostgreSQL</li><li>Next.js</li><li>LLM evaluation</li><li>AI observability</li></ul>
-              <div class="links"><a href="projects/wph-ai-platform/">Read the flagship case study →</a><a class="muted" href="https://youtu.be/XlATAL1rO5w" target="_blank" rel="noopener noreferrer">Watch demo ↗</a></div>
-            </div>
-            <div class="media"><svg viewBox="0 0 360 260" role="img" aria-label="AI platform flow from data to research, evaluation, telemetry and safety."><rect x="28" y="28" width="304" height="204" rx="14" fill="#fff" stroke="#e6e3dc"/><g font-family="'JetBrains Mono', monospace" font-size="10" fill="#1a1917"><rect x="54" y="52" width="100" height="34" rx="6" fill="#f3f1eb"/><text x="70" y="73">Publishing data</text><rect x="206" y="52" width="100" height="34" rx="6" fill="#f3f1eb"/><text x="226" y="73">Research agent</text><rect x="54" y="116" width="100" height="34" rx="6" fill="#f3f1eb"/><text x="73" y="137">Prompt registry</text><rect x="206" y="116" width="100" height="34" rx="6" fill="#f3f1eb"/><text x="230" y="137">Evaluation</text><rect x="54" y="180" width="100" height="34" rx="6" fill="#f3f1eb"/><text x="78" y="201">Telemetry</text><rect x="206" y="180" width="100" height="34" rx="6" fill="#f3f1eb"/><text x="225" y="201">Rights safety</text></g><g stroke="#736e64" stroke-width="1.5"><line x1="154" y1="69" x2="206" y2="69"/><line x1="104" y1="86" x2="104" y2="116"/><line x1="256" y1="86" x2="256" y2="116"/><line x1="104" y1="150" x2="104" y2="180"/><line x1="256" y1="150" x2="256" y2="180"/></g></svg></div>
-          </article>
           <article class="work-card">
-            <div class="media"><svg viewBox="0 0 360 260" role="img" aria-label="Residual plot showing larger errors for high-priced homes."><line x1="44" y1="24" x2="44" y2="220" stroke="#d4d0c7" stroke-width="1.5"/><line x1="44" y1="220" x2="332" y2="220" stroke="#d4d0c7" stroke-width="1.5"/><line x1="44" y1="122" x2="332" y2="122" stroke="oklch(0.52 0.075 205)" stroke-width="1.5" stroke-dasharray="5 5"/><g fill="#1a1917"><circle cx="70" cy="112" r="4"/><circle cx="100" cy="130" r="4"/><circle cx="140" cy="110" r="4"/><circle cx="185" cy="130" r="4"/><circle cx="230" cy="145" r="4"/></g><g fill="oklch(0.52 0.075 205)"><circle cx="270" cy="158" r="4.5"/><circle cx="290" cy="176" r="4.5"/><circle cx="315" cy="195" r="4.5"/></g></svg></div>
-            <div class="body"><div class="kicker">ML capstone · model validation</div><h3>Where a housing-price model breaks, and why</h3><p>I compared a Random Forest against a linear baseline, then focused on residual behavior and production limits rather than only headline accuracy.</p><p class="outcome"><strong>Outcome:</strong> residuals exposed systematic error on high-end homes, so I documented that limitation instead of presenting R² alone.</p><ul class="tag-list"><li>Python</li><li>scikit-learn</li><li>Random Forest</li><li>Residual analysis</li></ul><div class="links"><a href="pages/data-science.html#housing">Read the case study →</a><a class="muted" href="https://github.com/tetianakravchuk/PredictHousingPrices" target="_blank" rel="noopener noreferrer">GitHub</a></div></div>
+            <div class="media">
+              <svg viewBox="0 0 360 260" role="img" aria-label="Residual plot showing larger errors for high-priced homes.">
+                <line x1="44" y1="24" x2="44" y2="220" stroke="#d4d0c7" stroke-width="1.5"/>
+                <line x1="44" y1="220" x2="332" y2="220" stroke="#d4d0c7" stroke-width="1.5"/>
+                <line x1="44" y1="122" x2="332" y2="122" stroke="oklch(0.52 0.075 205)" stroke-width="1.5" stroke-dasharray="5 5"/>
+                <g fill="#1a1917"><circle cx="70" cy="112" r="4"/><circle cx="100" cy="130" r="4"/><circle cx="140" cy="110" r="4"/><circle cx="185" cy="130" r="4"/><circle cx="230" cy="145" r="4"/></g>
+                <g fill="oklch(0.52 0.075 205)"><circle cx="270" cy="158" r="4.5"/><circle cx="290" cy="176" r="4.5"/><circle cx="315" cy="195" r="4.5"/></g>
+              </svg>
+            </div>
+            <div class="body">
+              <div class="kicker">ML capstone · model validation</div>
+              <h3>Where a housing-price model breaks, and why</h3>
+              <p>I compared a Random Forest against a linear baseline, then focused on residual behavior and production limits rather than only headline accuracy.</p>
+              <p class="outcome"><strong>Outcome:</strong> residuals exposed systematic error on high-end homes, so I documented that limitation instead of presenting R² alone.</p>
+              <ul class="tag-list"><li>Python</li><li>scikit-learn</li><li>Random Forest</li><li>Residual analysis</li></ul>
+              <div class="links"><a href="pages/data-science.html#housing">Read the case study →</a><a class="muted" href="https://github.com/tetianakravchuk/PredictHousingPrices" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+            </div>
           </article>
+
           <article class="work-card dark">
-            <div><div class="kicker">Professional impact · 10+ years</div><h3>Software quality as an AI engineering advantage</h3><p>Release testing, automation, APIs, CI/CD, failure analysis, and evidence-based triage shaped how I now design AI evaluations, regression gates, and observability.</p><a href="pages/qa-impact.html">See the engineering record →</a></div>
-            <div class="impact-rows"><div class="row"><span class="k">QUALITY</span><span class="v">Regression, release, mobile, API, automation</span></div><div class="row"><span class="k">AI</span><span class="v">Evals, safety, provenance, telemetry, quality gates</span></div><div class="row"><span class="k">DATA</span><span class="v">Python, SQL, PostgreSQL, analytics, validation</span></div></div>
+            <div>
+              <div class="kicker">Professional impact · 10+ years</div>
+              <h3>Software quality as an AI engineering advantage</h3>
+              <p>Release testing, automation, APIs, CI/CD, failure analysis, and evidence-based triage shaped how I now design AI evaluations, regression gates, and observability.</p>
+              <a href="pages/qa-impact.html">See the engineering record →</a>
+            </div>
+            <div class="impact-rows">
+              <div class="row"><span class="k">QUALITY</span><span class="v">Regression, release, mobile, API, automation</span></div>
+              <div class="row"><span class="k">AI</span><span class="v">Evals, safety, provenance, telemetry, quality gates</span></div>
+              <div class="row"><span class="k">DATA</span><span class="v">Python, SQL, PostgreSQL, analytics, validation</span></div>
+            </div>
           </article>
         </div>
       </section>
@@ -181,7 +183,12 @@
           <div>
             <p class="lead-big">I spent more than a decade asking what happens when software is wrong. I now apply the same discipline to AI systems: what evidence supports the answer, what changes between prompt versions, how do we detect regressions, and what happens when confidence is low?</p>
             <p>My M.S. in Data Science, AI, and Machine Learning added the modeling and analytics layer. WPH became the place where I combined both backgrounds into one production-oriented system.</p>
-            <div class="facts-grid"><div><div class="label">EDUCATION</div><p>M.S. Data Science, AI &amp; ML — Boston University</p></div><div><div class="label">EXPERIENCE</div><p>10+ years software quality engineering and automation</p></div><div><div class="label">APPLIED AI</div><p>agents · evals · prompt governance · telemetry · source grounding</p></div><div><div class="label">DATA</div><p>Python · SQL · PostgreSQL · analytics · ML validation</p></div></div>
+            <div class="facts-grid">
+              <div><div class="label">EDUCATION</div><p>M.S. Data Science, AI &amp; ML — Boston University</p></div>
+              <div><div class="label">EXPERIENCE</div><p>10+ years software quality engineering and automation</p></div>
+              <div><div class="label">APPLIED AI</div><p>agents · evals · prompt governance · telemetry · source grounding</p></div>
+              <div><div class="label">DATA</div><p>Python · SQL · PostgreSQL · analytics · ML validation</p></div>
+            </div>
             <div class="actions" style="margin-top: 32px;"><a class="button" href="pages/about.html">More about me →</a></div>
           </div>
         </div>
@@ -189,14 +196,28 @@
 
       <section class="section" id="contact" aria-labelledby="contact-heading">
         <div class="contact-grid">
-          <div><h2 id="contact-heading">Building reliable AI systems?</h2><p class="lead">I'm interested in full-time US remote roles across Applied AI, AI Evaluation, AI Platform, and advanced data/ML quality.</p><div class="actions"><a class="button primary" href="mailto:tetiana.kravchukqa@gmail.com">Email me</a><a class="button" href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="button" href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a></div></div>
-          <div class="detail-list"><div class="row"><span class="k">LOCATION</span><span class="v">Massachusetts, US</span></div><div class="row"><span class="k">WORK MODE</span><span class="v">US remote</span></div><div class="row"><span class="k">FOCUS</span><span class="v">Applied AI · AI Evaluation · AI Platform</span></div><div class="row"><span class="k">RÉSUMÉ</span><a href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download>Download PDF</a></div></div>
+          <div>
+            <h2 id="contact-heading">Building reliable AI systems?</h2>
+            <p class="lead">I'm interested in full-time US remote roles across Applied AI, AI Evaluation, AI Platform, and advanced data/ML quality.</p>
+            <div class="actions"><a class="button primary" href="mailto:tetiana.kravchukqa@gmail.com">Email me</a><a class="button" href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="button" href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+          </div>
+          <div class="detail-list">
+            <div class="row"><span class="k">LOCATION</span><span class="v">Massachusetts, US</span></div>
+            <div class="row"><span class="k">WORK MODE</span><span class="v">US remote</span></div>
+            <div class="row"><span class="k">FOCUS</span><span class="v">Applied AI · AI Evaluation · AI Platform</span></div>
+            <div class="row"><span class="k">RÉSUMÉ</span><a href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download>Download PDF</a></div>
+          </div>
         </div>
       </section>
     </div>
   </main>
 
-  <footer class="footer"><div class="footer-inner"><div>© <span data-year></span> Tetiana Kravchuk</div><div class="footer-links"><a href="#featured-ai-project">Featured AI project</a><a href="pages/about.html">About</a><a href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a><a href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download>Résumé</a></div></div></footer>
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>© <span data-year></span> Tetiana Kravchuk</div>
+      <div class="footer-links"><a href="#featured-ai-project">Featured AI project</a><a href="pages/about.html">About</a><a href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a><a href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download>Résumé</a></div>
+    </div>
+  </footer>
   <script src="assets/script.js?v=7"></script>
 </body>
 </html>
