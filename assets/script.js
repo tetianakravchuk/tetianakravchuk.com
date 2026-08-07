@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (href.includes('linkedin.com')) return { name: 'linkedin-click', title: 'LinkedIn click' };
     if (href.includes('github.com')) return { name: 'github-click', title: 'GitHub click' };
+    if (href.includes('youtube.com') || href.includes('youtu.be')) return { name: 'wph-video-play', title: 'WPH walkthrough' };
     return null;
   };
 
@@ -57,6 +58,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const hit = classifyLink(link);
     if (hit) trackEvent(hit.name, hit.title);
   }, true);
+
+  // --- Video: click-to-load player (no third-party frame until asked) ---
+  const videoEmbed = document.querySelector('[data-video]');
+  if (videoEmbed) {
+    const facade = videoEmbed.querySelector('[data-video-play]');
+    if (facade) {
+      facade.addEventListener('click', () => {
+        const id = videoEmbed.dataset.video;
+        const iframe = document.createElement('iframe');
+        iframe.className = 'video-frame';
+        iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+        iframe.title = 'World Publishing Houses walkthrough';
+        iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        videoEmbed.replaceChildren(iframe);
+        trackEvent('wph-video-play', 'WPH walkthrough');
+      });
+    }
+  }
 
   // --- Booking button: only show it once a real URL is configured ---
   // Until you replace the placeholder with your Calendly / Cal.com link,
