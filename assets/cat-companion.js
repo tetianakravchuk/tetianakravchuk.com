@@ -71,8 +71,8 @@
   } catch (e) { /* older browsers */ }
 
   // --- Tunables ---------------------------------------------------------------
-  var SCALE       = OPTS.scale || 1;        // overall cat size multiplier
-  var GROUND_PAD  = 6;                       // px the feet sit above viewport bottom
+  var SCALE       = OPTS.scale || 1.6;      // overall cat size multiplier
+  var GROUND_PAD  = 10;                      // px the feet sit above viewport bottom
   var WALK_SPEED  = 78 * SCALE;              // px / second
   var JUMP_REACH  = 210 * SCALE;             // max height (px) the cat will leap
 
@@ -825,8 +825,14 @@
 
   function boot() {
     mount();
-    if (prefersReduced) drawOnce();
-    else start();
+    if (prefersReduced) { drawOnce(); return; }
+    // Visible entrance: sit in view for a few seconds before wandering off, so
+    // the cat is immediately noticeable on load instead of slipping past a corner.
+    cat.x = clamp(W * 0.22, 60, W - 60);
+    cat.y = groundY();
+    cat.sit = 1;
+    enter('IDLE', 3.6);
+    start();
   }
 
   if (document.readyState === 'loading') {
