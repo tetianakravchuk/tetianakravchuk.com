@@ -533,3 +533,57 @@ img, svg, object { max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
 }
+
+/* ============================================================================
+   Cat Companion — interactive animated cat overlay.
+   Overlay canvas never intercepts input (pointer-events: none), so clicks,
+   scrolls and taps pass straight through to the page underneath.
+   ========================================================================== */
+.cat-companion-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 50;             /* above page content, below any modal/nav overlay */
+  pointer-events: none;
+  overflow: hidden;
+}
+.cat-companion-canvas { position: absolute; inset: 0; pointer-events: none; }
+
+/* Brief "pressed" state while the cat is perched on a button. */
+.cat-pressed {
+  transform: translateY(2px) scale(0.98);
+  filter: brightness(0.94);
+  transition: transform 90ms ease-out, filter 90ms ease-out;
+}
+
+/* Transient claw marks drawn at a card's edge while the cat scratches it.
+   Positioned by JS inside the overlay layer — never alters the card's layout. */
+.cat-scratch-fx {
+  position: absolute;
+  width: 28px;
+  pointer-events: none;
+  opacity: 0;
+  animation: cat-scratch-in 180ms ease-out forwards;
+}
+.cat-scratch-fx svg { display: block; width: 100%; height: 100%; }
+.cat-scratch-fx path {
+  fill: none;
+  stroke: var(--accent, #2b7a78);   /* brand teal */
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 130;
+  stroke-dashoffset: 130;
+  animation: cat-scratch-draw 260ms ease-out forwards;
+}
+.cat-scratch-fx path:nth-child(2) { animation-delay: 45ms; }
+.cat-scratch-fx path:nth-child(3) { animation-delay: 90ms; }
+.cat-scratch-fx.fade { animation: cat-scratch-out 640ms ease-in forwards; }
+
+@keyframes cat-scratch-in  { to { opacity: 1; } }
+@keyframes cat-scratch-out { to { opacity: 0; transform: translateX(2px); } }
+@keyframes cat-scratch-draw { to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cat-scratch-fx, .cat-scratch-fx path { animation: none; }
+  .cat-scratch-fx { opacity: 0; }
+  .cat-pressed { transition: none; }
+}
