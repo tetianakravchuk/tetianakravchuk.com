@@ -76,10 +76,11 @@
   var WALK_SPEED  = 78 * SCALE;              // px / second
   var JUMP_REACH  = 210 * SCALE;             // max height (px) the cat will leap
 
-  // Eyes — heterochromia. Anatomical assignment so it stays consistent as the
-  // cat turns: cat's left eye is yellow, cat's right eye is orange.
-  var EYE_YELLOW  = '#ffd23f';
+  // Eyes — both orange. (Set EYE_LEFT to a different hue for a heterochromatic
+  // cat; the assignment is anatomical so it stays consistent as the cat turns.)
   var EYE_ORANGE  = '#ff7a18';
+  var EYE_LEFT    = EYE_ORANGE;   // cat's left  eye
+  var EYE_RIGHT   = EYE_ORANGE;   // cat's right eye
   var FUR         = '#07070e';
   var FUR_HI      = 'rgba(70,70,90,0.0)';    // no rim needed — black cat on light bg
 
@@ -501,15 +502,19 @@
     // Heterochromatic eyes drawn in world space (unflipped) so the slit pupils
     // can track the cursor. Skipped when a sprite bakes its own eyes in.
     if (eyes) {
-      drawEye(eyes.left.x, eyes.left.y, EYE_YELLOW, eyes.r);   // cat's left  → yellow
-      drawEye(eyes.right.x, eyes.right.y, EYE_ORANGE, eyes.r); // cat's right → orange
+      drawEye(eyes.left.x, eyes.left.y, EYE_LEFT, eyes.r);   // cat's left
+      drawEye(eyes.right.x, eyes.right.y, EYE_RIGHT, eyes.r); // cat's right
     }
   }
 
   // Vector fallback body. Returns eye anchors derived from the drawn head.
+  // The procedural art is authored facing LEFT, so we mirror by -cat.facing:
+  // that makes facing = +1 (moving right) render the cat facing right, i.e. it
+  // always faces the direction it walks instead of moonwalking.
   function drawVectorBody() {
+    var fx = -cat.facing;   // draw-space facing (art is left-facing by default)
     ctx.save();
-    ctx.scale(cat.facing, 1);
+    ctx.scale(fx, 1);
     if (cat.sit > 0.5) drawSitting();
     else drawQuadruped();
     ctx.restore();
@@ -517,7 +522,7 @@
     var loc = cat._headLocal;
     if (!loc) return null;
     var S = loc.s;
-    var hx = cat.x + cat.facing * loc.x;
+    var hx = cat.x + fx * loc.x;
     var hy = cat.y + loc.y;
 
     // nose
@@ -534,15 +539,15 @@
     ctx.lineWidth = 0.8;
     for (var i = -1; i <= 1; i++) {
       ctx.beginPath();
-      ctx.moveTo(hx + cat.facing * 2 * S, hy + 3 * S);
-      ctx.lineTo(hx + cat.facing * 16 * S, hy + 3 * S + i * 3 * S);
+      ctx.moveTo(hx + fx * 2 * S, hy + 3 * S);
+      ctx.lineTo(hx + fx * 16 * S, hy + 3 * S + i * 3 * S);
       ctx.stroke();
     }
 
     var dx = 4.6 * S, ey = hy - 1 * S;
     return {
-      left:  { x: hx - cat.facing * dx, y: ey },
-      right: { x: hx + cat.facing * dx, y: ey },
+      left:  { x: hx - fx * dx, y: ey },
+      right: { x: hx + fx * dx, y: ey },
       r: 3.4 * S
     };
   }
@@ -840,4 +845,230 @@
   } else {
     boot();
   }
+})();
+
+
+/* ============================================================================
+   Corner Cat — a bigger sitting cat mascot fixed in a top corner, with yellow
+   eyes and a speech bubble. The bubble alternates between "Download my résumé"
+   (links to the PDF) and "Buy me a coffee" (links out) — and while the coffee
+   bubble is up, the cat sips from a little mug.
+
+   Unlike the wandering cat, this widget IS interactive (pointer-events: auto)
+   so its bubble link is clickable. Configure via window.CAT_COMPANION.corner.
+   ========================================================================== */
+(function () {
+  'use strict';
+  if (window.__catCornerLoaded) return;
+  window.__catCornerLoaded = true;
+
+  var ROOT = window.CAT_COMPANION || {};
+  if (ROOT.enabled === false) return;
+  var C = ROOT.corner || {};
+  if (C.enabled === false) return;
+
+  var SIDE       = C.side || 'right';                       // 'right' | 'left'
+  var RESUME_URL = C.resumeUrl || '/assets/resume/Tetiana_Kravchuk_Resume.pdf';
+  var COFFEE_URL = C.coffeeUrl || 'https://buymeacoffee.com/tetianakravchuk';
+  var RESUME_MS  = C.resumeMs || 4200;   // résumé bubble is shown first
+  var COFFEE_MS  = C.coffeeMs || 4200;   // then the coffee bubble
+  var FIRST_MS   = C.firstSwitchMs || 2000; // "after 2 sec he drinks coffee"
+
+  var reduced = false;
+  try { reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+  var EYE = '#ffd23f';   // yellow eyes (per request)
+  var FUR = '#07070e';
+
+  // --- DOM: widget = bubble (HTML, clickable) + canvas (the cat) --------------
+  var wrap = document.createElement('div');
+  wrap.className = 'cat-corner cat-corner-' + SIDE;
+  wrap.setAttribute('aria-hidden', 'false');
+
+  var bubble = document.createElement('a');
+  bubble.className = 'cat-corner-bubble';
+  bubble.setAttribute('rel', 'noopener');
+
+  var canvas = document.createElement('canvas');
+  canvas.className = 'cat-corner-canvas';
+  canvas.width = 168; canvas.height = 176;      // device px (fixed small size)
+  canvas.setAttribute('role', 'img');
+  canvas.setAttribute('aria-label', 'Cat mascot');
+
+  wrap.appendChild(bubble);
+  wrap.appendChild(canvas);
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+
+  // --- State ------------------------------------------------------------------
+  var mode = 'resume';       // 'resume' | 'coffee'
+  var frozen = false;        // pause auto-switch while hovered
+  var elapsed = 0;           // ms in current mode
+  var switchAt = FIRST_MS;   // when to flip mode next
+  var t = 0;                 // animation clock (s)
+
+  function applyMode() {
+    if (mode === 'resume') {
+      bubble.textContent = '📄 Download my résumé';
+      bubble.href = RESUME_URL;
+      bubble.setAttribute('download', '');
+      bubble.removeAttribute('target');
+    } else {
+      bubble.textContent = '☕ Buy me a coffee';
+      if (COFFEE_URL && COFFEE_URL !== '#') {
+        bubble.href = COFFEE_URL;
+        bubble.setAttribute('target', '_blank');
+      } else {
+        bubble.removeAttribute('href');
+      }
+      bubble.removeAttribute('download');
+    }
+  }
+
+  wrap.addEventListener('mouseenter', function () { frozen = true; });
+  wrap.addEventListener('mouseleave', function () { frozen = false; });
+
+  // --- Drawing ----------------------------------------------------------------
+  function drawEye(x, y, r, look) {
+    ctx.save();
+    ctx.globalAlpha = 0.5;
+    var g = ctx.createRadialGradient(x, y, 0, x, y, r * 2.6);
+    g.addColorStop(0, EYE); g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r * 2.6, 0, 7); ctx.fill();
+    ctx.restore();
+    ctx.fillStyle = EYE;
+    ctx.beginPath(); ctx.ellipse(x, y, r * 0.9, r, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = '#0a0a06';
+    ctx.beginPath(); ctx.ellipse(x, y + (look || 0), r * 0.28, r * 0.82, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
+    ctx.beginPath(); ctx.arc(x - r * 0.3, y - r * 0.35, r * 0.2, 0, 7); ctx.fill();
+  }
+
+  function drawCat() {
+    ctx.clearRect(0, 0, W, H);
+    var cx = W / 2;
+    var sip = mode === 'coffee' && !reduced ? Math.max(0, Math.sin(t * 3)) : 0; // 0..1 sip bob
+    var headDy = -sip * 5;
+
+    // contact shadow
+    ctx.save(); ctx.globalAlpha = 0.16; ctx.fillStyle = '#000';
+    ctx.beginPath(); ctx.ellipse(cx, H - 10, 52, 9, 0, 0, 7); ctx.fill(); ctx.restore();
+
+    ctx.fillStyle = FUR;
+
+    // curled tail (right side)
+    ctx.save(); ctx.strokeStyle = FUR; ctx.lineCap = 'round'; ctx.lineWidth = 15;
+    ctx.beginPath();
+    ctx.moveTo(cx + 34, H - 30);
+    ctx.quadraticCurveTo(cx + 74, H - 34, cx + 66, H - 74);
+    ctx.quadraticCurveTo(cx + 60, H - 100, cx + 30, H - 92);
+    ctx.stroke(); ctx.restore();
+
+    // body (egg)
+    ctx.beginPath();
+    ctx.moveTo(cx - 50, H - 14);
+    ctx.quadraticCurveTo(cx - 58, H - 78, cx - 30, H - 100);
+    ctx.quadraticCurveTo(cx, H - 116, cx + 30, H - 100);
+    ctx.quadraticCurveTo(cx + 58, H - 78, cx + 50, H - 14);
+    ctx.quadraticCurveTo(cx, H - 4, cx - 50, H - 14);
+    ctx.closePath(); ctx.fill();
+
+    if (mode === 'coffee') {
+      drawPawsAndMug(cx, sip);
+    } else {
+      // two front paws
+      ctx.beginPath(); ctx.ellipse(cx - 16, H - 16, 12, 9, 0, 0, 7); ctx.fill();
+      ctx.beginPath(); ctx.ellipse(cx + 16, H - 16, 12, 9, 0, 0, 7); ctx.fill();
+    }
+
+    // head + ears (bob while sipping)
+    var hx = cx, hy = H - 116 + headDy;
+    ctx.fillStyle = FUR;
+    ctx.beginPath();  // ears
+    ctx.moveTo(hx - 24, hy - 8); ctx.lineTo(hx - 32, hy - 40); ctx.lineTo(hx - 6, hy - 22); ctx.closePath();
+    ctx.moveTo(hx + 24, hy - 8); ctx.lineTo(hx + 32, hy - 40); ctx.lineTo(hx + 6, hy - 22); ctx.closePath();
+    ctx.fill();
+    ctx.beginPath(); ctx.arc(hx, hy, 30, 0, 7); ctx.fill();  // skull
+
+    // eyes (yellow) + nose
+    var look = mode === 'coffee' ? 1.4 : 0;
+    drawEye(hx - 11, hy - 1, 5.4, look);
+    drawEye(hx + 11, hy - 1, 5.4, look);
+    ctx.fillStyle = '#d98a9a';
+    ctx.beginPath(); ctx.moveTo(hx, hy + 9); ctx.lineTo(hx - 2.4, hy + 6); ctx.lineTo(hx + 2.4, hy + 6); ctx.closePath(); ctx.fill();
+  }
+
+  function drawPawsAndMug(cx, sip) {
+    var my = H - 30 - sip * 3;     // mug rises a touch as the cat sips
+    // steam
+    if (!reduced) {
+      ctx.save(); ctx.strokeStyle = 'rgba(150,150,160,0.55)'; ctx.lineWidth = 2; ctx.lineCap = 'round';
+      for (var s = -1; s <= 1; s++) {
+        ctx.beginPath();
+        var bx = cx + s * 8;
+        ctx.moveTo(bx, my - 14);
+        ctx.quadraticCurveTo(bx + 4 * Math.sin(t * 4 + s), my - 24, bx - 3, my - 34);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+    // mug body
+    ctx.fillStyle = '#e9e4d8';
+    ctx.beginPath();
+    ctx.moveTo(cx - 15, my - 12); ctx.lineTo(cx + 15, my - 12);
+    ctx.lineTo(cx + 12, my + 12); ctx.lineTo(cx - 12, my + 12); ctx.closePath(); ctx.fill();
+    // coffee surface
+    ctx.fillStyle = '#5b3a24';
+    ctx.beginPath(); ctx.ellipse(cx, my - 12, 15, 4, 0, 0, 7); ctx.fill();
+    // handle
+    ctx.strokeStyle = '#e9e4d8'; ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.arc(cx + 16, my, 7, -1.2, 1.2); ctx.stroke();
+    // two paws cupping the mug
+    ctx.fillStyle = FUR;
+    ctx.beginPath(); ctx.ellipse(cx - 15, my + 4, 10, 8, 0, 0, 7); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(cx + 15, my + 4, 10, 8, 0, 0, 7); ctx.fill();
+  }
+
+  // --- Loop / timing ----------------------------------------------------------
+  var last = 0, raf = 0, running = false;
+  function frame(ts) {
+    if (!running) return;
+    if (!last) last = ts;
+    var dt = Math.min(0.05, (ts - last) / 1000); last = ts; t += dt;
+    if (!frozen) {
+      elapsed += dt * 1000;
+      if (elapsed >= switchAt) {
+        mode = mode === 'resume' ? 'coffee' : 'resume';
+        applyMode();
+        elapsed = 0;
+        switchAt = mode === 'resume' ? RESUME_MS : COFFEE_MS;
+      }
+    }
+    drawCat();
+    raf = requestAnimationFrame(frame);
+  }
+
+  function start() { if (running) return; running = true; last = 0; raf = requestAnimationFrame(frame); }
+  function stop() { running = false; if (raf) cancelAnimationFrame(raf); }
+
+  document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+
+  function boot() {
+    (document.body || document.documentElement).appendChild(wrap);
+    applyMode();
+    if (reduced) {
+      // static: draw the current pose; still switch text on a timer, no animation
+      drawCat();
+      setInterval(function () {
+        if (frozen) return;
+        mode = mode === 'resume' ? 'coffee' : 'resume';
+        applyMode(); drawCat();
+      }, Math.max(RESUME_MS, 3000));
+    } else {
+      start();
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
