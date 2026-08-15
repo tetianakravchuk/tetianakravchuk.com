@@ -891,14 +891,16 @@
 
   var canvas = document.createElement('canvas');
   canvas.className = 'cat-corner-canvas';
-  canvas.width = 168; canvas.height = 176;      // device px (fixed small size)
+  var CW = 168, CH = 176, CDPR = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = CW * CDPR; canvas.height = CH * CDPR;   // retina backing (crisp when scaled up)
   canvas.setAttribute('role', 'img');
   canvas.setAttribute('aria-label', 'Cat mascot');
 
   wrap.appendChild(bubble);
   wrap.appendChild(canvas);
   var ctx = canvas.getContext('2d');
-  var W = canvas.width, H = canvas.height;
+  ctx.scale(CDPR, CDPR);                 // draw in logical CW×CH space
+  var W = CW, H = CH;
 
   // --- State ------------------------------------------------------------------
   var mode = 'resume';       // 'resume' | 'coffee'
