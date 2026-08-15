@@ -76,10 +76,11 @@
   var WALK_SPEED  = 78 * SCALE;              // px / second
   var JUMP_REACH  = 210 * SCALE;             // max height (px) the cat will leap
 
-  // Eyes — heterochromia. Anatomical assignment so it stays consistent as the
-  // cat turns: cat's left eye is yellow, cat's right eye is orange.
-  var EYE_YELLOW  = '#ffd23f';
+  // Eyes — both orange. (Set EYE_LEFT to a different hue for a heterochromatic
+  // cat; the assignment is anatomical so it stays consistent as the cat turns.)
   var EYE_ORANGE  = '#ff7a18';
+  var EYE_LEFT    = EYE_ORANGE;   // cat's left  eye
+  var EYE_RIGHT   = EYE_ORANGE;   // cat's right eye
   var FUR         = '#07070e';
   var FUR_HI      = 'rgba(70,70,90,0.0)';    // no rim needed — black cat on light bg
 
@@ -501,8 +502,8 @@
     // Heterochromatic eyes drawn in world space (unflipped) so the slit pupils
     // can track the cursor. Skipped when a sprite bakes its own eyes in.
     if (eyes) {
-      drawEye(eyes.left.x, eyes.left.y, EYE_YELLOW, eyes.r);   // cat's left  → yellow
-      drawEye(eyes.right.x, eyes.right.y, EYE_ORANGE, eyes.r); // cat's right → orange
+      drawEye(eyes.left.x, eyes.left.y, EYE_LEFT, eyes.r);   // cat's left
+      drawEye(eyes.right.x, eyes.right.y, EYE_RIGHT, eyes.r); // cat's right
     }
   }
 
