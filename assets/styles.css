@@ -605,10 +605,10 @@ img, svg, object { max-width: 100%; }
 .cat-corner-left  { left: 16px;  align-items: flex-start; }
 
 .cat-corner-canvas {
-  width: 84px;             /* on-screen size (canvas is 168x176 device px) */
-  height: 88px;
+  width: 132px;            /* on-screen size (logical canvas is 168x176, retina-backed) */
+  height: 138px;
   display: block;
-  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.12));
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.14));
 }
 
 .cat-corner-bubble {
