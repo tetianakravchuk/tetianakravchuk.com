@@ -707,3 +707,30 @@ img, svg, object { max-width: 100%; }
   .lang-switch { margin: 8px 0 0; }
   .lang-menu { right: auto; left: 0; }
 }
+
+/* ── Localized demo video (demo-video.js) ── */
+.video-embed-wrap { display: flex; flex-direction: column; }
+.video-frame-wrap { position: relative; width: 100%; height: 100%; }
+.video-close {
+  position: absolute; top: 8px; right: 8px; z-index: 2;
+  width: 30px; height: 30px; line-height: 1;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 15px; color: #fff; background: rgba(20,18,16,0.72);
+  border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; cursor: pointer;
+}
+.video-close:hover { background: rgba(20,18,16,0.9); }
+.video-close:focus-visible { outline: 2.5px solid #fff; outline-offset: 2px; }
+.video-status {
+  margin: 10px 2px 0;
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 12px; color: var(--muted, #6f6b62);
+  display: flex; align-items: center; gap: 6px;
+}
+.video-status::before {
+  content: "CC"; font-size: 9.5px; font-weight: 600; letter-spacing: 0.03em;
+  color: var(--ink, #1a1917); background: var(--chip, #f0ede6);
+  border: 1px solid var(--line-strong, #d4d0c7); border-radius: 4px;
+  padding: 1px 4px;
+}
+/* Fallback state is conveyed by text, not color alone; this is only emphasis. */
+.video-status[data-fallback="audio"] { color: var(--ink-soft, #423f39); }

@@ -772,6 +772,29 @@
     }
   };
 
+  // ── Demo-video labels (localized-demo feature) ──────────────────────────────
+  // Merged into STR below so the demo controller uses the same dictionaries.
+  // "*Localized" phrases are fixed for THIS language (localized always means the
+  // currently-selected language), which sidesteps adjective-agreement issues.
+  var DEMO = {
+    en: { 'demo.watch': "Watch demo", 'demo.play': "Play demo", 'demo.walkthrough': "Product walkthrough", 'demo.audioEnglish': "English audio", 'demo.audioLocalized': "English audio", 'demo.subsEnglish': "English subtitles", 'demo.subsLocalized': "English subtitles", 'demo.subsUnavailable': "Subtitles unavailable", 'demo.localizedUnavailable': "Localized demo unavailable", 'demo.playingEnglish': "Playing with English audio", 'demo.openYouTube': "Open on YouTube", 'demo.close': "Close video" },
+    es: { 'demo.watch': "Ver demo", 'demo.play': "Reproducir demo", 'demo.walkthrough': "Recorrido del producto", 'demo.audioEnglish': "Audio en inglés", 'demo.audioLocalized': "Audio en español", 'demo.subsEnglish': "Subtítulos en inglés", 'demo.subsLocalized': "Subtítulos en español", 'demo.subsUnavailable': "Subtítulos no disponibles", 'demo.localizedUnavailable': "Demo localizada no disponible", 'demo.playingEnglish': "Reproduciendo con audio en inglés", 'demo.openYouTube': "Abrir en YouTube", 'demo.close': "Cerrar vídeo" },
+    pl: { 'demo.watch': "Zobacz demo", 'demo.play': "Odtwórz demo", 'demo.walkthrough': "Prezentacja produktu", 'demo.audioEnglish': "Angielskie audio", 'demo.audioLocalized': "Polskie audio", 'demo.subsEnglish': "Angielskie napisy", 'demo.subsLocalized': "Polskie napisy", 'demo.subsUnavailable': "Napisy niedostępne", 'demo.localizedUnavailable': "Zlokalizowane demo niedostępne", 'demo.playingEnglish': "Odtwarzanie z angielskim audio", 'demo.openYouTube': "Otwórz w YouTube", 'demo.close': "Zamknij wideo" },
+    uk: { 'demo.watch': "Дивитися демо", 'demo.play': "Відтворити демо", 'demo.walkthrough': "Огляд продукту", 'demo.audioEnglish': "Англійська озвучка", 'demo.audioLocalized': "Українська озвучка", 'demo.subsEnglish': "Англійські субтитри", 'demo.subsLocalized': "Українські субтитри", 'demo.subsUnavailable': "Субтитри недоступні", 'demo.localizedUnavailable': "Локалізоване демо недоступне", 'demo.playingEnglish': "Відтворення з англійською озвучкою", 'demo.openYouTube': "Відкрити на YouTube", 'demo.close': "Закрити відео" },
+    fr: { 'demo.watch': "Voir la démo", 'demo.play': "Lire la démo", 'demo.walkthrough': "Présentation du produit", 'demo.audioEnglish': "Audio en anglais", 'demo.audioLocalized': "Audio en français", 'demo.subsEnglish': "Sous-titres en anglais", 'demo.subsLocalized': "Sous-titres en français", 'demo.subsUnavailable': "Sous-titres indisponibles", 'demo.localizedUnavailable': "Démo localisée indisponible", 'demo.playingEnglish': "Lecture avec audio en anglais", 'demo.openYouTube': "Ouvrir sur YouTube", 'demo.close': "Fermer la vidéo" },
+    ro: { 'demo.watch': "Vezi demo", 'demo.play': "Redă demo", 'demo.walkthrough': "Prezentarea produsului", 'demo.audioEnglish': "Audio în engleză", 'demo.audioLocalized': "Audio în română", 'demo.subsEnglish': "Subtitrări în engleză", 'demo.subsLocalized': "Subtitrări în română", 'demo.subsUnavailable': "Subtitrări indisponibile", 'demo.localizedUnavailable': "Demo localizat indisponibil", 'demo.playingEnglish': "Redare cu audio în engleză", 'demo.openYouTube': "Deschide pe YouTube", 'demo.close': "Închide videoclipul" },
+    cs: { 'demo.watch': "Zobrazit demo", 'demo.play': "Přehrát demo", 'demo.walkthrough': "Průvodce produktem", 'demo.audioEnglish': "Anglické audio", 'demo.audioLocalized': "České audio", 'demo.subsEnglish': "Anglické titulky", 'demo.subsLocalized': "České titulky", 'demo.subsUnavailable': "Titulky nedostupné", 'demo.localizedUnavailable': "Lokalizované demo nedostupné", 'demo.playingEnglish': "Přehrávání s anglickým audiem", 'demo.openYouTube': "Otevřít na YouTube", 'demo.close': "Zavřít video" },
+    no: { 'demo.watch': "Se demo", 'demo.play': "Spill av demo", 'demo.walkthrough': "Produktgjennomgang", 'demo.audioEnglish': "Engelsk lyd", 'demo.audioLocalized': "Norsk lyd", 'demo.subsEnglish': "Engelske undertekster", 'demo.subsLocalized': "Norske undertekster", 'demo.subsUnavailable': "Undertekster utilgjengelige", 'demo.localizedUnavailable': "Lokalisert demo utilgjengelig", 'demo.playingEnglish': "Spiller av med engelsk lyd", 'demo.openYouTube': "Åpne på YouTube", 'demo.close': "Lukk video" },
+    is: { 'demo.watch': "Horfa á kynningu", 'demo.play': "Spila kynningu", 'demo.walkthrough': "Yfirferð vöru", 'demo.audioEnglish': "Enskt hljóð", 'demo.audioLocalized': "Íslenskt hljóð", 'demo.subsEnglish': "Enskur texti", 'demo.subsLocalized': "Íslenskur texti", 'demo.subsUnavailable': "Texti ekki í boði", 'demo.localizedUnavailable': "Staðfærð kynning ekki í boði", 'demo.playingEnglish': "Spilar með ensku hljóði", 'demo.openYouTube': "Opna á YouTube", 'demo.close': "Loka myndbandi" },
+    sv: { 'demo.watch': "Se demo", 'demo.play': "Spela upp demo", 'demo.walkthrough': "Produktgenomgång", 'demo.audioEnglish': "Engelskt ljud", 'demo.audioLocalized': "Svenskt ljud", 'demo.subsEnglish': "Engelsk undertext", 'demo.subsLocalized': "Svensk undertext", 'demo.subsUnavailable': "Undertext ej tillgänglig", 'demo.localizedUnavailable': "Lokaliserad demo ej tillgänglig", 'demo.playingEnglish': "Spelar upp med engelskt ljud", 'demo.openYouTube': "Öppna på YouTube", 'demo.close': "Stäng video" },
+    da: { 'demo.watch': "Se demo", 'demo.play': "Afspil demo", 'demo.walkthrough': "Produktgennemgang", 'demo.audioEnglish': "Engelsk lyd", 'demo.audioLocalized': "Dansk lyd", 'demo.subsEnglish': "Engelske undertekster", 'demo.subsLocalized': "Danske undertekster", 'demo.subsUnavailable': "Undertekster utilgængelige", 'demo.localizedUnavailable': "Lokaliseret demo utilgængelig", 'demo.playingEnglish': "Afspiller med engelsk lyd", 'demo.openYouTube': "Åbn på YouTube", 'demo.close': "Luk video" },
+    fi: { 'demo.watch': "Katso demo", 'demo.play': "Toista demo", 'demo.walkthrough': "Tuote-esittely", 'demo.audioEnglish': "Englanninkielinen ääni", 'demo.audioLocalized': "Suomenkielinen ääni", 'demo.subsEnglish': "Englanninkieliset tekstitykset", 'demo.subsLocalized': "Suomenkieliset tekstitykset", 'demo.subsUnavailable': "Tekstitykset eivät saatavilla", 'demo.localizedUnavailable': "Lokalisoitu demo ei saatavilla", 'demo.playingEnglish': "Toistetaan englanninkielisellä äänellä", 'demo.openYouTube': "Avaa YouTubessa", 'demo.close': "Sulje video" },
+    et: { 'demo.watch': "Vaata demo", 'demo.play': "Esita demo", 'demo.walkthrough': "Tooteülevaade", 'demo.audioEnglish': "Ingliskeelne heli", 'demo.audioLocalized': "Eestikeelne heli", 'demo.subsEnglish': "Ingliskeelsed subtiitrid", 'demo.subsLocalized': "Eestikeelsed subtiitrid", 'demo.subsUnavailable': "Subtiitrid pole saadaval", 'demo.localizedUnavailable': "Lokaliseeritud demo pole saadaval", 'demo.playingEnglish': "Esitamine ingliskeelse heliga", 'demo.openYouTube': "Ava YouTube'is", 'demo.close': "Sulge video" },
+    lv: { 'demo.watch': "Skatīties demo", 'demo.play': "Atskaņot demo", 'demo.walkthrough': "Produkta pārskats", 'demo.audioEnglish': "Angļu audio", 'demo.audioLocalized': "Latviešu audio", 'demo.subsEnglish': "Angļu subtitri", 'demo.subsLocalized': "Latviešu subtitri", 'demo.subsUnavailable': "Subtitri nav pieejami", 'demo.localizedUnavailable': "Lokalizētais demo nav pieejams", 'demo.playingEnglish': "Atskaņo ar angļu audio", 'demo.openYouTube': "Atvērt vietnē YouTube", 'demo.close': "Aizvērt video" },
+    lt: { 'demo.watch': "Žiūrėti demo", 'demo.play': "Paleisti demo", 'demo.walkthrough': "Produkto apžvalga", 'demo.audioEnglish': "Angliškas garsas", 'demo.audioLocalized': "Lietuviškas garsas", 'demo.subsEnglish': "Angliški subtitrai", 'demo.subsLocalized': "Lietuviški subtitrai", 'demo.subsUnavailable': "Subtitrai nepasiekiami", 'demo.localizedUnavailable': "Lokalizuota demonstracija nepasiekiama", 'demo.playingEnglish': "Leidžiama su anglišku garsu", 'demo.openYouTube': "Atidaryti „YouTube“", 'demo.close': "Uždaryti vaizdo įrašą" }
+  };
+  Object.keys(DEMO).forEach(function (l) { if (STR[l]) { var d = DEMO[l]; Object.keys(d).forEach(function (k) { STR[l][k] = d[k]; }); } });
+
   // ── Engine ──────────────────────────────────────────────────────────────────
   function t(lang, key) {
     return (STR[lang] && STR[lang][key] != null) ? STR[lang][key] : (STR.en[key] != null ? STR.en[key] : key);
@@ -795,6 +818,9 @@
       });
     });
     if (switchUI) switchUI.refresh(lang);
+    // Notify integrations (e.g. the localized-demo controller). Single shared
+    // language state — listeners read window.I18N, they don't store their own.
+    try { document.dispatchEvent(new CustomEvent('tk:langchange', { detail: { lang: lang } })); } catch (e) {}
   }
 
   function getLang() {
@@ -921,5 +947,9 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
   else boot();
 
-  window.I18N = { set: setLang, get: getLang, apply: apply, langs: LANGS };
+  window.I18N = {
+    set: setLang, get: getLang, apply: apply, langs: LANGS,
+    // Translate a key in the given (or current) language, English fallback.
+    t: function (key, lang) { return t(lang || getLang(), key); }
+  };
 })();
