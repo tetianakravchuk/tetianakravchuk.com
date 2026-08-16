@@ -685,6 +685,7 @@ img, svg, object { max-width: 100%; }
 .lang-menu {
   position: absolute; right: 0; top: calc(100% + 8px);
   min-width: 190px; padding: 6px;
+  max-height: min(70vh, 440px); overflow-y: auto;
   background: var(--card, #fff); border: 1px solid var(--line-strong, #d4d0c7);
   border-radius: 12px; box-shadow: 0 14px 34px rgba(0,0,0,0.14);
   display: flex; flex-direction: column; gap: 2px; z-index: 80;
