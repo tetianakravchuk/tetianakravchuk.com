@@ -78,7 +78,7 @@
             <p class="credential-line" data-i18n-html="hero.cred">M.S. Data Science, AI &amp; ML — Boston University<br />Massachusetts · open to US remote roles</p>
             <div class="actions">
               <a class="button primary" href="#featured-ai-project" data-i18n="btn.built">See what I built</a>
-              <a class="button" href="https://youtu.be/XlATAL1rO5w" target="_blank" rel="noopener noreferrer" data-i18n="btn.demo">Watch 6-minute demo ↗</a>
+              <a class="button" href="https://youtu.be/XlATAL1rO5w" target="_blank" rel="noopener noreferrer" data-i18n="btn.demo" data-demo-link>Watch 6-minute demo ↗</a>
               <a class="button" href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download aria-label="Download résumé PDF" data-i18n="btn.resume">Download résumé</a>
             </div>
           </div>
@@ -109,14 +109,17 @@
           <p data-i18n="feat.p">I designed and built a full-stack AI and data platform combining controlled research agents, source-backed publishing data, prompt governance, execution telemetry, AI evaluation, deterministic safety, and human review.</p>
         </div>
         <div class="grid-2">
-          <div class="video-embed" data-video="XlATAL1rO5w">
-            <button type="button" class="video-facade" data-video-play aria-label="Play the World Publishing Houses AI platform demo">
-              <span class="video-facade-inner">
-                <span class="video-play-icon" aria-hidden="true">&#9654;</span>
-                <span class="video-facade-label" data-i18n="feat.videoLabel">What I Built: AI Platform Demo</span>
-                <span class="video-facade-sub" data-i18n="feat.videoSub">6:18 · product walkthrough</span>
-              </span>
-            </button>
+          <div class="video-embed-wrap">
+            <div class="video-embed" data-video="XlATAL1rO5w">
+              <button type="button" class="video-facade" data-video-play aria-label="Play the World Publishing Houses AI platform demo">
+                <span class="video-facade-inner">
+                  <span class="video-play-icon" aria-hidden="true">&#9654;</span>
+                  <span class="video-facade-label" data-i18n="feat.videoLabel">What I Built: AI Platform Demo</span>
+                  <span class="video-facade-sub" data-i18n="feat.videoSub">6:18 · product walkthrough</span>
+                </span>
+              </button>
+            </div>
+            <p class="video-status" data-demo-status aria-live="polite"></p>
           </div>
           <article class="card featured">
             <div class="kicker" data-i18n="feat.kicker">Production-oriented engineering</div>
@@ -219,6 +222,7 @@
     </div>
   </footer>
   <script src="/assets/i18n.js?v=1" defer></script>
+  <script src="/assets/demo-video.js?v=1" defer></script>
   <script src="assets/script.js?v=7"></script>
 <script src="/assets/cat-companion.js?v=3" defer></script></body>
 </html>
