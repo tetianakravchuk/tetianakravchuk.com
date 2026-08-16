@@ -659,20 +659,50 @@ img, svg, object { max-width: 100%; }
   .cat-corner-bubble { animation: none; transition: none; }
 }
 
-/* Language switcher (i18n.js) */
-.lang-switch {
-  display: inline-flex; align-items: center; gap: 6px;
-  margin-left: 8px;
+/* Language switcher (i18n.js) — custom dropdown with SVG flags */
+.lang-switch { position: relative; margin-left: 8px; }
+
+.flag-wrap {
+  display: inline-block; width: 22px; height: 15px; flex: 0 0 auto;
+  border-radius: 3px; overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.12); background: #fff;
 }
-.lang-globe { font-size: 14px; line-height: 1; }
-.lang-select {
-  font-family: var(--mono, ui-monospace, monospace);
-  font-size: 13px; color: var(--ink, #1a1917);
-  background: var(--card, #fff);
-  border: 1px solid var(--line-strong, #d4d0c7); border-radius: 8px;
-  padding: 5px 8px; cursor: pointer;
+.flag-wrap .flag { display: block; width: 100%; height: 100%; }
+
+.lang-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-family: var(--mono, ui-monospace, monospace); font-size: 13px; font-weight: 500;
+  color: var(--ink, #1a1917); background: var(--card, #fff);
+  border: 1px solid var(--line-strong, #d4d0c7); border-radius: 999px;
+  padding: 5px 10px 5px 8px; cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
 }
-.lang-select:focus-visible { outline: 3px solid var(--accent, #2b7a78); outline-offset: 2px; }
+.lang-btn:hover { background: var(--card-alt, #f4f1ea); }
+.lang-btn:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 3px; }
+.lang-btn-label { letter-spacing: 0.02em; }
+.lang-btn-caret { font-size: 10px; color: var(--muted, #6f6b62); margin-left: 1px; }
+
+.lang-menu {
+  position: absolute; right: 0; top: calc(100% + 8px);
+  min-width: 190px; padding: 6px;
+  background: var(--card, #fff); border: 1px solid var(--line-strong, #d4d0c7);
+  border-radius: 12px; box-shadow: 0 14px 34px rgba(0,0,0,0.14);
+  display: flex; flex-direction: column; gap: 2px; z-index: 80;
+}
+.lang-menu[hidden] { display: none; }
+.lang-option {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 8px 10px; border: 0; border-radius: 8px; background: none;
+  font-family: var(--sans, system-ui); font-size: 14px; color: var(--ink, #1a1917);
+  text-align: left; cursor: pointer;
+}
+.lang-option:hover, .lang-option:focus-visible { background: var(--chip, #f0ede6); outline: none; }
+.lang-option[aria-selected="true"] { font-weight: 600; }
+.lang-option .lang-name { flex: 1 1 auto; }
+.lang-option .lang-check { color: var(--accent); opacity: 0; font-size: 13px; }
+.lang-option[aria-selected="true"] .lang-check { opacity: 1; }
+
 @media (max-width: 720px) {
   .lang-switch { margin: 8px 0 0; }
+  .lang-menu { right: auto; left: 0; }
 }
