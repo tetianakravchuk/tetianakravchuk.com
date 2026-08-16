@@ -658,3 +658,21 @@ img, svg, object { max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   .cat-corner-bubble { animation: none; transition: none; }
 }
+
+/* Language switcher (i18n.js) */
+.lang-switch {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-left: 8px;
+}
+.lang-globe { font-size: 14px; line-height: 1; }
+.lang-select {
+  font-family: var(--mono, ui-monospace, monospace);
+  font-size: 13px; color: var(--ink, #1a1917);
+  background: var(--card, #fff);
+  border: 1px solid var(--line-strong, #d4d0c7); border-radius: 8px;
+  padding: 5px 8px; cursor: pointer;
+}
+.lang-select:focus-visible { outline: 3px solid var(--accent, #2b7a78); outline-offset: 2px; }
+@media (max-width: 720px) {
+  .lang-switch { margin: 8px 0 0; }
+}

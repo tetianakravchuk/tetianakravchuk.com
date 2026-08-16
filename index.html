@@ -48,21 +48,21 @@
   </script>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to main content</a>
+  <a href="#main" class="skip-link" data-i18n="a11y.skip">Skip to main content</a>
   <nav class="nav" aria-label="Main navigation">
     <div class="nav-inner">
       <a class="brand" href="index.html">Tetiana Kravchuk <span class="brand-mark">Applied AI · AI Evaluation</span></a>
       <button class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-navigation" data-menu-toggle>
         <span class="menu-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span>
-        <span>Menu</span>
+        <span data-i18n="nav.menu">Menu</span>
       </button>
       <div class="nav-links" id="site-navigation" data-nav-links>
-        <a href="pages/about.html">About</a>
-        <a href="pages/resume.html">Resume</a>
-        <a href="pages/projects.html">Projects</a>
-        <a href="pages/data-science.html">Data Science</a>
-        <a href="pages/qa-impact.html">QA Impact</a>
-        <a href="pages/contact.html">Contact</a>
+        <a href="pages/about.html" data-i18n="nav.about">About</a>
+        <a href="pages/resume.html" data-i18n="nav.resume">Resume</a>
+        <a href="pages/projects.html" data-i18n="nav.projects">Projects</a>
+        <a href="pages/data-science.html" data-i18n="nav.data">Data Science</a>
+        <a href="pages/qa-impact.html" data-i18n="nav.qa">QA Impact</a>
+        <a href="pages/contact.html" data-i18n="nav.contact">Contact</a>
       </div>
     </div>
   </nav>
@@ -72,23 +72,23 @@
       <section class="hp-hero" id="home" aria-labelledby="home-hero-heading">
         <div class="hp-hero-grid">
           <div>
-            <div class="hp-badge"><span class="dot" aria-hidden="true"></span> Open to Applied AI · AI Evaluation · AI Platform roles</div>
-            <h1 id="home-hero-heading">I build AI systems that are reliable, observable, and testable.</h1>
-            <p class="lead">I combine 10+ years of software quality engineering with an M.S. in Data Science, AI &amp; Machine Learning to build and evaluate AI systems across data pipelines, agents, prompt governance, telemetry, regression testing, and safety.</p>
-            <p class="credential-line">M.S. Data Science, AI &amp; ML — Boston University<br />Massachusetts · open to US remote roles</p>
+            <div class="hp-badge"><span class="dot" aria-hidden="true"></span> <span data-i18n="hero.badge">Open to Applied AI · AI Evaluation · AI Platform roles</span></div>
+            <h1 id="home-hero-heading" data-i18n="hero.h1">I build AI systems that are reliable, observable, and testable.</h1>
+            <p class="lead" data-i18n="hero.lead">I combine 10+ years of software quality engineering with an M.S. in Data Science, AI &amp; Machine Learning to build and evaluate AI systems across data pipelines, agents, prompt governance, telemetry, regression testing, and safety.</p>
+            <p class="credential-line" data-i18n-html="hero.cred">M.S. Data Science, AI &amp; ML — Boston University<br />Massachusetts · open to US remote roles</p>
             <div class="actions">
-              <a class="button primary" href="#featured-ai-project">See what I built</a>
-              <a class="button" href="https://youtu.be/XlATAL1rO5w" target="_blank" rel="noopener noreferrer">Watch 6-minute demo ↗</a>
-              <a class="button" href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download aria-label="Download résumé PDF">Download résumé</a>
+              <a class="button primary" href="#featured-ai-project" data-i18n="btn.built">See what I built</a>
+              <a class="button" href="https://youtu.be/XlATAL1rO5w" target="_blank" rel="noopener noreferrer" data-i18n="btn.demo">Watch 6-minute demo ↗</a>
+              <a class="button" href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download aria-label="Download résumé PDF" data-i18n="btn.resume">Download résumé</a>
             </div>
           </div>
           <aside class="snapshot" aria-label="Recruiter snapshot">
-            <div class="snapshot-label">Recruiter snapshot</div>
+            <div class="snapshot-label" data-i18n="snap.label">Recruiter snapshot</div>
             <dl>
-              <div><dt>PRIMARY</dt><dd>Applied AI · AI Evaluation · AI Platform</dd></div>
-              <div><dt>QUALITY SPECIALTY</dt><dd class="soft">LLM Evaluation · AI Quality · Data Quality · Source Grounding</dd></div>
-              <div><dt>CORE STACK</dt><dd class="soft">Python · SQL · FastAPI · PostgreSQL · Next.js · TypeScript</dd></div>
-              <div><dt>EXPERIENCE</dt><dd class="soft">10+ years Software Quality Engineering → Applied AI</dd></div>
+              <div><dt data-i18n="snap.primary">PRIMARY</dt><dd>Applied AI · AI Evaluation · AI Platform</dd></div>
+              <div><dt data-i18n="snap.quality">QUALITY SPECIALTY</dt><dd class="soft">LLM Evaluation · AI Quality · Data Quality · Source Grounding</dd></div>
+              <div><dt data-i18n="snap.stack">CORE STACK</dt><dd class="soft">Python · SQL · FastAPI · PostgreSQL · Next.js · TypeScript</dd></div>
+              <div><dt data-i18n="snap.experience">EXPERIENCE</dt><dd class="soft" data-i18n="snap.expVal">10+ years Software Quality Engineering → Applied AI</dd></div>
             </dl>
           </aside>
         </div>
@@ -96,36 +96,36 @@
 
       <section class="section tight" aria-label="Career metrics">
         <div class="hp-stats">
-          <div><div class="num">10+</div><p>years in software quality, automation, release, and reliability engineering</p></div>
-          <div><div class="num">100</div><p>reviewed AI evaluation cases in the WPH evaluation platform</p></div>
-          <div><div class="num">774</div><p>backend tests passing at a completed WPH stabilization milestone</p></div>
+          <div><div class="num">10+</div><p data-i18n="stats.s1">years in software quality, automation, release, and reliability engineering</p></div>
+          <div><div class="num">100</div><p data-i18n="stats.s2">reviewed AI evaluation cases in the WPH evaluation platform</p></div>
+          <div><div class="num">774</div><p data-i18n="stats.s3">backend tests passing at a completed WPH stabilization milestone</p></div>
         </div>
       </section>
 
       <section class="section" id="featured-ai-project" aria-labelledby="featured-ai-heading">
         <div class="section-header">
-          <div class="eyebrow">Featured AI project</div>
-          <h2 id="featured-ai-heading">World Publishing Houses — source-grounded AI intelligence platform</h2>
-          <p>I designed and built a full-stack AI and data platform combining controlled research agents, source-backed publishing data, prompt governance, execution telemetry, AI evaluation, deterministic safety, and human review.</p>
+          <div class="eyebrow" data-i18n="feat.eyebrow">Featured AI project</div>
+          <h2 id="featured-ai-heading" data-i18n="feat.h2">World Publishing Houses — source-grounded AI intelligence platform</h2>
+          <p data-i18n="feat.p">I designed and built a full-stack AI and data platform combining controlled research agents, source-backed publishing data, prompt governance, execution telemetry, AI evaluation, deterministic safety, and human review.</p>
         </div>
         <div class="grid-2">
           <div class="video-embed" data-video="XlATAL1rO5w">
             <button type="button" class="video-facade" data-video-play aria-label="Play the World Publishing Houses AI platform demo">
               <span class="video-facade-inner">
                 <span class="video-play-icon" aria-hidden="true">&#9654;</span>
-                <span class="video-facade-label">What I Built: AI Platform Demo</span>
-                <span class="video-facade-sub">6:18 · product walkthrough</span>
+                <span class="video-facade-label" data-i18n="feat.videoLabel">What I Built: AI Platform Demo</span>
+                <span class="video-facade-sub" data-i18n="feat.videoSub">6:18 · product walkthrough</span>
               </span>
             </button>
           </div>
           <article class="card featured">
-            <div class="kicker">Production-oriented engineering</div>
-            <h3>More than a chatbot</h3>
-            <p>The model is not the source of truth. WPH separates structured data, evidence, model output, deterministic safety, prompt versions, telemetry, evaluation, and human review so behavior can be reproduced and investigated.</p>
+            <div class="kicker" data-i18n="feat.kicker">Production-oriented engineering</div>
+            <h3 data-i18n="feat.h3">More than a chatbot</h3>
+            <p data-i18n="feat.p2">The model is not the source of truth. WPH separates structured data, evidence, model output, deterministic safety, prompt versions, telemetry, evaluation, and human review so behavior can be reproduced and investigated.</p>
             <ul class="tag-list"><li>AI Agents</li><li>Prompt Governance</li><li>LLM Evals</li><li>Telemetry</li><li>FastAPI</li><li>PostgreSQL</li></ul>
             <div class="actions">
-              <a class="button primary" href="projects/wph-ai-platform/">Explore case study</a>
-              <a class="button" href="https://www.worldpublishinghouses.com/" target="_blank" rel="noopener noreferrer">Live platform ↗</a>
+              <a class="button primary" href="projects/wph-ai-platform/" data-i18n="btn.case">Explore case study</a>
+              <a class="button" href="https://www.worldpublishinghouses.com/" target="_blank" rel="noopener noreferrer" data-i18n="btn.live">Live platform ↗</a>
               <a class="button" href="https://github.com/tetianakravchuk/wph-llm-eval" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
             </div>
           </article>
@@ -135,10 +135,10 @@
       <section class="section" id="work" aria-labelledby="work-heading">
         <div class="work-head">
           <div>
-            <div class="eyebrow">Additional evidence</div>
-            <h2 id="work-heading">Data science and engineering quality</h2>
+            <div class="eyebrow" data-i18n="work.eyebrow">Additional evidence</div>
+            <h2 id="work-heading" data-i18n="work.h2">Data science and engineering quality</h2>
           </div>
-          <p>WPH is the flagship above. These projects show the modeling and quality-engineering foundation behind how I build AI systems.</p>
+          <p data-i18n="work.p">WPH is the flagship above. These projects show the modeling and quality-engineering foundation behind how I build AI systems.</p>
         </div>
         <div class="work-list">
           <article class="work-card">
@@ -152,26 +152,26 @@
               </svg>
             </div>
             <div class="body">
-              <div class="kicker">ML capstone · model validation</div>
-              <h3>Where a housing-price model breaks, and why</h3>
-              <p>I compared a Random Forest against a linear baseline, then focused on residual behavior and production limits rather than only headline accuracy.</p>
-              <p class="outcome"><strong>Outcome:</strong> residuals exposed systematic error on high-end homes, so I documented that limitation instead of presenting R² alone.</p>
+              <div class="kicker" data-i18n="work.c1kicker">ML capstone · model validation</div>
+              <h3 data-i18n="work.c1h3">Where a housing-price model breaks, and why</h3>
+              <p data-i18n="work.c1p">I compared a Random Forest against a linear baseline, then focused on residual behavior and production limits rather than only headline accuracy.</p>
+              <p class="outcome"><strong data-i18n="work.c1outLabel">Outcome:</strong> <span data-i18n="work.c1out">residuals exposed systematic error on high-end homes, so I documented that limitation instead of presenting R² alone.</span></p>
               <ul class="tag-list"><li>Python</li><li>scikit-learn</li><li>Random Forest</li><li>Residual analysis</li></ul>
-              <div class="links"><a href="pages/data-science.html#housing">Read the case study →</a><a class="muted" href="https://github.com/tetianakravchuk/PredictHousingPrices" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+              <div class="links"><a href="pages/data-science.html#housing" data-i18n="work.c1read">Read the case study →</a><a class="muted" href="https://github.com/tetianakravchuk/PredictHousingPrices" target="_blank" rel="noopener noreferrer">GitHub</a></div>
             </div>
           </article>
 
           <article class="work-card dark">
             <div>
-              <div class="kicker">Professional impact · 10+ years</div>
-              <h3>Software quality as an AI engineering advantage</h3>
-              <p>Release testing, automation, APIs, CI/CD, failure analysis, and evidence-based triage shaped how I now design AI evaluations, regression gates, and observability.</p>
-              <a href="pages/qa-impact.html">See the engineering record →</a>
+              <div class="kicker" data-i18n="work.c2kicker">Professional impact · 10+ years</div>
+              <h3 data-i18n="work.c2h3">Software quality as an AI engineering advantage</h3>
+              <p data-i18n="work.c2p">Release testing, automation, APIs, CI/CD, failure analysis, and evidence-based triage shaped how I now design AI evaluations, regression gates, and observability.</p>
+              <a href="pages/qa-impact.html" data-i18n="work.c2link">See the engineering record →</a>
             </div>
             <div class="impact-rows">
-              <div class="row"><span class="k">QUALITY</span><span class="v">Regression, release, mobile, API, automation</span></div>
-              <div class="row"><span class="k">AI</span><span class="v">Evals, safety, provenance, telemetry, quality gates</span></div>
-              <div class="row"><span class="k">DATA</span><span class="v">Python, SQL, PostgreSQL, analytics, validation</span></div>
+              <div class="row"><span class="k">QUALITY</span><span class="v" data-i18n="work.rowQuality">Regression, release, mobile, API, automation</span></div>
+              <div class="row"><span class="k">AI</span><span class="v" data-i18n="work.rowAI">Evals, safety, provenance, telemetry, quality gates</span></div>
+              <div class="row"><span class="k">DATA</span><span class="v" data-i18n="work.rowData">Python, SQL, PostgreSQL, analytics, validation</span></div>
             </div>
           </article>
         </div>
@@ -179,17 +179,17 @@
 
       <section class="section" id="about" aria-labelledby="about-heading">
         <div class="about-grid">
-          <div class="sticky"><div class="eyebrow">About</div><h2 id="about-heading">Software quality engineering → Applied AI</h2></div>
+          <div class="sticky"><div class="eyebrow" data-i18n="about.eyebrow">About</div><h2 id="about-heading" data-i18n="about.h2">Software quality engineering → Applied AI</h2></div>
           <div>
-            <p class="lead-big">I spent more than a decade asking what happens when software is wrong. I now apply the same discipline to AI systems: what evidence supports the answer, what changes between prompt versions, how do we detect regressions, and what happens when confidence is low?</p>
-            <p>My M.S. in Data Science, AI, and Machine Learning added the modeling and analytics layer. WPH became the place where I combined both backgrounds into one production-oriented system.</p>
+            <p class="lead-big" data-i18n="about.lead">I spent more than a decade asking what happens when software is wrong. I now apply the same discipline to AI systems: what evidence supports the answer, what changes between prompt versions, how do we detect regressions, and what happens when confidence is low?</p>
+            <p data-i18n="about.p">My M.S. in Data Science, AI, and Machine Learning added the modeling and analytics layer. WPH became the place where I combined both backgrounds into one production-oriented system.</p>
             <div class="facts-grid">
-              <div><div class="label">EDUCATION</div><p>M.S. Data Science, AI &amp; ML — Boston University</p></div>
-              <div><div class="label">EXPERIENCE</div><p>10+ years software quality engineering and automation</p></div>
-              <div><div class="label">APPLIED AI</div><p>agents · evals · prompt governance · telemetry · source grounding</p></div>
-              <div><div class="label">DATA</div><p>Python · SQL · PostgreSQL · analytics · ML validation</p></div>
+              <div><div class="label" data-i18n="about.edu">EDUCATION</div><p>M.S. Data Science, AI &amp; ML — Boston University</p></div>
+              <div><div class="label" data-i18n="about.exp">EXPERIENCE</div><p data-i18n="about.expVal">10+ years software quality engineering and automation</p></div>
+              <div><div class="label" data-i18n="about.ai">APPLIED AI</div><p>agents · evals · prompt governance · telemetry · source grounding</p></div>
+              <div><div class="label" data-i18n="about.data">DATA</div><p>Python · SQL · PostgreSQL · analytics · ML validation</p></div>
             </div>
-            <div class="actions" style="margin-top: 32px;"><a class="button" href="pages/about.html">More about me →</a></div>
+            <div class="actions" style="margin-top: 32px;"><a class="button" href="pages/about.html" data-i18n="btn.more">More about me →</a></div>
           </div>
         </div>
       </section>
@@ -197,15 +197,15 @@
       <section class="section" id="contact" aria-labelledby="contact-heading">
         <div class="contact-grid">
           <div>
-            <h2 id="contact-heading">Building reliable AI systems?</h2>
-            <p class="lead">I'm interested in full-time US remote roles across Applied AI, AI Evaluation, AI Platform, and advanced data/ML quality.</p>
-            <div class="actions"><a class="button primary" href="mailto:tetiana.kravchukqa@gmail.com">Email me</a><a class="button" href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="button" href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+            <h2 id="contact-heading" data-i18n="contact.h2">Building reliable AI systems?</h2>
+            <p class="lead" data-i18n="contact.lead">I'm interested in full-time US remote roles across Applied AI, AI Evaluation, AI Platform, and advanced data/ML quality.</p>
+            <div class="actions"><a class="button primary" href="mailto:tetiana.kravchukqa@gmail.com" data-i18n="btn.email">Email me</a><a class="button" href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="button" href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a></div>
           </div>
           <div class="detail-list">
-            <div class="row"><span class="k">LOCATION</span><span class="v">Massachusetts, US</span></div>
-            <div class="row"><span class="k">WORK MODE</span><span class="v">US remote</span></div>
-            <div class="row"><span class="k">FOCUS</span><span class="v">Applied AI · AI Evaluation · AI Platform</span></div>
-            <div class="row"><span class="k">RÉSUMÉ</span><a href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download>Download PDF</a></div>
+            <div class="row"><span class="k" data-i18n="contact.location">LOCATION</span><span class="v" data-i18n="contact.locationVal">Massachusetts, US</span></div>
+            <div class="row"><span class="k" data-i18n="contact.mode">WORK MODE</span><span class="v" data-i18n="contact.modeVal">US remote</span></div>
+            <div class="row"><span class="k" data-i18n="contact.focus">FOCUS</span><span class="v">Applied AI · AI Evaluation · AI Platform</span></div>
+            <div class="row"><span class="k" data-i18n="contact.resume">RÉSUMÉ</span><a href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download data-i18n="contact.download">Download PDF</a></div>
           </div>
         </div>
       </section>
@@ -215,9 +215,10 @@
   <footer class="footer">
     <div class="footer-inner">
       <div>© <span data-year></span> Tetiana Kravchuk</div>
-      <div class="footer-links"><a href="#featured-ai-project">Featured AI project</a><a href="pages/about.html">About</a><a href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a><a href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download>Résumé</a></div>
+      <div class="footer-links"><a href="#featured-ai-project" data-i18n="footer.featured">Featured AI project</a><a href="pages/about.html" data-i18n="nav.about">About</a><a href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a><a href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download data-i18n="footer.resume">Résumé</a></div>
     </div>
   </footer>
+  <script src="/assets/i18n.js?v=1" defer></script>
   <script src="assets/script.js?v=7"></script>
 <script src="/assets/cat-companion.js?v=3" defer></script></body>
 </html>
