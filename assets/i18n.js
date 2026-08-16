@@ -304,7 +304,7 @@
         var kv = pair.split(':'); if (kv.length === 2) el.setAttribute(kv[0].trim(), t(lang, kv[1].trim()));
       });
     });
-    if (switcher) { switcher.value = lang; switcher.setAttribute('data-current', lang); }
+    if (switchUI) switchUI.refresh(lang);
   }
 
   function getLang() {
@@ -319,23 +319,89 @@
     apply(lang);
   }
 
-  // ── Switcher UI (accessible <select>) ────────────────────────────────────────
-  var switcher = null;
+  // ── Flags (inline SVG — render identically on every OS, unlike flag emoji) ────
+  var FLAGS = {
+    // English → Union Jack
+    en: '<svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><rect width="60" height="30" fill="#012169"/><path d="M0,0 60,30 M60,0 0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 60,30 M60,0 0,30" stroke="#C8102E" stroke-width="3"/><rect x="25" width="10" height="30" fill="#fff"/><rect y="10" width="60" height="10" fill="#fff"/><rect x="27" width="6" height="30" fill="#C8102E"/><rect y="12" width="60" height="6" fill="#C8102E"/></svg>',
+    // Spain
+    es: '<svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#c60b1e"/><rect y="0.5" width="3" height="1" fill="#ffc400"/></svg>',
+    // Poland
+    pl: '<svg class="flag" viewBox="0 0 2 2" aria-hidden="true"><rect width="2" height="2" fill="#dc143c"/><rect width="2" height="1" fill="#fff"/></svg>',
+    // Ukraine
+    uk: '<svg class="flag" viewBox="0 0 2 2" aria-hidden="true"><rect width="2" height="1" fill="#0057b7"/><rect y="1" width="2" height="1" fill="#ffd700"/></svg>',
+    // France
+    fr: '<svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#fff"/><rect width="1" height="2" fill="#0055a4"/><rect x="2" width="1" height="2" fill="#ef4135"/></svg>'
+  };
+  function flagHTML(code) { return '<span class="flag-wrap">' + (FLAGS[code] || '') + '</span>'; }
+  function metaFor(code) { for (var i = 0; i < LANGS.length; i++) if (LANGS[i].code === code) return LANGS[i]; return LANGS[0]; }
+
+  // ── Switcher UI (custom accessible listbox with SVG flags) ───────────────────
+  var switchUI = null;
   function buildSwitcher() {
     var host = document.querySelector('[data-nav-links]') || document.querySelector('.nav-inner') || document.body;
+    var lang = getLang();
     var wrap = document.createElement('div');
     wrap.className = 'lang-switch';
-    var sel = document.createElement('select');
-    sel.className = 'lang-select';
-    sel.setAttribute('aria-label', t(getLang(), 'lang.aria'));
-    LANGS.forEach(function (l) {
-      var o = document.createElement('option'); o.value = l.code; o.textContent = l.short + ' · ' + l.label; sel.appendChild(o);
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'lang-btn';
+    btn.setAttribute('aria-haspopup', 'listbox');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', t(lang, 'lang.aria'));
+
+    var menu = document.createElement('div');
+    menu.className = 'lang-menu';
+    menu.setAttribute('role', 'listbox');
+    menu.hidden = true;
+
+    var options = LANGS.map(function (l) {
+      var o = document.createElement('button');
+      o.type = 'button';
+      o.className = 'lang-option';
+      o.setAttribute('role', 'option');
+      o.setAttribute('data-code', l.code);
+      o.setAttribute('tabindex', '-1');
+      o.innerHTML = flagHTML(l.code) + '<span class="lang-name">' + l.label + '</span><span class="lang-check" aria-hidden="true">✓</span>';
+      o.addEventListener('click', function () { setLang(l.code); close(true); });
+      menu.appendChild(o);
+      return o;
     });
-    sel.addEventListener('change', function () { setLang(sel.value); });
-    var globe = document.createElement('span'); globe.className = 'lang-globe'; globe.setAttribute('aria-hidden', 'true'); globe.textContent = '🌐';
-    wrap.appendChild(globe); wrap.appendChild(sel);
+
+    function open() {
+      menu.hidden = false; btn.setAttribute('aria-expanded', 'true');
+      var sel = menu.querySelector('.lang-option[aria-selected="true"]') || options[0];
+      sel.focus();
+    }
+    function close(focusBtn) { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); if (focusBtn) btn.focus(); }
+    function isOpen() { return !menu.hidden; }
+
+    btn.addEventListener('click', function () { isOpen() ? close(false) : open(); });
+    btn.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+    menu.addEventListener('keydown', function (e) {
+      var i = options.indexOf(document.activeElement);
+      if (e.key === 'Escape') { e.preventDefault(); close(true); }
+      else if (e.key === 'ArrowDown') { e.preventDefault(); options[Math.min(options.length - 1, i + 1)].focus(); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); options[Math.max(0, i - 1)].focus(); }
+      else if (e.key === 'Home') { e.preventDefault(); options[0].focus(); }
+      else if (e.key === 'End') { e.preventDefault(); options[options.length - 1].focus(); }
+      else if (e.key === 'Tab') { close(false); }
+    });
+    document.addEventListener('click', function (e) { if (isOpen() && !wrap.contains(e.target)) close(false); });
+
+    wrap.appendChild(btn); wrap.appendChild(menu);
     host.appendChild(wrap);
-    switcher = sel;
+
+    switchUI = {
+      refresh: function (code) {
+        var m = metaFor(code);
+        btn.innerHTML = flagHTML(code) + '<span class="lang-btn-label">' + m.short + '</span><span class="lang-btn-caret" aria-hidden="true">▾</span>';
+        btn.setAttribute('aria-label', t(code, 'lang.aria') + ' — ' + m.label);
+        options.forEach(function (o) { o.setAttribute('aria-selected', o.getAttribute('data-code') === code ? 'true' : 'false'); });
+      }
+    };
   }
 
   function boot() {
