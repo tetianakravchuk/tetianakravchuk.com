@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /academy/
 
 Sitemap: https://tetianakravchuk.com/sitemap.xml
