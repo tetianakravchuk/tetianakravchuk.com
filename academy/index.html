@@ -11,103 +11,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/styles.css">
   <link rel="stylesheet" href="/academy/academy.css">
+  <link rel="stylesheet" href="/academy/phase2.css">
 </head>
 <body class="academy-body">
   <a class="skip-link" href="#academy-main">Skip to academy</a>
-
-  <header class="academy-topbar">
-    <div class="academy-topbar-inner">
-      <div>
-        <p class="academy-lock">PRIVATE STUDY SPACE</p>
-        <a class="academy-brand" href="/academy/">WPH Interview Academy</a>
-      </div>
-      <div class="academy-topbar-actions">
-        <span class="academy-user-pill" aria-label="Protected by Cloudflare Access">🔒 Owner only</span>
-        <a class="academy-exit" href="/">Exit to portfolio</a>
-      </div>
-    </div>
-  </header>
-
+  <header class="academy-topbar"><div class="academy-topbar-inner"><div><p class="academy-lock">PRIVATE STUDY SPACE</p><a class="academy-brand" href="/academy/">WPH Interview Academy</a></div><div class="academy-topbar-actions"><span class="academy-user-pill" aria-label="Protected by Cloudflare Access">🔒 Owner only</span><a class="academy-exit" href="/">Exit to portfolio</a></div></div></header>
   <main id="academy-main" class="academy-shell">
-    <section class="academy-hero">
-      <div>
-        <p class="eyebrow">AI ENGINEERING INTERVIEW PREP</p>
-        <h1>Know your project.<br>Defend your decisions.</h1>
-        <p class="academy-lead">A 27-module study system built around World Publishing Houses. Learn the concepts, connect them to your implementation, practice interview answers, and track mastery locally on this device.</p>
-      </div>
-      <aside class="academy-summary-card" aria-label="Study summary">
-        <div class="academy-summary-row"><span>Modules</span><strong>27</strong></div>
-        <div class="academy-summary-row"><span>Completed</span><strong id="completed-count">0</strong></div>
-        <div class="academy-summary-row"><span>In progress</span><strong id="progress-count">0</strong></div>
-        <div class="academy-progress-track" aria-hidden="true"><span id="academy-progress-bar"></span></div>
-        <p id="academy-progress-label" class="academy-summary-note">0% mastered</p>
-      </aside>
-    </section>
-
-    <section class="academy-toolbar" aria-label="Module controls">
-      <div class="academy-filter-group" role="group" aria-label="Filter modules">
-        <button class="academy-filter is-active" type="button" data-filter="all">All</button>
-        <button class="academy-filter" type="button" data-filter="not-started">Not started</button>
-        <button class="academy-filter" type="button" data-filter="learning">Learning</button>
-        <button class="academy-filter" type="button" data-filter="mastered">Mastered</button>
-      </div>
-      <label class="academy-search-wrap">
-        <span class="sr-only">Search modules</span>
-        <input id="academy-search" type="search" placeholder="Search RAG, agents, Python…" autocomplete="off">
-      </label>
-    </section>
-
+    <section class="academy-hero"><div><p class="eyebrow">AI ENGINEERING INTERVIEW PREP</p><h1>Know your project.<br>Defend your decisions.</h1><p class="academy-lead">A 27-module study system grounded in the real World Publishing Houses codebase. Learn the concept, connect it to WPH evidence, practice code and quizzes, rehearse interview answers, and track mastery locally.</p></div><aside class="academy-summary-card" aria-label="Study summary"><div class="academy-summary-row"><span>Modules</span><strong>27</strong></div><div class="academy-summary-row"><span>Completed</span><strong id="completed-count">0</strong></div><div class="academy-summary-row"><span>In progress</span><strong id="progress-count">0</strong></div><div class="academy-progress-track" aria-hidden="true"><span id="academy-progress-bar"></span></div><p id="academy-progress-label" class="academy-summary-note">0% mastered</p></aside></section>
+    <section class="academy-toolbar" aria-label="Module controls"><div class="academy-filter-group" role="group" aria-label="Filter modules"><button class="academy-filter is-active" type="button" data-filter="all">All</button><button class="academy-filter" type="button" data-filter="not-started">Not started</button><button class="academy-filter" type="button" data-filter="learning">Learning</button><button class="academy-filter" type="button" data-filter="mastered">Mastered</button></div><label class="academy-search-wrap"><span class="sr-only">Search modules</span><input id="academy-search" type="search" placeholder="Search RAG, agents, Python…" autocomplete="off"></label></section>
     <section class="academy-recommended" id="recommended-card" aria-live="polite"></section>
-
-    <section>
-      <div class="academy-section-heading">
-        <div>
-          <p class="eyebrow">CURRICULUM</p>
-          <h2>27 modules</h2>
-        </div>
-        <p>Open any module. Your status and notes stay in your browser using local storage.</p>
-      </div>
-      <div id="academy-module-grid" class="academy-module-grid"></div>
-      <p id="academy-empty" class="academy-empty" hidden>No modules match this filter.</p>
-    </section>
+    <section><div class="academy-section-heading"><div><p class="eyebrow">CURRICULUM</p><h2>27 code-grounded modules</h2></div><p>Each module includes a lesson, real WPH source paths, a practical exercise, quiz answers, an interview target, and a truth boundary.</p></div><div id="academy-module-grid" class="academy-module-grid"></div><p id="academy-empty" class="academy-empty" hidden>No modules match this filter.</p></section>
   </main>
-
   <dialog id="module-dialog" class="academy-dialog">
-    <form method="dialog" class="academy-dialog-bar">
-      <div>
-        <p id="dialog-number" class="academy-dialog-number"></p>
-        <h2 id="dialog-title"></h2>
-      </div>
-      <button class="academy-close" type="submit" aria-label="Close module">×</button>
-    </form>
-    <div class="academy-dialog-content">
-      <p id="dialog-outcome" class="academy-dialog-outcome"></p>
-      <div class="academy-learning-loop">
-        <span>Learn</span><span>WPH</span><span>Code</span><span>Quiz</span><span>Interview</span><span>Mastery</span>
-      </div>
-      <div class="academy-dialog-grid">
-        <section>
-          <h3>What you need to understand</h3>
-          <ul id="dialog-topics" class="academy-topic-list"></ul>
-        </section>
-        <section>
-          <h3>Interview target</h3>
-          <p id="dialog-interview"></p>
-        </section>
-      </div>
-      <section class="academy-notes-section">
-        <label for="module-notes"><strong>Your notes</strong></label>
-        <textarea id="module-notes" rows="6" placeholder="Write what you learned, what confused you, and answers you want to practice…"></textarea>
-        <p class="academy-save-note" id="notes-status">Saved only on this device.</p>
-      </section>
-      <div class="academy-status-actions" role="group" aria-label="Set module status">
-        <button type="button" data-set-status="not-started">Reset</button>
-        <button type="button" data-set-status="learning">Mark learning</button>
-        <button type="button" class="primary" data-set-status="mastered">Mark mastered</button>
-      </div>
+    <form method="dialog" class="academy-dialog-bar"><div><p id="dialog-number" class="academy-dialog-number"></p><h2 id="dialog-title"></h2></div><button class="academy-close" type="submit" aria-label="Close module">×</button></form>
+    <div class="academy-dialog-content"><p id="dialog-outcome" class="academy-dialog-outcome"></p><div class="academy-learning-loop"><span>Learn</span><span>WPH evidence</span><span>Code</span><span>Quiz</span><span>Interview</span><span>Mastery</span></div>
+      <div class="academy-dialog-grid"><section><h3>Learn</h3><ul id="dialog-lesson" class="academy-topic-list"></ul></section><section><h3>WPH evidence</h3><p class="academy-evidence-intro">Private-repo file paths used to ground this lesson. The Academy stores summaries, not copied private implementation code.</p><ul id="dialog-sources" class="academy-topic-list academy-source-list"></ul></section><section><h3>Code / practical exercise</h3><p id="dialog-exercise"></p></section><section><h3>Interview target</h3><p id="dialog-interview"></p></section></div>
+      <section class="academy-quiz-section"><h3>Quick quiz</h3><div id="dialog-quiz" class="academy-quiz-list"></div></section>
+      <section class="academy-truth-section"><p class="eyebrow">INTERVIEW TRUTH BOUNDARY</p><p id="dialog-truth"></p></section>
+      <section class="academy-notes-section"><label for="module-notes"><strong>Your notes</strong></label><textarea id="module-notes" rows="6" placeholder="Write what you learned, what confused you, and answers you want to practice…"></textarea><p class="academy-save-note" id="notes-status">Saved only on this device.</p></section>
+      <div class="academy-status-actions" role="group" aria-label="Set module status"><button type="button" data-set-status="not-started">Reset</button><button type="button" data-set-status="learning">Mark learning</button><button type="button" class="primary" data-set-status="mastered">Mark mastered</button></div>
     </div>
   </dialog>
-
-  <script src="/academy/academy.js" defer></script>
+  <script src="/academy/content.js" defer></script>
+  <script src="/academy/runtime-v2.js" defer></script>
 </body>
 </html>
