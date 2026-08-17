@@ -39,3 +39,9 @@
   document.getElementById('focus-next')?.addEventListener('click',()=>{if(focusIndex<focusItems.length-1){focusIndex++;seconds=0;renderFocus()}else closeFocus()});
   document.getElementById('surprise-me')?.addEventListener('click',()=>{const choices=[...modules.map(m=>({kind:'Module challenge',title:m.title,prompt:m.interview||m.exercise})),...(cfg.mockPrompts||[]).map(q=>({kind:'Mock interview',title:'Surprise question',prompt:q}))];const item=choices[Math.floor(Math.random()*choices.length)];focusItems=[item];focusIndex=0;seconds=0;renderFocus();focus.hidden=false;document.body.style.overflow='hidden'});
 })();
+
+(() => {
+  const script=document.createElement('script');
+  script.src='/academy/phase5.js';
+  document.body.appendChild(script);
+})();
