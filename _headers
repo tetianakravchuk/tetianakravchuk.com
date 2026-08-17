@@ -9,6 +9,13 @@
   Permissions-Policy: geolocation=(), camera=(), microphone=(), interest-cohort=()
   Content-Security-Policy: default-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'self'; frame-src https://www.youtube-nocookie.com; img-src 'self' data: https://*.goatcounter.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' https://gc.zgo.at https://static.cloudflareinsights.com; connect-src 'self' https://*.goatcounter.com https://cloudflareinsights.com https://api.web3forms.com; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests
 
+# Private academy: search engines must never index or cache these pages.
+# Authentication is enforced at the edge with Cloudflare Access; these headers
+# are defense-in-depth only and are NOT a replacement for the Access policy.
+/academy/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
+  Cache-Control: private, no-store, max-age=0
+
 # Always revalidate the two versioned assets so cache-busting query strings win.
 /assets/styles.css
   Cache-Control: public, max-age=0, must-revalidate
