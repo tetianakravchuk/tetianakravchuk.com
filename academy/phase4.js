@@ -39,3 +39,20 @@
   document.getElementById('focus-next')?.addEventListener('click',()=>{if(focusIndex<focusItems.length-1){focusIndex++;seconds=0;renderFocus()}else closeFocus()});
   document.getElementById('surprise-me')?.addEventListener('click',()=>{const choices=[...modules.map(m=>({kind:'Module challenge',title:m.title,prompt:m.interview||m.exercise})),...(cfg.mockPrompts||[]).map(q=>({kind:'Mock interview',title:'Surprise question',prompt:q}))];const item=choices[Math.floor(Math.random()*choices.length)];focusItems=[item];focusIndex=0;seconds=0;renderFocus();focus.hidden=false;document.body.style.overflow='hidden'});
 })();
+
+// Phase 6 module-dialog UX: load after Phase 4 so it can progressively enhance
+// the existing Learn → Evidence → Code → Quiz → Interview → Mastery content.
+(() => {
+  if (!document.querySelector('link[href="/academy/module-tabs.css"]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/academy/module-tabs.css';
+    document.head.appendChild(link);
+  }
+  if (!document.querySelector('script[src="/academy/module-tabs.js"]')) {
+    const script = document.createElement('script');
+    script.src = '/academy/module-tabs.js';
+    script.async = false;
+    document.body.appendChild(script);
+  }
+})();
