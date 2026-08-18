@@ -16,7 +16,9 @@
 
 // Progressive enhancements for the guided module workspace.
 (() => {
-  if (!document.querySelector('link[href="/academy/module-tabs.css"]')) { const link=document.createElement('link');link.rel='stylesheet';link.href='/academy/module-tabs.css';document.head.appendChild(link); }
+  const style=(href)=>{if(document.querySelector(`link[href="${href}"]`))return;const link=document.createElement('link');link.rel='stylesheet';link.href=href;document.head.appendChild(link);};
+  style('/academy/module-tabs.css');
+  style('/academy/visual-learning.css');
   const load=(src,onload)=>{if(document.querySelector(`script[src="${src}"]`)){onload?.();return;}const script=document.createElement('script');script.src=src;script.async=false;if(onload)script.addEventListener('load',onload,{once:true});document.body.appendChild(script);};
   load('/academy/visual-learning.js',()=>load('/academy/module-tabs.js'));
 })();
