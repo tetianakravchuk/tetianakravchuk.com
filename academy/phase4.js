@@ -10,49 +10,13 @@
   const setView=name=>{views.forEach(v=>v.hidden=v.dataset.studyView!==name);tabs.forEach(t=>t.classList.toggle('is-active',t.dataset.studyTab===name));history.replaceState(null,'',`#${name}`);window.scrollTo({top:0,behavior:'smooth'})};
   tabs.forEach(t=>t.addEventListener('click',()=>setView(t.dataset.studyTab)));
   const initial=(location.hash||'#home').slice(1);setView(views.some(v=>v.dataset.studyView===initial)?initial:'home');
-
-  function summary(){
-    const mastered=modules.filter(m=>status(m.id)==='mastered').length;
-    const learning=modules.filter(m=>status(m.id)==='learning').length;
-    const quizCount=Object.keys(quiz).length;
-    const codingCount=Object.keys(coding).length;
-    const due=Object.values(reviews).filter(x=>x&&x.due&&new Date(x.due)<=new Date()).length;
-    const values={mastered,learning,quizCount,codingCount,due};
-    Object.entries(values).forEach(([k,v])=>document.querySelectorAll(`[data-metric="${k}"]`).forEach(el=>el.textContent=v));
-    const bars=document.getElementById('progress-category-bars');if(bars){bars.replaceChildren();cfg.categories.forEach(cat=>{const score=cat.modules.length?Math.round(cat.modules.reduce((s,id)=>s+moduleScore(id),0)/cat.modules.length):0;const row=document.createElement('div');row.className='academy-progress-item';row.innerHTML=`<span>${cat.label}</span><span class="academy-progress-item-track"><i style="width:${score}%"></i></span><strong>${score}%</strong>`;bars.appendChild(row)})}
-  }
-  summary();
-
-  const focus=document.getElementById('focus-overlay');
-  const focusTitle=document.getElementById('focus-title');
-  const focusPrompt=document.getElementById('focus-prompt');
-  const focusStep=document.getElementById('focus-step');
-  const focusTimer=document.getElementById('focus-timer');
-  let focusItems=[],focusIndex=0,timer=null,seconds=0;
-  const weakest=()=>modules.map(m=>({m,s:moduleScore(m.id)})).sort((a,b)=>a.s-b.s).slice(0,3).map(x=>({kind:'Module review',title:x.m.title,prompt:x.m.interview||x.m.exercise||x.m.outcome}));
-  function makeSession(){const mock=(cfg.mockPrompts||[])[Math.floor(Math.random()*Math.max((cfg.mockPrompts||[]).length,1))];focusItems=[...weakest(),{kind:'Mock interview',title:'Answer aloud',prompt:mock||'Give your two-minute WPH project explanation.'}];focusIndex=0;seconds=0;renderFocus()}
-  function renderFocus(){const item=focusItems[focusIndex];if(!item)return;focusStep.textContent=`STEP ${focusIndex+1} OF ${focusItems.length} · ${item.kind}`;focusTitle.textContent=item.title;focusPrompt.textContent=item.prompt;focusTimer.textContent='00:00'}
-  function openFocus(){makeSession();focus.hidden=false;document.body.style.overflow='hidden';if(timer)clearInterval(timer);timer=setInterval(()=>{seconds++;focusTimer.textContent=`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`},1000)}
-  function closeFocus(){focus.hidden=true;document.body.style.overflow='';if(timer){clearInterval(timer);timer=null}}
-  document.querySelectorAll('[data-start-focus]').forEach(b=>b.addEventListener('click',openFocus));
-  document.getElementById('focus-close')?.addEventListener('click',closeFocus);
-  document.getElementById('focus-next')?.addEventListener('click',()=>{if(focusIndex<focusItems.length-1){focusIndex++;seconds=0;renderFocus()}else closeFocus()});
-  document.getElementById('surprise-me')?.addEventListener('click',()=>{const choices=[...modules.map(m=>({kind:'Module challenge',title:m.title,prompt:m.interview||m.exercise})),...(cfg.mockPrompts||[]).map(q=>({kind:'Mock interview',title:'Surprise question',prompt:q}))];const item=choices[Math.floor(Math.random()*choices.length)];focusItems=[item];focusIndex=0;seconds=0;renderFocus();focus.hidden=false;document.body.style.overflow='hidden'});
+  function summary(){const mastered=modules.filter(m=>status(m.id)==='mastered').length;const learning=modules.filter(m=>status(m.id)==='learning').length;const quizCount=Object.keys(quiz).length;const codingCount=Object.keys(coding).length;const due=Object.values(reviews).filter(x=>x&&x.due&&new Date(x.due)<=new Date()).length;const values={mastered,learning,quizCount,codingCount,due};Object.entries(values).forEach(([k,v])=>document.querySelectorAll(`[data-metric="${k}"]`).forEach(el=>el.textContent=v));const bars=document.getElementById('progress-category-bars');if(bars){bars.replaceChildren();cfg.categories.forEach(cat=>{const score=cat.modules.length?Math.round(cat.modules.reduce((s,id)=>s+moduleScore(id),0)/cat.modules.length):0;const row=document.createElement('div');row.className='academy-progress-item';row.innerHTML=`<span>${cat.label}</span><span class="academy-progress-item-track"><i style="width:${score}%"></i></span><strong>${score}%</strong>`;bars.appendChild(row)})}}summary();
+  const focus=document.getElementById('focus-overlay');const focusTitle=document.getElementById('focus-title');const focusPrompt=document.getElementById('focus-prompt');const focusStep=document.getElementById('focus-step');const focusTimer=document.getElementById('focus-timer');let focusItems=[],focusIndex=0,timer=null,seconds=0;const weakest=()=>modules.map(m=>({m,s:moduleScore(m.id)})).sort((a,b)=>a.s-b.s).slice(0,3).map(x=>({kind:'Module review',title:x.m.title,prompt:x.m.interview||x.m.exercise||x.m.outcome}));function makeSession(){const mock=(cfg.mockPrompts||[])[Math.floor(Math.random()*Math.max((cfg.mockPrompts||[]).length,1))];focusItems=[...weakest(),{kind:'Mock interview',title:'Answer aloud',prompt:mock||'Give your two-minute WPH project explanation.'}];focusIndex=0;seconds=0;renderFocus()}function renderFocus(){const item=focusItems[focusIndex];if(!item)return;focusStep.textContent=`STEP ${focusIndex+1} OF ${focusItems.length} · ${item.kind}`;focusTitle.textContent=item.title;focusPrompt.textContent=item.prompt;focusTimer.textContent='00:00'}function openFocus(){makeSession();focus.hidden=false;document.body.style.overflow='hidden';if(timer)clearInterval(timer);timer=setInterval(()=>{seconds++;focusTimer.textContent=`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`},1000)}function closeFocus(){focus.hidden=true;document.body.style.overflow='';if(timer){clearInterval(timer);timer=null}}document.querySelectorAll('[data-start-focus]').forEach(b=>b.addEventListener('click',openFocus));document.getElementById('focus-close')?.addEventListener('click',closeFocus);document.getElementById('focus-next')?.addEventListener('click',()=>{if(focusIndex<focusItems.length-1){focusIndex++;seconds=0;renderFocus()}else closeFocus()});document.getElementById('surprise-me')?.addEventListener('click',()=>{const choices=[...modules.map(m=>({kind:'Module challenge',title:m.title,prompt:m.interview||m.exercise})),...(cfg.mockPrompts||[]).map(q=>({kind:'Mock interview',title:'Surprise question',prompt:q}))];const item=choices[Math.floor(Math.random()*choices.length)];focusItems=[item];focusIndex=0;seconds=0;renderFocus();focus.hidden=false;document.body.style.overflow='hidden'});
 })();
 
-// Phase 6 module-dialog UX: load after Phase 4 so it can progressively enhance
-// the existing Learn → Evidence → Code → Quiz → Interview → Mastery content.
+// Progressive enhancements for the guided module workspace.
 (() => {
-  if (!document.querySelector('link[href="/academy/module-tabs.css"]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = '/academy/module-tabs.css';
-    document.head.appendChild(link);
-  }
-  if (!document.querySelector('script[src="/academy/module-tabs.js"]')) {
-    const script = document.createElement('script');
-    script.src = '/academy/module-tabs.js';
-    script.async = false;
-    document.body.appendChild(script);
-  }
+  if (!document.querySelector('link[href="/academy/module-tabs.css"]')) { const link=document.createElement('link');link.rel='stylesheet';link.href='/academy/module-tabs.css';document.head.appendChild(link); }
+  const load=(src,onload)=>{if(document.querySelector(`script[src="${src}"]`)){onload?.();return;}const script=document.createElement('script');script.src=src;script.async=false;if(onload)script.addEventListener('load',onload,{once:true});document.body.appendChild(script);};
+  load('/academy/visual-learning.js',()=>load('/academy/module-tabs.js'));
 })();
