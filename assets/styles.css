@@ -659,6 +659,36 @@ img, svg, object { max-width: 100%; }
   .cat-corner-bubble { animation: none; transition: none; }
 }
 
+
+
+/* Portfolio signature cats: present but intentionally secondary to hiring content. */
+.cat-corner {
+  top: 78px;
+  right: 10px;
+}
+.cat-corner-canvas {
+  width: 84px;
+  height: 88px;
+  opacity: 0.9;
+}
+.cat-corner-bubble {
+  max-width: 160px;
+  padding: 6px 9px;
+  font-size: 11px;
+  opacity: 0;
+  transform: translateY(4px);
+  pointer-events: none;
+}
+.cat-corner:hover .cat-corner-bubble,
+.cat-corner:focus-within .cat-corner-bubble {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+@media (max-width: 1100px) {
+  .cat-corner { display: none; }
+}
+
 /* Language switcher (i18n.js) — custom dropdown with SVG flags */
 .lang-switch { position: relative; margin-left: 8px; }
 
