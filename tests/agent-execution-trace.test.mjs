@@ -1,0 +1,8 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {buildTrace,scenarios,stages} from '../projects/agent-execution-trace/trace-data.js';
+test('every scenario has six ordered stages',()=>{for(const id of Object.keys(scenarios)){const t=buildTrace(id);assert.equal(t.events.length,6);assert.deepEqual(t.events.map(x=>x.id),stages.map(x=>x.id));}});
+test('safe case abstains on unknown year',()=>{const t=buildTrace('safe');assert.equal(t.events[3].input.publication_year,null);assert.equal(t.final_decision,'needs_more_evidence');});
+test('unsupported date is flagged by evaluation',()=>{const t=buildTrace('hallucination');assert.equal(t.events[3].input.publication_year,1987);assert.equal(t.events[4].status,'flagged');assert.equal(t.events[4].input.source_grounded,false);assert.equal(t.final_decision,'rejected');});
+test('unapproved tool is blocked before execution',()=>{const t=buildTrace('tool');assert.equal(t.events[2].input.result,'BLOCKED');assert.equal(t.events[2].status,'flagged');assert.equal(t.events[3].status,'skipped');assert.equal(t.events[5].status,'review_required');assert.equal(t.final_decision,'escalated');});
+test('missing retrieval is explicit',()=>{const t=buildTrace('retrieval');assert.equal(t.events[1].status,'flagged');assert.equal(t.events[3].input.source_id,null);});
+test('unknown scenario fails closed',()=>assert.throws(()=>buildTrace('unknown'),/Unknown scenario/));
+test('fixtures do not contain production identifiers',()=>{for(const id of Object.keys(scenarios)){const json=JSON.stringify(buildTrace(id));assert.match(json,/synthetic/);assert.doesNotMatch(json,/advisor360|secret|password|token_[a-z0-9]+/i);}});
