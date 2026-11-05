@@ -17,4 +17,15 @@ for (const path of ['projects/ai-agent-evaluation/', 'projects/wph-architecture/
   assert.ok(fs.existsSync(path + 'index.html'), 'Missing linked page: ' + path);
   assert.ok(sitemap.includes('https://tetianakravchuk.com/' + path), 'Missing sitemap URL: ' + path);
 }
+const i18n = read('assets/i18n.js');
+assert.match(i18n, /Beyond the Prompt: Engineering AI Systems You Can Trust/);
+assert.match(resume, /Designed and maintained test strategies/);
+assert.doesNotMatch(resume, /Apr 2022 – Present/);
+for (const page of ['pages/about.html','pages/projects.html','pages/resume.html']) {
+  assert.ok(read(page).includes("raw.githubusercontent.com/tetianakravchuk/tetianakravchuk.com"), "Missing social image URL: " + page);
+}
+const redirects = read('_redirects');
+assert.ok(redirects.includes("/pages/resume.html"), "Missing resume redirect");
+assert.match(read('_headers'), /Content-Security-Policy/);
+assert.ok(fs.existsSync('assets/resume/Tetiana_Kravchuk_Resume.pdf'), 'Resume PDF asset missing');
 console.log('Portfolio source-level smoke checks passed.');
