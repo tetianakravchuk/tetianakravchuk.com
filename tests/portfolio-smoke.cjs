@@ -22,10 +22,10 @@ assert.match(i18n, /Beyond the Prompt: Engineering AI Systems You Can Trust/);
 assert.match(resume, /Designed and maintained test strategies/);
 assert.doesNotMatch(resume, /Apr 2022 – Present/);
 for (const page of ['pages/about.html','pages/projects.html','pages/resume.html']) {
-  assert.match(read(page), /raw\\.githubusercontent\\.com\\/tetianakravchuk\\/tetianakravchuk\\.com/);
+  assert.ok(read(page).includes("raw.githubusercontent.com/tetianakravchuk/tetianakravchuk.com"), "Missing social image URL: " + page);
 }
 const redirects = read('_redirects');
-assert.match(redirects, /\\/pages\\/resume\\.html/);
+assert.ok(redirects.includes("/pages/resume.html"), "Missing resume redirect");
 assert.match(read('_headers'), /Content-Security-Policy/);
 assert.ok(fs.existsSync('assets/resume/Tetiana_Kravchuk_Resume.pdf'), 'Resume PDF asset missing');
 console.log('Portfolio source-level smoke checks passed.');
