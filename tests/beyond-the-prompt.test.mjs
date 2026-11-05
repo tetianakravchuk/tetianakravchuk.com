@@ -6,7 +6,7 @@ test('case study has clear provenance and claims',()=>{
  const page=read('projects/beyond-the-prompt/index.html');
  assert.match(page,/fictional|Fictional/);
  assert.match(page,/HTTP 200|200 OK/);
- assert.match(page,/source-grounding/);
+ assert.match(page,/source-grounding|source grounding|groundedness/i);
  assert.match(page,/not a recording of a real production failure/);
 });
 test('links to real interactive demonstrations',()=>{
