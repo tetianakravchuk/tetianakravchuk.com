@@ -44,8 +44,8 @@
       'nav.data': 'Data Science', 'nav.qa': 'QA Impact', 'nav.contact': 'Contact', 'nav.menu': 'Menu',
       'lang.aria': 'Change language',
 
-      'hero.badge': 'Open to Applied AI · AI Evaluation · AI Platform roles',
-      'hero.h1': 'I build AI systems that are reliable, observable, and testable.',
+      'hero.badge': 'Open to US-remote AI Evaluation · AI Reliability · Applied AI roles',
+      'hero.h1': 'Beyond the Prompt: Engineering AI Systems You Can Trust.',
       'hero.lead': 'I combine 10+ years of software quality engineering with an M.S. in Data Science, AI & Machine Learning to build and evaluate AI systems across data pipelines, agents, prompt governance, telemetry, regression testing, and safety.',
       'hero.cred': 'M.S. Data Science, AI & ML — Boston University<br />Massachusetts · open to US remote roles',
       'btn.built': 'See what I built', 'btn.demo': 'Watch 6-minute demo ↗', 'btn.resume': 'Download résumé',
