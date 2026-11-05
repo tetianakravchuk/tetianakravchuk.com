@@ -1,0 +1,25 @@
+name: Portfolio Phase 5 release quality
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  release-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Portfolio smoke
+        run: node tests/portfolio-smoke.cjs
+      - name: AI evaluation
+        run: node --test tests/ai-agent-evaluation.test.mjs tests/ai-evaluation-advanced.test.mjs
+      - name: Agent execution trace
+        run: node --test tests/agent-execution-trace.test.mjs
+      - name: Beyond the Prompt
+        run: node --test tests/beyond-the-prompt.test.mjs
+      - name: Release quality
+        run: node tests/release-quality.cjs
