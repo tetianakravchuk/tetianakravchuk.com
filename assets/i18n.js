@@ -55,8 +55,8 @@
       'snap.expVal': '10+ years Software Quality Engineering → Applied AI',
 
       'stats.s1': 'years in software quality, automation, release, and reliability engineering',
-      'stats.s2': 'reviewed AI evaluation cases in the WPH evaluation platform',
-      'stats.s3': 'backend tests passing at a completed WPH stabilization milestone',
+      'stats.s2': 'reviewed AI evaluation cases at a documented WPH milestone',
+      'stats.s3': 'backend tests passing at a historical WPH stabilization milestone',
 
       'feat.eyebrow': 'Featured AI project',
       'feat.h2': 'World Publishing Houses — source-grounded AI intelligence platform',
