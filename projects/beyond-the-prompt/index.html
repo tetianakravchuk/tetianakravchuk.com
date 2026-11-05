@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beyond the Prompt — AI Reliability Engineering | Tetiana Kravchuk</title>
+<meta name="description" content="A technical story about why HTTP 200 and valid JSON do not prove an AI answer is correct. Explore source grounding, agent traces, and evaluation.">
+<link rel="canonical" href="https://tetianakravchuk.com/projects/beyond-the-prompt/">
+<meta property="og:type" content="article"><meta property="og:title" content="Beyond the Prompt — Engineering AI Systems You Can Trust">
+<meta property="og:description" content="A successful AI request is not necessarily a correct result. Explore evidence, tool calls, and evaluation.">
+<meta property="og:image" content="https://raw.githubusercontent.com/tetianakravchuk/tetianakravchuk.com/main/assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/styles.css?v=7"><link rel="stylesheet" href="story.css"></head>
+<body><a class="skip-link" href="#main">Skip to main content</a>
+<nav class="nav" aria-label="Main navigation"><div class="nav-inner"><a class="brand" href="../../index.html">Tetiana Kravchuk <span class="brand-mark">AI Evaluation · Reliability</span></a><button class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-navigation" data-menu-toggle><span class="menu-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span><span>Menu</span></button><div class="nav-links" id="site-navigation" data-nav-links><a href="../../pages/about.html">About</a><a href="../../pages/resume.html">Resume</a><a href="../../pages/projects.html" aria-current="page">Projects</a><a href="../../pages/data-science.html">Data Science</a><a href="../../pages/qa-impact.html">Quality Engineering</a><a href="../../pages/contact.html">Contact</a></div></div></nav>
+<main id="main"><section class="page-title"><div class="container"><div class="eyebrow">Engineering story · AI reliability</div><h1>Beyond the Prompt.</h1><p class="lead">AI is powerful. Reliability makes it useful.</p><p>An agent can return HTTP 200, produce valid JSON, and complete its workflow—while still making a claim that the source evidence cannot support.</p><div class="actions"><a class="button primary" href="#story">Explore the failure</a><a class="button" href="../ai-agent-evaluation/">Try the evaluation lab</a></div></div></section>
+<section class="section" id="story"><div class="container"><div class="section-header"><div class="eyebrow">01 / The engineering question</div><h2>What does success actually mean?</h2><p>The short cinematic sequence introduces the problem; the case study below explains the engineering response.</p></div>
+<div class="story-media" id="video-container" data-video-src="../../assets/video/beyond-the-prompt.mp4"><div class="story-fallback" id="video-fallback"><div class="story-eyebrow">BEYOND THE PROMPT</div><h3>200 OK ≠ Verified Facts</h3><p>Build → Evaluate → Validate → Observe</p><p class="small-note">The optional short-film asset is not yet published. Explore the complete technical story below.</p></div></div>
+<p class="small-note">Illustrative film and fictional examples; not a recording of a real production failure. Video playback is optional and the full explanation remains accessible as text.</p>
+<div class="story-grid">
+<article class="card"><div class="kicker">01 · Transport</div><h3>HTTP 200 OK</h3><p>The request completed successfully at the API transport layer. This says nothing about the factual accuracy of its contents.</p></article>
+<article class="card"><div class="kicker">02 · Structure</div><h3>Valid JSON</h3><p>The response matches a schema. A plausible but unsupported publication year can still pass structural validation.</p></article>
+<article class="card"><div class="kicker">03 · Evidence</div><h3>Groundedness check</h3><p>Compare the claim against retrieved source evidence. When the year is absent from the catalog record, flag the claim instead of accepting it.</p></article>
+<article class="card"><div class="kicker">04 · Decision</div><h3>Human review</h3><p>Block unsupported promotion and route the record for evidence collection or correction.</p></article>
+</div></div></section>
+<section class="section"><div class="container"><div class="section-header"><div class="eyebrow">02 / A reproducible example</div><h2>When the model invents a publication date</h2></div>
+<div class="story-grid"><article class="card"><h3>Retrieved source</h3><pre tabindex="0">{
+  "record_id": "CATALOG-17",
+  "title": "The Northern Lantern",
+  "publication_year": null
+}</pre><p class="small-note">Fictional example; no real bibliographic claim.</p></article><article class="card"><h3>AI-generated answer</h3><pre tabindex="0">{
+  "title": "The Northern Lantern",
+  "publication_year": 1987,
+  "source_id": "CATALOG-17"
+}</pre><p>Schema: valid. Grounding: failed. The retrieved record does not support the generated year.</p></article></div>
+<article class="card featured"><h3>What the engineering controls do</h3><p>A deterministic evaluation identifies the unsupported field. The agent trace preserves the source and tool result. The review boundary prevents an unverified date from being promoted into trusted bibliographic data.</p><div class="actions"><a class="button primary" href="../ai-agent-evaluation/">Run evaluation scenarios</a><a class="button" href="../agent-execution-trace/">Inspect execution trace</a><a class="button" href="../wph-architecture/">Explore reliability architecture</a></div></article></div></section>
+<section class="section"><div class="container"><article class="card"><div class="eyebrow">03 / Engineering principles</div><h2>Build. Evaluate. Validate. Measure.</h2><p>This portfolio combines software quality engineering with independent AI platform work: structured outputs, regression fixtures, source grounding, tool-call boundaries, observability, and human review. These public demos use synthetic fixtures to demonstrate the methods; they do not claim to be live model benchmarks.</p><div class="actions"><a class="button primary" href="../../pages/projects.html">Explore engineering projects</a><a class="button" href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub evidence</a></div></article></div></section></main>
+<footer class="footer"><div class="container footer-inner"><div>© <span data-year></span> Tetiana Kravchuk</div><div class="footer-links"><a href="../../pages/projects.html">Projects</a><a href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="../../pages/contact.html">Contact</a></div></div></footer>
+<script src="../../assets/script.js?v=7"></script><script src="story.js" defer></script></body></html>
