@@ -1,0 +1,25 @@
+name: Portfolio release quality
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Portfolio smoke checks
+        run: node tests/portfolio-smoke.cjs
+      - name: SEO, links, accessibility baseline, security
+        run: node --test tests/portfolio-release-quality.test.mjs
+      - name: Agent evaluation regression
+        run: node --test tests/ai-agent-evaluation.test.mjs tests/ai-evaluation-advanced.test.mjs
+      - name: Agent execution trace regression
+        run: node --test tests/agent-execution-trace.test.mjs
+      - name: Beyond the Prompt regression
+        run: node --test tests/beyond-the-prompt.test.mjs
