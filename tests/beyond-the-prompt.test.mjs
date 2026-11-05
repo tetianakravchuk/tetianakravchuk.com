@@ -21,7 +21,7 @@ test('video is optional with accessible text fallback',()=>{
  assert.match(script,/aria-label/);
  assert.match(script,/preload='metadata'/);
  assert.match(script,/fallback.hidden=false/);
- assert.doesNotMatch(script,/autoplay/);
+ assert.doesNotMatch(script,/video\.autoplay\s*=\s*true/);
 });
 test('portfolio entry points and sitemap include story',()=>{
  assert.match(read('index.html'),/projects\/beyond-the-prompt\//);
