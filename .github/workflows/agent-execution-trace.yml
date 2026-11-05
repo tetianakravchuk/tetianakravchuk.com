@@ -1,0 +1,21 @@
+name: Agent execution trace tests
+on:
+  pull_request:
+    paths:
+      - 'projects/agent-execution-trace/**'
+      - 'tests/agent-execution-trace.test.mjs'
+      - '.github/workflows/agent-execution-trace.yml'
+  push:
+    paths:
+      - 'projects/agent-execution-trace/**'
+      - 'tests/agent-execution-trace.test.mjs'
+      - '.github/workflows/agent-execution-trace.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/agent-execution-trace.test.mjs
