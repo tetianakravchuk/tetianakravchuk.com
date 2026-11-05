@@ -1,0 +1,15 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {evaluateEvidence,evaluateTools,classifyFailure,buildReport} from '../projects/ai-agent-evaluation/advanced-evaluator.js';
+const sources=[{id:'doc-1',supported_claims:['Meeting requested']}];
+const expectedCalls=[{tool:'calendar.create_event',client_id:'a',arguments:{date:'Tuesday'}}];
+test('supported source claim passes',()=>assert.equal(evaluateEvidence({claims:[{text:'Meeting requested',source_id:'doc-1'}],sources}).pass,true));
+test('unsupported source claim fails',()=>assert.equal(evaluateEvidence({claims:[{text:'Funds approved',source_id:'doc-1'}],sources}).pass,false));
+test('missing cited source fails closed',()=>assert.equal(evaluateEvidence({claims:[{text:'Meeting requested',source_id:'missing'}],sources}).pass,false));
+test('approved tool and arguments pass',()=>assert.equal(evaluateTools({calls:expectedCalls,expectedCalls}).pass,true));
+test('wrong client fails tool validation',()=>assert.equal(evaluateTools({calls:[{...expectedCalls[0],client_id:'b'}],expectedCalls}).pass,false));
+test('unapproved consequential tool blocked',()=>assert.equal(evaluateTools({calls:[{tool:'payments.transfer',client_id:'a'}],expectedCalls}).findings[0].status,'blocked'));
+test('missing expected call fails',()=>assert.equal(evaluateTools({calls:[],expectedCalls}).missing.length,1));
+test('duplicate call fails',()=>assert.equal(evaluateTools({calls:[...expectedCalls,...expectedCalls],expectedCalls}).pass,false));
+test('failure categories combine independent checks',()=>assert.deepEqual(classifyFailure({schema:true,taskResult:{fn:1,fp:0},evidenceResult:{pass:false},toolResult:{pass:true}}),['missing_task','unsupported_claim']));
+test('report records synthetic provenance and failures',()=>{const report=buildReport({scenario:'demo',taskResult:{schema:true,pass:true,tp:1,fp:0,fn:0,precision:1,recall:1,f1:1},evidenceResult:{pass:false,findings:[]},toolResult:{pass:true,findings:[],missing:[]}});assert.equal(report.overall_pass,false);assert.equal(report.fixture_type,'synthetic_deterministic');assert.deepEqual(report.failure_categories,['unsupported_claim'])});
