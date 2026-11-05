@@ -41,7 +41,7 @@ export function buildTrace(id='safe'){
   const details=scenario.overrides[stage.id]||base[stage.id];
   const failed=stage.id===scenario.failedAt;
   const blockedIndex=scenario.failedAt==='tool'?2:-1;
-  return {id:stage.id,label:stage.label,sequence:index+1,status:failed?'flagged':blockedIndex>=0&&index>blockedIndex?'skipped':stage.id==='review'?'review_required':'checked',...details};
+  return {id:stage.id,label:stage.label,sequence:index+1,status:failed?'flagged':blockedIndex>=0&&index>blockedIndex&&stage.id!=='review'?'skipped':stage.id==='review'?'review_required':'checked',...details};
  });
  return {trace_id:'DEMO-'+id.toUpperCase(),scenario:id,synthetic:true,description:scenario.description,events,final_decision:events.at(-1).input.decision};
 }
