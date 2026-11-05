@@ -4,11 +4,13 @@ on:
     paths:
       - 'projects/ai-agent-evaluation/**'
       - 'tests/ai-agent-evaluation.test.mjs'
+      - 'tests/ai-evaluation-advanced.test.mjs'
       - '.github/workflows/ai-evaluation-lab.yml'
   push:
     paths:
       - 'projects/ai-agent-evaluation/**'
       - 'tests/ai-agent-evaluation.test.mjs'
+      - 'tests/ai-evaluation-advanced.test.mjs'
       - '.github/workflows/ai-evaluation-lab.yml'
 jobs:
   test:
@@ -18,4 +20,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test tests/ai-agent-evaluation.test.mjs
+      - run: node --test tests/ai-agent-evaluation.test.mjs tests/ai-evaluation-advanced.test.mjs
