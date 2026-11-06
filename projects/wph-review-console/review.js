@@ -1,5 +1,5 @@
-import {validateDecision,decisionLabel} from '../wph-discovery/fixtures.js';
-import {discoveryRecords as records,evidenceLabel} from '../wph-discovery/discovery-data.js';
+import {validateDecision,decisionLabel} from '../wph-discovery/fixtures.js?v=20261106r2';
+import {discoveryRecords as records,evidenceLabel} from '../wph-discovery/discovery-data.js?v=20261106r2';
 const get=id=>document.getElementById(id);
 const select=get('review-record');
 const audit=[];
