@@ -17,7 +17,7 @@ test('video is optional with accessible text fallback',()=>{
  const page=read('projects/beyond-the-prompt/index.html'),script=read('projects/beyond-the-prompt/story.js');
  assert.match(page,/id="video-fallback"/);
  assert.match(page,/data-video-src/);
- assert.match(script,/response\.ok/);
+ assert.match(script,/loadedmetadata/);
  assert.match(script,/aria-label/);
  assert.match(script,/preload='metadata'/);
  assert.match(script,/fallback.hidden=false/);
