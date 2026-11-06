@@ -593,7 +593,8 @@ img, svg, object { max-width: 100%; }
    ========================================================================== */
 .cat-corner {
   position: fixed;
-  top: 74px;               /* sits just below the header/nav */
+  top: auto;
+  bottom: 12px;           /* keep mascot away from hero copy */
   z-index: 60;
   display: flex;
   flex-direction: column;
@@ -734,3 +735,5 @@ img, svg, object { max-width: 100%; }
 }
 /* Fallback state is conveyed by text, not color alone; this is only emphasis. */
 .video-status[data-fallback="audio"] { color: var(--ink-soft, #423f39); }
+
+@media (max-width: 1100px) { .cat-corner { display: none; } }

@@ -1,0 +1,9 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {discoveryRecords} from '../projects/wph-discovery/discovery-data.js';import {investigate} from '../projects/ai-incident-investigation/incident-data.js';
+const read=p=>fs.readFileSync(p,'utf8');
+test('review and discovery use same fictional record module',()=>{assert.match(read('projects/wph-review-console/review.js'),/discoveryRecords as records/);assert.equal(discoveryRecords.find(r=>r.id==='DEMO-DK-001').year,1912);assert.equal(discoveryRecords.find(r=>r.id==='DEMO-UA-003').status,'conflicting_evidence')});
+test('disputed year is labeled in both views',()=>{for(const p of ['projects/wph-discovery/discovery.js','projects/wph-review-console/review.js'])assert.match(read(p),/Conflicting: 1934 \/ 1936/)});
+test('cache rules revalidate demo modules',()=>assert.match(read('_headers'),/\/projects\/\*[\s\S]*Cache-Control: public, max-age=0, must-revalidate/));
+test('404 file exists with safe absolute asset paths',()=>{const s=read('404.html');assert.match(s,/Page not found/);assert.match(s,/href="\/assets\/styles.css/);assert.match(s,/noindex/)});
+test('showcase contains PostgreSQL demo',()=>{const s=read('projects/ai-engineering-showcase/index.html');assert.match(s,/postgresql-recovery-simulator/);assert.doesNotMatch(s,/intentionally omitted/)});
+test('each incident has unique trace identity',()=>{const runs=['unsupported','tool','missing'].map(investigate);assert.equal(new Set(runs.map(r=>r.incident_id)).size,3);assert.equal(runs[1].first_signal,'tool');assert.equal(runs[1].events[2].name,'Tool call');assert.equal(runs[1].events[3].latency_ms,null)});
+test('social preview images on project pages',()=>{for(const slug of ['ai-engineering-showcase','wph-review-console','postgresql-recovery-simulator','ai-benchmark-dashboard'])assert.match(read('projects/'+slug+'/index.html'),/og:image/)});

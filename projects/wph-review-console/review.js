@@ -1,4 +1,5 @@
-import {records,validateDecision,decisionLabel} from '../wph-discovery/fixtures.js';
+import {validateDecision,decisionLabel} from '../wph-discovery/fixtures.js';
+import {discoveryRecords as records} from '../wph-discovery/discovery-data.js';
 const get=id=>document.getElementById(id);
 const select=get('review-record');
 const audit=[];
@@ -12,7 +13,7 @@ function renderEvidence(){
  const record=records.find(item=>item.id===select.value);const panel=get('review-evidence');panel.replaceChildren();
  panel.append(make('h3',record.title),make('p',record.notes));
  const dl=document.createElement('dl');
- for(const [label,value] of Object.entries({Record:record.id,Author:record.author,Country:record.country,Language:record.language,'Publication year':record.year??'Unknown','Translation availability':record.translation,Rights:record.rights,'Review status':state.get(record.id).reviewed?decisionLabel(state.get(record.id).status):'Pending review'}))addField(dl,label,value);
+ for(const [label,value] of Object.entries({Record:record.id,Author:record.author,Country:record.country,Language:record.language,'Publication year':record.status==='conflicting_evidence'?'Conflicting: 1934 / 1936':record.year??'Unknown','Translation availability':record.translation,Rights:record.rights,'Review status':state.get(record.id).reviewed?decisionLabel(state.get(record.id).status):'Pending review'}))addField(dl,label,value);
  panel.append(dl,make('h4','Illustrative AI-assisted claims'));
  const claims=document.createElement('ul');
  for(const claim of [{name:'Title',value:record.title},{name:'Language',value:record.language},{name:'Publication year',value:record.year??'Unknown'},{name:'Translation status',value:record.translation},{name:'Rights',value:record.rights}]){

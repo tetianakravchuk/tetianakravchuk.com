@@ -12,11 +12,11 @@ function render(){
   const li=document.createElement('li'),button=document.createElement('button');
   button.type='button';button.className='incident-span '+span.status+(i===selected?' selected':'');
   button.setAttribute('aria-current',i===selected?'step':'false');
-  button.textContent=span.sequence+'. '+span.name+' · '+span.status+' · '+span.latency_ms+' ms';
+  button.textContent=span.sequence+'. '+span.name+' · '+span.status+' · '+(span.latency_ms===null?'—':span.latency_ms+' ms');
   button.addEventListener('click',()=>{selected=i;render();});li.append(button);return li;
  }));
  $('span-title').textContent=event.name+' — '+event.layer;
- $('span-status').textContent='Status: '+event.status+' · '+event.latency_ms+' ms';
+ $('span-status').textContent='Status: '+event.status+' · '+(event.latency_ms===null?'—':event.latency_ms+' ms');
  $('span-detail').textContent=event.detail;
  $('span-evidence').textContent=event.evidence;
  $('root-cause').textContent=report.root_cause;

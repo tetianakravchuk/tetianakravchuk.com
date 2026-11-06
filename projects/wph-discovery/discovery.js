@@ -1,4 +1,4 @@
-import {discoveryRecords,searchDiscovery,statusLabel} from './discovery-data.js';
+import {discoveryRecords,searchDiscovery,statusLabel} from './discovery-data.js?v=20261106qa';
 const get=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
 const initialCountry=params.get('country');
@@ -29,7 +29,7 @@ function render(){
  const heading=document.createElement('h3');heading.textContent=record.title;detail.append(heading);
  const badge=document.createElement('span');badge.className='discovery-status';badge.textContent=statusLabel(record.status);detail.append(badge);
  const dl=document.createElement('dl');
- const fields={Author:record.author,Country:record.country,Language:record.language,'Publication year':record.year??'Unknown','Translation availability':record.translation,Rights:record.rights};
+ const fields={Author:record.author,Country:record.country,Language:record.language,'Publication year':record.status==='conflicting_evidence'?'Conflicting: 1934 / 1936':record.year??'Unknown','Translation availability':record.translation,Rights:record.rights};
  for(const [name,value] of Object.entries(fields)){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=name;dd.textContent=value;dl.append(dt,dd)}detail.append(dl);
  const notes=document.createElement('p');notes.textContent=record.notes;detail.append(notes);
  const evidenceTitle=document.createElement('h4');evidenceTitle.textContent='Illustrative source evidence';detail.append(evidenceTitle);
