@@ -1,0 +1,21 @@
+name: AI incident investigation lab tests
+on:
+  pull_request:
+    paths:
+      - 'projects/ai-incident-investigation/**'
+      - 'tests/ai-incident-investigation.test.mjs'
+      - '.github/workflows/ai-incident-investigation.yml'
+  push:
+    paths:
+      - 'projects/ai-incident-investigation/**'
+      - 'tests/ai-incident-investigation.test.mjs'
+      - '.github/workflows/ai-incident-investigation.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/ai-incident-investigation.test.mjs
