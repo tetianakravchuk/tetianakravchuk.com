@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {discoveryRecords,searchDiscovery,statusLabel} from '../projects/wph-discovery/discovery-data.js';
+test('separate fictional verified, untranslated, unknown and conflicting cases',()=>{assert.equal(discoveryRecords.length,3);assert.ok(discoveryRecords.some(r=>r.evidence.some(e=>e.verified)));assert.ok(discoveryRecords.some(r=>r.translation.startsWith('Untranslated')));assert.ok(discoveryRecords.some(r=>r.translation==='Unknown'));assert.ok(discoveryRecords.some(r=>r.status==='conflicting_evidence'))});
+test('word-order independent search',()=>assert.equal(searchDiscovery({query:'steppe letters'}).length,1));
+test('country and multiword search combine',()=>{assert.equal(searchDiscovery({country:'Denmark',query:'lantern fjord'}).length,1);assert.equal(searchDiscovery({country:'Iceland',query:'lantern'}).length,0)});
+test('human-readable status',()=>assert.equal(statusLabel('needs_more_evidence'),'Needs more evidence'));
+test('semantic result list and no live detail announcement',()=>{const s=fs.readFileSync('projects/wph-discovery/index.html','utf8');assert.match(s,/<ul id="results"/);assert.doesNotMatch(s,/id="details" aria-live/);assert.match(s,/id="empty-state"/);assert.match(s,/property="og:image"/)});
+test('selected card styling differs from focus',()=>{const s=fs.readFileSync('projects/wph-discovery/discovery.css','utf8');assert.match(s,/border-left:6px/);assert.match(s,/:focus-visible/)});
