@@ -1,0 +1,23 @@
+name: WPH human review console regression
+on:
+  pull_request:
+    paths:
+      - 'projects/wph-review-console/**'
+      - 'projects/wph-discovery/fixtures.js'
+      - 'tests/wph-review-console.test.mjs'
+      - '.github/workflows/wph-review-console.yml'
+  push:
+    paths:
+      - 'projects/wph-review-console/**'
+      - 'projects/wph-discovery/fixtures.js'
+      - 'tests/wph-review-console.test.mjs'
+      - '.github/workflows/wph-review-console.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/wph-review-console.test.mjs tests/wph-discovery-review.test.mjs
