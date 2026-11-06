@@ -14,3 +14,5 @@ export function searchDiscovery({country='All',query=''}={}){
  });
 }
 export function statusLabel(status){return ({needs_more_evidence:'Needs more evidence',conflicting_evidence:'Conflicting evidence',rejected:'Rejected'})[status]||status;}
+
+export function evidenceLabel(record,item){return record.status==='conflicting_evidence'?'Conflicting fictional source':item.verified?'Consistent within fictional fixture':'Unverified fictional source';}
