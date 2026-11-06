@@ -1,0 +1,21 @@
+name: PostgreSQL recovery simulator tests
+on:
+  pull_request:
+    paths:
+      - 'projects/postgresql-recovery-simulator/**'
+      - 'tests/postgresql-recovery-simulator.test.mjs'
+      - '.github/workflows/postgresql-recovery-simulator.yml'
+  push:
+    paths:
+      - 'projects/postgresql-recovery-simulator/**'
+      - 'tests/postgresql-recovery-simulator.test.mjs'
+      - '.github/workflows/postgresql-recovery-simulator.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/postgresql-recovery-simulator.test.mjs
