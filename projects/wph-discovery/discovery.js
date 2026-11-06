@@ -1,4 +1,4 @@
-import {discoveryRecords,searchDiscovery,statusLabel} from './discovery-data.js?v=20261106qa';
+import {discoveryRecords,searchDiscovery,statusLabel,evidenceLabel} from './discovery-data.js?v=20261106qa';
 const get=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
 const initialCountry=params.get('country');
@@ -21,7 +21,7 @@ function render(){
   const li=document.createElement('li');const button=document.createElement('button');
   button.type='button';button.className='demo-record';button.setAttribute('aria-pressed',String(record.id===selected));
   button.textContent=record.title+' — '+record.country+' · '+record.language;
-  button.addEventListener('click',()=>{selected=record.id;render()});li.append(button);results.append(li);
+  button.addEventListener('click',()=>{selected=record.id;render();get('results').querySelector('[aria-pressed="true"]')?.focus()});li.append(button);results.append(li);
  }
  const empty=get('empty-state'),detail=get('details');empty.hidden=rows.length!==0;detail.hidden=rows.length===0;
  if(!rows.length){detail.replaceChildren();return;}
@@ -34,7 +34,7 @@ function render(){
  const notes=document.createElement('p');notes.textContent=record.notes;detail.append(notes);
  const evidenceTitle=document.createElement('h4');evidenceTitle.textContent='Illustrative source evidence';detail.append(evidenceTitle);
  if(!record.evidence.length){const p=document.createElement('p');p.textContent='No evidence supplied.';detail.append(p)}
- else{const ul=document.createElement('ul');for(const item of record.evidence){const li=document.createElement('li');li.textContent=item.id+' · '+item.type+' · '+item.claim+' · '+(item.verified?'Consistent within fictional fixture':'Unverified or conflicting');ul.append(li)}detail.append(ul)}
+ else{const ul=document.createElement('ul');for(const item of record.evidence){const li=document.createElement('li');li.textContent=item.id+' · '+item.type+' · '+item.claim+' · '+evidenceLabel(record,item);ul.append(li)}detail.append(ul)}
 }
 function onFilter(){updateUrl();render()}
 get('country').addEventListener('change',onFilter);
