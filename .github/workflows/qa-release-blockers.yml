@@ -1,0 +1,23 @@
+name: QA P1 P2 release blockers
+on:
+  pull_request:
+    paths:
+      - 'projects/**'
+      - '_headers'
+      - '404.html'
+      - 'tests/qa-release-blockers.test.mjs'
+  push:
+    paths:
+      - 'projects/**'
+      - '_headers'
+      - '404.html'
+      - 'tests/qa-release-blockers.test.mjs'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/qa-release-blockers.test.mjs tests/wph-discovery-review.test.mjs tests/wph-review-console.test.mjs tests/ai-incident-investigation.test.mjs
