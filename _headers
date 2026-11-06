@@ -21,3 +21,7 @@
   Cache-Control: public, max-age=0, must-revalidate
 /assets/script.js
   Cache-Control: public, max-age=0, must-revalidate
+
+# Revalidate demo modules and styles after each deployment, including nested imports.
+/projects/*
+  Cache-Control: public, max-age=0, must-revalidate
