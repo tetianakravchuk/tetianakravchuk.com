@@ -16,10 +16,10 @@ const pages=[
 ];
 let failures=0;
 async function check(path,expected,contentType='text/html'){
- try{const res=await fetch(base+path,{signal:AbortSignal.timeout(15000),redirect:'follow'});const text=await res.text();const ok=res.ok&&res.headers.get('content-type')?.includes(contentType)&&text.includes(expected);const status=ok?'PASS':'FAIL';console.log(status,res.status,path,ok?'':'Missing expected page marker or content type');if(!ok)failures++;}
+ try{const res=await fetch(base+path,{signal:AbortSignal.timeout(15000),redirect:'follow'});const text=await res.text();const ok=res.ok&&(contentType==='script' ? /(?:javascript|ecmascript)/.test(res.headers.get('content-type')||'') : res.headers.get('content-type')?.includes(contentType))&&text.includes(expected);const status=ok?'PASS':'FAIL';console.log(status,res.status,path,ok?'':'Missing expected page marker or content type');if(!ok)failures++;}
  catch(err){failures++;console.log('FAIL',path,err.message)}
 }
 for(const [p,marker] of pages)await check(p,marker);
-for(const [p,marker] of [['/assets/styles.css','{'],['/projects/postgresql-recovery-simulator/recovery.js','simulate'],['/projects/ai-benchmark-dashboard/dashboard.js','benchmark'],['/projects/wph-discovery/discovery.js','filterRecords']])await check(p,marker,'text/');
+for(const [p,marker] of [['/assets/styles.css','{'],['/projects/postgresql-recovery-simulator/recovery.js','simulate'],['/projects/ai-benchmark-dashboard/dashboard.js','benchmark'],['/projects/wph-discovery/discovery.js','filterRecords']])await check(p,marker,p.endsWith('.js')?'script':'text/css');
 console.log('Production smoke results:',pages.length+4-failures,'passed,',failures,'failed');
 if(failures)process.exitCode=1;
