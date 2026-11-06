@@ -1,5 +1,5 @@
 import {validateDecision,decisionLabel} from '../wph-discovery/fixtures.js';
-import {discoveryRecords as records} from '../wph-discovery/discovery-data.js';
+import {discoveryRecords as records,evidenceLabel} from '../wph-discovery/discovery-data.js';
 const get=id=>document.getElementById(id);
 const select=get('review-record');
 const audit=[];
@@ -20,7 +20,7 @@ function renderEvidence(){
   const li=make('li',claim.name+': '+claim.value+' — unverified demo claim');claims.append(li)
  }panel.append(claims,make('h4','Supporting evidence'));
  if(!record.evidence.length)panel.append(make('p','No source evidence provided.'));
- else{const list=document.createElement('ul');for(const source of record.evidence)list.append(make('li',source.id+' · '+source.type+' · Covers: '+source.claim+' · '+(source.verified?'Verified':'Unverified')));panel.append(list)}
+ else{const list=document.createElement('ul');for(const source of record.evidence)list.append(make('li',source.id+' · '+source.type+' · Covers: '+source.claim+' · '+evidenceLabel(record,source)));panel.append(list)}
  panel.append(make('p','No fictional claim may be approved as independently verified.'));
 }
 function render(){renderOptions();renderEvidence();clearFeedback();get('rationale').value='';updateCount()}
