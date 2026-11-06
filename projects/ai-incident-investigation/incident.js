@@ -1,4 +1,4 @@
-import {investigate} from './incident-data.js';
+import {investigate} from './incident-data.js?v=20261106r2';
 const $=id=>document.getElementById(id);
 let report=investigate(),selected=0;
 function render(){
