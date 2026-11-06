@@ -1,4 +1,4 @@
-import {buildTrace} from './trace-data.js';
+import {buildTrace} from './trace-data.js?v=20261106r2';
 const $=id=>document.getElementById(id);
 let trace=buildTrace(),active=0;
 const display=value=>typeof value==='string'?value:JSON.stringify(value,null,2);
