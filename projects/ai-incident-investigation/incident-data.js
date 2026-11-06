@@ -14,7 +14,9 @@ export const incidents={
 };
 export function investigate(id='unsupported'){
  const incident=incidents[id];if(!incident)throw new Error('Unknown incident');
- const events=incident.events.map((e,i)=>({...e,sequence:i+1}));
+ const traceId='DEMO-INC-'+({unsupported:'001',tool:'002',missing:'003'}[id]);
+ const requestTitle=id==='tool'?'The Locked Archive':id==='missing'?'The Absent Manuscript':'The Northern Lantern';
+ const events=incident.events.map((e,i)=>({ ...e, sequence:i+1, latency_ms:e.status==='skipped'?null:e.latency_ms, name:id==='tool'&&e.id==='tool'?'Tool call':e.name, detail:e.id==='request'?'GET /works/lookup?title='+requestTitle+' returned HTTP 200.':e.detail, evidence:e.id==='request'?'trace='+traceId+'; transport=200':e.evidence }));
  const firstProblem=events.find(e=>e.status==='failed'||e.status==='blocked'||e.status==='warning');
- return {incident_id:'SYNTHETIC-'+id.toUpperCase(),synthetic:true,title:incident.title,summary:incident.summary,severity:incident.severity,transport_status:200,events,first_signal:firstProblem?.id??null,root_cause:incident.rootCause,corrective_action:incident.fix,regression_test:incident.regression,disclaimer:'Synthetic incident, not a real WPH production outage or customer record.'};
+ return {incident_id:traceId,synthetic:true,title:incident.title,summary:incident.summary,severity:incident.severity,transport_status:200,events,first_signal:id==='tool'?'tool':firstProblem?.id??null,root_cause:incident.rootCause,corrective_action:incident.fix,regression_test:incident.regression,disclaimer:'Synthetic incident, not a real WPH production outage or customer record.'};
 }
