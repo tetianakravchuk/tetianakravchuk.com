@@ -1,4 +1,4 @@
-import {investigate} from './incident-data.js';
+import {investigate} from './incident-data.js?v=20261106r2';
 const $=id=>document.getElementById(id);
 let report=investigate(),selected=0;
 function render(){
@@ -13,7 +13,7 @@ function render(){
   button.type='button';button.className='incident-span '+span.status+(i===selected?' selected':'');
   button.setAttribute('aria-current',i===selected?'step':'false');
   button.textContent=span.sequence+'. '+span.name+' · '+span.status+' · '+(span.latency_ms===null?'—':span.latency_ms+' ms');
-  button.addEventListener('click',()=>{selected=i;render();});li.append(button);return li;
+  button.addEventListener('click',()=>{selected=i;render();$('timeline').children[i]?.querySelector('button')?.focus();});li.append(button);return li;
  }));
  $('span-title').textContent=event.name+' — '+event.layer;
  $('span-status').textContent='Status: '+event.status+' · '+(event.latency_ms===null?'—':event.latency_ms+' ms');

@@ -1,4 +1,4 @@
-import {buildTrace} from './trace-data.js';
+import {buildTrace} from './trace-data.js?v=20261106r2';
 const $=id=>document.getElementById(id);
 let trace=buildTrace(),active=0;
 const display=value=>typeof value==='string'?value:JSON.stringify(value,null,2);
@@ -11,7 +11,7 @@ function render(){
   button.type='button';button.className='trace-step '+(index===active?'selected ':'')+step.status;
   button.setAttribute('aria-current',index===active?'step':'false');
   button.textContent=step.sequence+'. '+step.label+' — '+step.status.replaceAll('_',' ');
-  button.addEventListener('click',()=>{active=index;render();});
+  button.addEventListener('click',()=>{active=index;render();$('steps').children[index]?.querySelector('button')?.focus();});
   li.append(button);return li;
  }));
  $('stage-title').textContent=event.label;

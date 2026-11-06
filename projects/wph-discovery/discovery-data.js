@@ -1,4 +1,4 @@
-import {records} from './fixtures.js';
+import {records} from './fixtures.js?v=20261106r2';
 // Fictional bibliographic scenarios for the portfolio. Verified refers only to internal
 // consistency of illustrative evidence, not to real-world books or rights clearance.
 export const discoveryRecords=[
@@ -14,3 +14,5 @@ export function searchDiscovery({country='All',query=''}={}){
  });
 }
 export function statusLabel(status){return ({needs_more_evidence:'Needs more evidence',conflicting_evidence:'Conflicting evidence',rejected:'Rejected'})[status]||status;}
+
+export function evidenceLabel(record,item){return record.status==='conflicting_evidence'?'Conflicting fictional source':item.verified?'Consistent within fictional fixture':'Unverified fictional source';}
