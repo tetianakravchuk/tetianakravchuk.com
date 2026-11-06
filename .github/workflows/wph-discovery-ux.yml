@@ -1,0 +1,21 @@
+name: WPH discovery UX regression
+on:
+  pull_request:
+    paths:
+      - 'projects/wph-discovery/**'
+      - 'tests/wph-discovery-ux.test.mjs'
+      - '.github/workflows/wph-discovery-ux.yml'
+  push:
+    paths:
+      - 'projects/wph-discovery/**'
+      - 'tests/wph-discovery-ux.test.mjs'
+      - '.github/workflows/wph-discovery-ux.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/wph-discovery-ux.test.mjs tests/wph-discovery-review.test.mjs
