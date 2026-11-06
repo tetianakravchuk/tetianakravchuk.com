@@ -1,4 +1,4 @@
-import {discoveryRecords,searchDiscovery,statusLabel,evidenceLabel} from './discovery-data.js?v=20261106qa';
+import {discoveryRecords,searchDiscovery,statusLabel,evidenceLabel} from './discovery-data.js?v=20261106r2';
 const get=id=>document.getElementById(id);
 const params=new URLSearchParams(location.search);
 const initialCountry=params.get('country');
