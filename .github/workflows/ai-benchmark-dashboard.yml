@@ -1,0 +1,21 @@
+name: AI benchmark dashboard tests
+on:
+  pull_request:
+    paths:
+      - 'projects/ai-benchmark-dashboard/**'
+      - 'tests/ai-benchmark-dashboard.test.mjs'
+      - '.github/workflows/ai-benchmark-dashboard.yml'
+  push:
+    paths:
+      - 'projects/ai-benchmark-dashboard/**'
+      - 'tests/ai-benchmark-dashboard.test.mjs'
+      - '.github/workflows/ai-benchmark-dashboard.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/ai-benchmark-dashboard.test.mjs
