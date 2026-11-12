@@ -1,81 +1,13 @@
-"use strict";
+import { records, requiresHandoff } from "./portfolio-assistant-records.mjs";
 
-const records = [
-  [
-    "work",
-    "How did Tetiana evaluate agents at Advisor360?",
-    "advisor360|parrot|meeting|agent evaluation|golden dataset|regression|transcript|action items",
-    "At Advisor360, Tetiana helped develop and evaluate meeting-capture agents. She built Python regression suites and golden datasets to check summaries and action items against source transcripts and expected output schemas. The public Evaluation Lab illustrates these methods with synthetic examples.",
-    "Evaluation Lab",
-    "/projects/ai-agent-evaluation/"
-  ],
-  [
-    "work",
-    "How does WPH verify book evidence?",
-    "wph evidence|book evidence|publishing|verify|verification|provenance|human review|review console|edition",
-    "In her independent World Publishing Houses project, Tetiana built workflows that preserve source provenance and surface evidence for human review. Reviewers can inspect discrepancies before making decisions. The portfolio demo illustrates the review workflow.",
-    "Human Review Console",
-    "/projects/wph-review-console/"
-  ],
-  [
-    "work",
-    "How does ingestion recover after a failure?",
-    "ingestion|checkpoint|recovery|concurrent|retry|worker|postgresql|transaction",
-    "In World Publishing Houses, Tetiana used transactional PostgreSQL writes, checkpoints, and bounded workers to support safe retries after interruptions. The simulator shows how a concurrent-worker checkpoint conflict can be detected and recovered from.",
-    "PostgreSQL Recovery Simulator",
-    "/projects/postgresql-recovery-simulator/"
-  ],
-  [
-    "work",
-    "How does Tetiana investigate an AI incident?",
-    "incident|investigate|observability|failure diagnosis|trace|monitoring",
-    "Tetiana’s public incident lab walks through investigating an AI output by comparing it with source evidence and checking where the workflow failed.",
-    "AI Incident Investigation Lab",
-    "/projects/ai-incident-investigation/"
-  ],
-  [
-    "work",
-    "How does WPH support book discovery?",
-    "discovery|literary|book search|retrieval|rag|grounding",
-    "World Publishing Houses is Tetiana’s independent book-discovery project. Her public discovery demo illustrates how source evidence supports a recommendation and where the system should surface uncertainty.",
-    "WPH Discovery",
-    "/projects/wph-discovery/"
-  ],
-  [
-    "recruiter",
-    "What roles is Tetiana looking for?",
-    "roles|remote|hybrid|onsite|on site|travel|location|massachusetts|grafton|full time|contract",
-    "Tetiana is based in Grafton, Massachusetts. She is interested in full-time, direct-hire U.S.-remote roles in AI evaluation, AI reliability, applied AI, and quality engineering.",
-    "Contact Tetiana",
-    "/pages/contact.html"
-  ],
-  [
-    "recruiter",
-    "Does Tetiana need U.S. sponsorship?",
-    "sponsorship|sponsor|authorized|authorization|visa|work permit",
-    "Tetiana is authorized to work in the United States without employer sponsorship.",
-    "Contact Tetiana",
-    "/pages/contact.html"
-  ],
-  [
-    "recruiter",
-    "How much professional Python experience does she have?",
-    "python|experience|years|background|degree|skills",
-    "Tetiana has five years of professional Python experience, three years of professional AI and LLM evaluation experience, and more than ten years in quality engineering and test automation. She holds an M.S. in Data Science.",
-    "View résumé",
-    "/pages/resume.html"
-  ]
-].map(
-  ([mode, question, keywords, answer, label, url]) => ({
-    mode, question, keywords: keywords.split("|"), answer, label, url
-  })
-);
+const endpoint = document.querySelector('meta[name="assistant-api"]').content;
+document.getElementById("model-notice").hidden = !endpoint;
+let pending;
 
 function findAnswer(question) {
   const query = " " + question.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim() + " ";
   const matches = (phrase) => query.includes(" " + phrase + " ");
-  const handoff = /\b(salary|compensation|pay range|availability|available|schedule|start date|negotiate|accept offer)\b/;
-  if (handoff.test(query)) return null;
+  if (requiresHandoff(query)) return null;
 
   const exact = records.find((record) =>
     query.trim() === record.question.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim()
@@ -110,6 +42,7 @@ function showAnswer(record) {
 }
 
 function showMode() {
+  pending?.abort();
   const mode = location.hash === "#recruiter" ? "recruiter" : "work";
   title.textContent = mode === "recruiter" ? "Recruiter FAQ" : "Ask about Tetiana’s work";
   const buttons = records.filter((record) => record.mode === mode).slice(0, 3).map((record) => {
@@ -118,6 +51,7 @@ function showMode() {
     button.className = "button";
     button.textContent = record.question;
     button.addEventListener("click", () => {
+      pending?.abort();
       input.value = record.question;
       showAnswer(record);
     });
@@ -128,9 +62,33 @@ function showMode() {
   result.replaceChildren();
 }
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  showAnswer(findAnswer(input.value));
+  pending?.abort();
+  const question = input.value.trim();
+  if (!endpoint || !question || requiresHandoff(question)) {
+    showAnswer(findAnswer(question));
+    return;
+  }
+
+  const request = new AbortController();
+  pending = request;
+  result.textContent = "Finding a verified answer…";
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question }),
+      signal: AbortSignal.any([request.signal, AbortSignal.timeout(12000)])
+    });
+    if (!response.ok) throw new Error("Assistant service unavailable");
+    const { id } = await response.json();
+    if (!request.signal.aborted) showAnswer(records.find((record) => record.id === id));
+  } catch {
+    if (!request.signal.aborted) showAnswer(findAnswer(question));
+  } finally {
+    if (pending === request) pending = undefined;
+  }
 });
 window.addEventListener("hashchange", showMode);
 showMode();
