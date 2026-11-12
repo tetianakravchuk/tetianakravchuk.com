@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ask about Tetiana Kravchuk’s work</title>
+  <link rel="canonical" href="https://tetianakravchuk.com/assistant/">
+  <link rel="stylesheet" href="/assets/styles.css?v=20261106r2">
+  <script src="/assets/portfolio-assistant.js" defer></script>
+</head>
+<body>
+  <main class="container section" style="max-width:760px">
+    <nav class="actions" aria-label="Portfolio assistant">
+      <a class="button" href="/">Portfolio home</a>
+      <a class="button" href="#work">Project questions</a>
+      <a class="button" href="#recruiter">Recruiter FAQ</a>
+    </nav>
+    <section class="card featured" aria-labelledby="assistant-title" style="margin-top:1rem">
+      <h1 id="assistant-title">Ask about Tetiana’s work</h1>
+      <p>This portfolio assistant matches questions to curated answers. It runs in your browser.</p>
+      <div id="starters" class="actions" aria-label="Suggested questions"></div>
+      <form id="ask" style="margin-top:1rem" hidden>
+        <label for="question">Your question</label>
+        <input id="question" type="search" maxlength="300" required style="display:block;width:100%;padding:.7rem;margin:.5rem 0;font:inherit">
+        <button class="button primary" type="submit">Ask</button>
+      </form>
+      <div id="result" role="status" aria-live="polite" aria-atomic="true" style="margin-top:1rem"></div>
+      <noscript><p>Enable JavaScript to ask a question, or browse the <a href="/pages/projects.html">portfolio projects</a>.</p></noscript>
+      <p><a href="/pages/contact.html">Contact Tetiana about a role</a></p>
+    </section>
+  </main>
+</body>
+</html>
