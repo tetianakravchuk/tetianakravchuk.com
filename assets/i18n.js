@@ -836,45 +836,13 @@
   }
 
   // ── Flags (inline SVG — render identically on every OS, unlike flag emoji) ────
-  var FLAGS = {
-    // English → Union Jack
-    en: '<svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><rect width="60" height="30" fill="#012169"/><path d="M0,0 60,30 M60,0 0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 60,30 M60,0 0,30" stroke="#C8102E" stroke-width="3"/><rect x="25" width="10" height="30" fill="#fff"/><rect y="10" width="60" height="10" fill="#fff"/><rect x="27" width="6" height="30" fill="#C8102E"/><rect y="12" width="60" height="6" fill="#C8102E"/></svg>',
-    // Spain
-    es: '<svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#c60b1e"/><rect y="0.5" width="3" height="1" fill="#ffc400"/></svg>',
-    // Poland
-    pl: '<svg class="flag" viewBox="0 0 2 2" aria-hidden="true"><rect width="2" height="2" fill="#dc143c"/><rect width="2" height="1" fill="#fff"/></svg>',
-    // Ukraine
-    uk: '<svg class="flag" viewBox="0 0 2 2" aria-hidden="true"><rect width="2" height="1" fill="#0057b7"/><rect y="1" width="2" height="1" fill="#ffd700"/></svg>',
-    // France
-    fr: '<svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="2" fill="#fff"/><rect width="1" height="2" fill="#0055a4"/><rect x="2" width="1" height="2" fill="#ef4135"/></svg>',
-    // Romania
-    ro: '<svg class="flag" viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#002b7f"/><rect x="1" width="1" height="2" fill="#fcd116"/><rect x="2" width="1" height="2" fill="#ce1126"/></svg>',
-    // Czechia
-    cs: '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><rect y="10" width="30" height="10" fill="#d7141a"/><path d="M0,0 L15,10 L0,20 Z" fill="#11457e"/></svg>',
-    // Norway
-    no: '<svg class="flag" viewBox="0 0 25 18" aria-hidden="true"><rect width="25" height="18" fill="#ba0c2f"/><rect x="5" width="6" height="18" fill="#fff"/><rect y="6" width="25" height="6" fill="#fff"/><rect x="6.5" width="3" height="18" fill="#00205b"/><rect y="7.5" width="25" height="3" fill="#00205b"/></svg>',
-    // Iceland
-    is: '<svg class="flag" viewBox="0 0 25 18" aria-hidden="true"><rect width="25" height="18" fill="#02529c"/><rect x="5" width="6" height="18" fill="#fff"/><rect y="6" width="25" height="6" fill="#fff"/><rect x="6.5" width="3" height="18" fill="#dc1e35"/><rect y="7.5" width="25" height="3" fill="#dc1e35"/></svg>',
-    // Sweden
-    sv: '<svg class="flag" viewBox="0 0 25 18" aria-hidden="true"><rect width="25" height="18" fill="#006aa7"/><rect x="6" width="4" height="18" fill="#fecc00"/><rect y="7" width="25" height="4" fill="#fecc00"/></svg>',
-    // Denmark
-    da: '<svg class="flag" viewBox="0 0 25 18" aria-hidden="true"><rect width="25" height="18" fill="#c8102e"/><rect x="6" width="4" height="18" fill="#fff"/><rect y="7" width="25" height="4" fill="#fff"/></svg>',
-    // Finland
-    fi: '<svg class="flag" viewBox="0 0 25 18" aria-hidden="true"><rect width="25" height="18" fill="#fff"/><rect x="6" width="4" height="18" fill="#003580"/><rect y="7" width="25" height="4" fill="#003580"/></svg>',
-    // Estonia
-    et: '<svg class="flag" viewBox="0 0 30 18" aria-hidden="true"><rect width="30" height="6" fill="#0072ce"/><rect y="6" width="30" height="6" fill="#000"/><rect y="12" width="30" height="6" fill="#fff"/></svg>',
-    // Latvia
-    lv: '<svg class="flag" viewBox="0 0 25 15" aria-hidden="true"><rect width="25" height="15" fill="#9e3039"/><rect y="6" width="25" height="3" fill="#fff"/></svg>',
-    // Lithuania
-    lt: '<svg class="flag" viewBox="0 0 30 18" aria-hidden="true"><rect width="30" height="6" fill="#fdb913"/><rect y="6" width="30" height="6" fill="#006a44"/><rect y="12" width="30" height="6" fill="#c1272d"/></svg>'
-  };
-  function flagHTML(code) { return '<span class="flag-wrap">' + (FLAGS[code] || '') + '</span>'; }
   function metaFor(code) { for (var i = 0; i < LANGS.length; i++) if (LANGS[i].code === code) return LANGS[i]; return LANGS[0]; }
 
-  // ── Switcher UI (custom accessible listbox with SVG flags) ───────────────────
+
+  // ── Switcher UI (text labels; placed with secondary footer links) ────────────
   var switchUI = null;
   function buildSwitcher() {
-    var host = document.querySelector('[data-nav-links]') || document.querySelector('.nav-inner') || document.body;
+    var host = document.querySelector('[data-language-switcher-host]') || document.querySelector('.footer-links') || document.querySelector('[data-nav-links]') || document.body;
     var lang = getLang();
     var wrap = document.createElement('div');
     wrap.className = 'lang-switch';
@@ -898,7 +866,7 @@
       o.setAttribute('role', 'option');
       o.setAttribute('data-code', l.code);
       o.setAttribute('tabindex', '-1');
-      o.innerHTML = flagHTML(l.code) + '<span class="lang-name">' + l.label + '</span><span class="lang-check" aria-hidden="true">✓</span>';
+      o.innerHTML = '<span class="lang-name">' + l.label + '</span><span class="lang-check" aria-hidden="true">✓</span>';
       o.addEventListener('click', function () { setLang(l.code); close(true); });
       menu.appendChild(o);
       return o;
@@ -933,7 +901,7 @@
     switchUI = {
       refresh: function (code) {
         var m = metaFor(code);
-        btn.innerHTML = flagHTML(code) + '<span class="lang-btn-label">' + m.short + '</span><span class="lang-btn-caret" aria-hidden="true">▾</span>';
+        btn.innerHTML = '<span class="lang-btn-label">' + m.short + '</span><span class="lang-btn-caret" aria-hidden="true">▾</span>';
         btn.setAttribute('aria-label', t(code, 'lang.aria') + ' — ' + m.label);
         options.forEach(function (o) { o.setAttribute('aria-selected', o.getAttribute('data-code') === code ? 'true' : 'false'); });
       }
