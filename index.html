@@ -28,6 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/styles.css?v=20261106r2" />
+  <link rel="stylesheet" href="/assets/wph-testing.css?v=20261106r2" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -147,6 +148,89 @@
         </div>
       </section>
 
+
+      <section class="section testing-section" id="wph-rag" aria-labelledby="rag-heading">
+        <div class="testing-intro">
+          <div>
+            <div class="eyebrow">WPH · retrieval-augmented generation</div>
+            <h2 id="rag-heading">Follow the answer back to its evidence.</h2>
+          </div>
+          <p>WPH retrieves evidence snapshots, ranks relevant passages, and composes extractive answers with citations. The current answer layer uses deterministic rules. Missing evidence produces an explicit uncertainty state.</p>
+        </div>
+        <div class="evidence-stage">
+          <div class="evidence-story">
+            <p class="testing-label">Illustrative workflow · synthetic book</p>
+            <h3>When was <em>The Winter Atlas</em> published?</h3>
+            <ol class="evidence-flow" aria-label="WPH evidence retrieval workflow">
+              <li><strong>Evidence snapshots</strong><span>Source URL, retrieval time, document identity</span></li>
+              <li><strong>Relevant passages</strong><span>Country and language filters · lexical ranking</span></li>
+              <li><strong>Cited response</strong><span>Extracted text, citation, and a safety check</span></li>
+            </ol>
+            <p class="testing-caption">Optional semantic scoring uses embeddings when present. Retrieval relevance and factual verification are separate checks.</p>
+          </div>
+          <div class="evidence-console" data-rag-demo>
+            <div class="testing-controls" role="group" aria-label="Choose a synthetic retrieval scenario">
+              <button type="button" data-rag-case="supported" aria-pressed="true">Evidence found</button>
+              <button type="button" data-rag-case="missing" aria-pressed="false">No evidence</button>
+              <button type="button" data-rag-case="rights" aria-pressed="false">Rights question</button>
+            </div>
+            <div aria-live="polite" aria-atomic="true" class="rag-response">
+              <p class="testing-label" data-rag-source-label>Synthetic source excerpt</p>
+              <blockquote data-rag-source>“The Winter Atlas was published in March 2026.”</blockquote>
+              <div class="evidence-answer">
+                <p class="testing-label">Response</p>
+                <p data-rag-answer>The Winter Atlas was published in March 2026. [S1]</p>
+                <span class="testing-status" data-rag-status>answered</span>
+              </div>
+              <p class="testing-caption" data-rag-citation>[S1] Fictional publisher page · document demo-doc-01 · chunk demo-chunk-01</p>
+            </div>
+            <p class="testing-disclosure">Scripted illustration of documented behavior. All book details and identifiers in this panel are synthetic.</p>
+          </div>
+        </div>
+        <div class="testing-checks" aria-label="RAG evaluation questions">
+          <div><h3>Retrieval</h3><p>Did the relevant passage survive the filters and ranking?</p></div>
+          <div><h3>Grounding</h3><p>Does the cited passage support the exact answer?</p></div>
+          <div><h3>Safe fallback</h3><p>Does missing or unsafe evidence produce an explicit stop?</p></div>
+        </div>
+        <div class="actions"><a class="button" href="/projects/wph-ai-platform/">Explore the WPH case study</a></div>
+      </section>
+
+      <section class="section testing-section" id="agent-evaluation" aria-labelledby="agent-evaluation-heading">
+        <div class="testing-intro">
+          <div><div class="eyebrow">AI testing · inspect the failure</div><h2 id="agent-evaluation-heading">A valid response can still do the wrong thing.</h2></div>
+          <p>My evaluation approach compares expected behavior with actual output, then checks evidence and workflow boundaries. Try a synthetic task-extraction regression below, using the same evaluator as my AI Evaluation Lab.</p>
+        </div>
+        <div class="agent-test-panel" data-agent-demo>
+          <div class="testing-controls" role="group" aria-label="Choose an agent evaluation case">
+            <button type="button" data-agent-case="match" aria-pressed="true">Correct output</button>
+            <button type="button" data-agent-case="extra" aria-pressed="false">Invented action</button>
+            <button type="button" data-agent-case="missing" aria-pressed="false">Missing action</button>
+            <button type="button" data-agent-case="schema" aria-pressed="false">Broken JSON</button>
+          </div>
+          <div class="test-comparison">
+            <div><p class="testing-label">Expected tasks · fictional request</p><pre><code>{"tasks":[
+  {"action":"find_sources","client_id":"demo"},
+  {"action":"summarize_evidence","client_id":"demo"}
+]}</code></pre></div>
+            <div><p class="testing-label">Actual agent output</p><pre><code data-agent-output>{"tasks":[
+  {"action":"find_sources","client_id":"demo"},
+  {"action":"summarize_evidence","client_id":"demo"}
+]}</code></pre></div>
+          </div>
+          <div class="test-results" aria-live="polite" aria-atomic="true">
+            <div class="test-verdict"><span class="testing-status" data-agent-verdict>PASS</span><p data-agent-reason>All required tasks match.</p></div>
+            <dl class="test-metrics"><div><dt>Schema</dt><dd data-agent-schema>Valid</dd></div><div><dt>Precision</dt><dd data-agent-precision>100%</dd></div><div><dt>Recall</dt><dd data-agent-recall>100%</dd></div><div><dt>F1</dt><dd data-agent-f1>100%</dd></div></dl>
+          </div>
+          <p class="testing-disclosure">Metrics are calculated locally from these synthetic fixtures. This panel evaluates task extraction. Production release acceptance also requires evidence, safety, and integration checks.</p>
+        </div>
+        <div class="testing-checks" aria-label="Agent testing boundaries">
+          <div><h3>Output contracts</h3><p>Schema validation, unsupported actions, missing tasks, and exact-match regressions.</p></div>
+          <div><h3>Evidence boundaries</h3><p>Receipt hashes, contradictory sources, duplicate identities, and pending isolation.</p></div>
+          <div><h3>Workflow recovery</h3><p>Traceable failures, bounded retries, idempotency, and human-review requirements.</p></div>
+        </div>
+        <div class="actions"><a class="button primary" href="/projects/ai-agent-evaluation/">Open the full evaluation lab</a><a class="button" href="/projects/agent-execution-trace/">Inspect an execution trace</a></div>
+        <noscript><p>JavaScript enables scenario switching. The default synthetic examples remain visible above.</p></noscript>
+      </section>
 
       <section class="section" id="ai-systems-quality" aria-labelledby="ai-systems-quality-heading">
         <div class="section-header">
@@ -273,5 +357,6 @@
   <script src="/assets/i18n.js?v=20261106r2" defer></script>
   <script src="/assets/demo-video.js?v=20261106r2" defer></script>
   <script src="assets/script.js?v=20261106r2"></script>
+  <script type="module" src="/assets/wph-testing.mjs?v=20261117"></script>
 </body>
 </html>

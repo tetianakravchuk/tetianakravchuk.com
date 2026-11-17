@@ -1,0 +1,71 @@
+.testing-intro {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 40px;
+  align-items: end;
+  margin-bottom: 32px;
+}
+.testing-intro p { color: var(--ink-soft); }
+.testing-intro h2 { margin-bottom: 0; }
+.evidence-stage {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  background: #132e32;
+  border: 1px solid #25464b;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.evidence-stage h3 { color: #f7faf8; line-height: 1.35; }
+.evidence-story { padding: 32px; color: #edf2f0; }
+.testing-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.evidence-story .testing-label,
+.evidence-story .testing-caption { color: #becfca; }
+.evidence-flow { list-style: none; padding: 0; margin: 28px 0; }
+.evidence-flow li { position: relative; border-left: 2px solid #679f98; padding: 0 0 25px 22px; margin-left: 6px; }
+.evidence-flow li:last-child { padding-bottom: 0; }
+.evidence-flow li::before { content: ''; position: absolute; left: -6px; top: 6px; width: 10px; height: 10px; border-radius: 50%; background: #bdddd1; }
+.evidence-flow strong { display: block; font-size: 17px; }
+.evidence-flow span { display: block; margin-top: 5px; color: #becfca; font-size: 13px; }
+.evidence-console { background: #f1f4ef; padding: 28px; min-width: 0; }
+.testing-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 25px; }
+.testing-controls button { background: var(--card); color: var(--ink-soft); border: 1px solid var(--line-strong); border-radius: 30px; font: inherit; font-size: 13px; padding: 10px 14px; min-height: 44px; cursor: pointer; }
+.testing-controls button:hover { border-color: var(--accent); }
+.testing-controls button[aria-pressed='true'] { background: #173e42; color: #fff; border-color: #173e42; }
+.evidence-console blockquote { margin: 0 0 22px; padding: 17px; background: #fff; border-left: 3px solid #628a80; font-size: 16px; line-height: 1.6; }
+.evidence-answer { padding: 20px; background: #e0eae2; border-radius: 8px; }
+.testing-status { display: inline-block; padding: 5px 10px; background: #d8eadf; color: #184636; border: 1px solid #a9c5b4; border-radius: 5px; font: 12px/1.5 var(--mono); overflow-wrap: anywhere; }
+.testing-caption { margin: 16px 0 0; font-size: 12px; color: var(--ink-soft); }
+.testing-disclosure { font-size: 12px; color: var(--muted); margin: 24px 0 0; }
+.testing-checks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 28px 0; }
+.testing-checks > div { border-top: 2px solid var(--line-strong); padding-top: 18px; }
+.testing-checks h3 { font-size: 17px; margin-bottom: 10px; }
+.testing-checks p { font-size: 14px; color: var(--ink-soft); }
+.agent-test-panel { background: var(--card); padding: 28px; border: 1px solid var(--line-strong); border-radius: var(--radius); }
+.test-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.test-comparison > div { min-width: 0; }
+.test-comparison pre { margin: 0; padding: 20px; background: #162a30; color: #e6f0ed; border-radius: 8px; font: 12px/1.8 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; min-height: 230px; }
+.test-results { display: grid; grid-template-columns: 1fr 1.2fr; gap: 28px; align-items: center; margin-top: 24px; }
+.test-verdict p { margin: 10px 0 0; font-size: 14px; }
+.test-metrics { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; gap: 12px; }
+.test-metrics dt { color: var(--muted); font-size: 12px; }
+.test-metrics dd { margin: 4px 0 0; color: #173e42; font: 24px/1.4 var(--mono); }
+[data-result='fail'] .test-verdict .testing-status { background: #f9e6ce; border-color: #ddbb8e; color: #6c3914; }
+@media (max-width: 850px) {
+  .testing-intro, .evidence-stage, .test-results { grid-template-columns: 1fr; gap: 20px; }
+  .evidence-stage { gap: 0; }
+  .testing-checks { gap: 16px; }
+}
+@media (max-width: 600px) {
+  .evidence-story, .evidence-console, .agent-test-panel { padding: 20px; }
+  .test-comparison, .testing-checks { grid-template-columns: 1fr; }
+  .test-comparison pre { min-height: 0; }
+  .test-metrics { grid-template-columns: repeat(2, 1fr); }
+  .testing-controls button { flex: 1 1 auto; }
+}
