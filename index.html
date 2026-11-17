@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/styles.css?v=20261117-wph-videos" />
+  <link rel="stylesheet" href="assets/styles.css?v=20261117-recruiter-layout" />
 
   <script type="application/ld+json">
   {
@@ -67,12 +67,9 @@
         <span data-i18n="nav.menu">Menu</span>
       </button>
       <div class="nav-links" id="site-navigation" data-nav-links>
-        <a href="pages/about.html" data-i18n="nav.about">About</a>
-        <a href="pages/resume.html" data-i18n="nav.resume">Resume</a>
         <a href="pages/projects.html" data-i18n="nav.projects">Projects</a>
-        <a href="pages/data-science.html" data-i18n="nav.data">Data Science</a>
-        <a href="pages/qa-impact.html" data-i18n="nav.qa">QA Impact</a>
-        <a href="/assistant/">Ask about my work</a>
+        <a href="pages/resume.html" data-i18n="nav.resume">Résumé</a>
+        <a href="pages/about.html" data-i18n="nav.about">About</a>
         <a href="pages/contact.html" data-i18n="nav.contact">Contact</a>
       </div>
     </div>
@@ -83,13 +80,13 @@
       <section class="hp-hero" id="home" aria-labelledby="home-hero-heading">
         <div class="hp-hero-grid">
           <div>
-            <div class="hp-badge"><span class="dot" aria-hidden="true"></span> <span data-i18n="hero.badge">Open to US-remote AI Evaluation &amp; AI Reliability roles · Applied AI adjacent</span></div>
+            <div class="hp-badge"><span class="dot" aria-hidden="true"></span> <span>US remote · AI Evaluation · AI Reliability</span></div>
             <h1 id="home-hero-heading" data-i18n="hero.h1">AI Evaluation &amp; Reliability Engineer</h1>
             <p class="lead" data-i18n="hero.lead">Applied AI systems, agent evaluation, and 10+ years in software quality engineering. I build practical evaluation and reliability workflows with Python, SQL, FastAPI, and PostgreSQL.</p>
             <p class="credential-line" data-i18n-html="hero.cred">M.S. Data Science, AI &amp; ML — Boston University<br />Massachusetts · open to US remote roles</p>
             <div class="actions">
-              <a class="button primary" href="#recruiter-projects">View featured projects</a>
-              <a class="button" href="pages/resume.html">Résumé and experience</a>
+              <a class="button primary" href="#featured-project">View featured project</a>
+              <a class="button" href="pages/resume.html">Résumé</a>
               <a class="button" href="#contact">Contact</a>
             </div>
           </div>
@@ -105,87 +102,80 @@
         </div>
       </section>
 
-      <section class="section" id="recruiter-projects" aria-labelledby="recruiter-projects-heading">
+      <section class="section flagship-section" id="featured-project" aria-labelledby="featured-project-heading">
         <div class="section-header">
-          <div class="eyebrow">One platform · two focused demos</div>
-          <h2 id="recruiter-projects-heading">AI evaluation and source grounding</h2>
-          <p>World Publishing Houses is my independent project. These two interactive demos show how I inspect agent behavior and source evidence.</p>
+          <div class="eyebrow">Flagship independent project</div>
+          <h2 id="featured-project-heading">World Publishing Houses</h2>
+          <p>Source-backed publishing discovery and evidence review, built to make uncertain records easier to inspect without turning missing evidence into a claim.</p>
         </div>
-        <div class="grid-2">
-          <article class="card featured">
-            <div class="kicker">Agent evaluation · deterministic fixtures</div>
-            <h3>AI Agent Evaluation Lab</h3>
-            <p>Compare expected and actual actions; inspect missing or invented tasks, schema errors, precision, and recall. Scenarios run locally and do not call a live model.</p>
-            <div class="actions"><a class="button primary" href="projects/ai-agent-evaluation/">Open the evaluation lab</a><a class="button" href="projects/wph-ai-platform/#technical-deep-dives">View video walkthroughs</a></div>
-          </article>
-          <article class="card featured">
-            <div class="kicker">Retrieval and evidence · deterministic demo</div>
-            <h3>WPH RAG Explorer</h3>
-            <p>Follow a question through retrieval, cited evidence, and safe abstention with synthetic local records. The interactive demo does not call a live model.</p>
-            <div class="actions"><a class="button primary" href="projects/wph-rag-explorer/">Explore the RAG demo</a><a class="button" href="projects/wph-ai-platform/#ai-execution-scope">Read the model-scope note</a></div>
-          </article>
+        <div class="flagship-grid">
+          <div>
+            <ul class="outcome-list" aria-label="WPH engineering outcomes">
+              <li><strong>Recovered source discovery after remote disconnects.</strong> Five sequential Sweden runs reached review with 22 sources verified and three still pending per run.</li>
+              <li><strong>Closed an evidence-integrity defect.</strong> A regression caught a stale receipt hash; binding the expected value into the receipt moved the focused suite from nine to ten passing tests.</li>
+              <li><strong>Kept release decisions reviewable.</strong> Rights safety is a hard gate, and proposed records require human review before promotion.</li>
+            </ul>
+            <div class="project-actions">
+              <a class="button primary" href="projects/wph-ai-platform/">Read the WPH case study</a>
+              <a class="text-link" href="https://www.worldpublishinghouses.com/" target="_blank" rel="noopener noreferrer">Open the live product ↗</a>
+            </div>
+            <p class="small-note">WPH is independent portfolio work. The counts describe specific historical test runs; public interactive demos use deterministic scenarios.</p>
+          </div>
+          <figure class="flagship-visual">
+            <a href="projects/wph-ai-platform/" aria-label="Open the WPH case study">
+              <img src="/assets/images/wph-reviewer-console.png" alt="Screenshot of the WPH Denmark evidence-review workspace, showing a book queue and source-backed reviewer dossier." width="1528" height="2048" fetchpriority="high" />
+            </a>
+            <figcaption>WPH reviewer console · product screenshot</figcaption>
+          </figure>
         </div>
-        <p class="small-note">WPH is independent portfolio work. The detailed release-readiness results below come from that project and are separate from employer work.</p>
       </section>
 
-      <section class="section" id="ai-systems-quality" aria-labelledby="ai-systems-quality-heading">
+      <section class="section evaluation-preview-section" id="evaluation-preview" aria-labelledby="evaluation-preview-heading">
         <div class="section-header">
-          <div class="eyebrow">AI systems quality engineering</div>
-          <h2 id="ai-systems-quality-heading">How I evaluate whether an AI system is ready to release</h2>
-          <p>I separate source evidence, deterministic safety, human approval, recovery behavior, and release evidence. These examples show the checks I use to investigate failures and preserve uncertainty.</p>
+          <div class="eyebrow">Interactive demonstration</div>
+          <h2 id="evaluation-preview-heading">An HTTP 200 response is not a correctness check</h2>
+          <p>Switch scenarios to compare expected and actual JSON, then inspect precision, recall, and schema results.</p>
         </div>
-        <div class="grid-2">
-          <article class="card">
-            <h3>Recover from source failures safely</h3>
-            <p>Five Sweden discovery runs initially reached a dead-letter state after remote connections closed. After a targeted network-error fix, five sequential runs reached human review with 22 verified and three pending sources per run. Timed-out sources stayed pending after retry exhaustion; run-specific golden-set evidence was still outstanding at that milestone.</p>
-          </article>
-          <article class="card">
-            <h3>Test the evidence behind a decision</h3>
-            <p>I reproduced a defect where changing a claim’s expected value changed its proposed verdict but left the evidence receipt hash unchanged. A regression test exposed the gap; the fix bound the expected value into the receipt. The focused suite moved from nine to ten passing tests.</p>
-          </article>
-          <article class="card">
-            <h3>Keep safety and human approval explicit</h3>
-            <p>WPH uses verified, rejected, and verification-pending outcomes. Agent proposals require human review; automatic promotion and trusted-path access remain disabled. Rights safety is a hard gate and cannot be averaged away.</p>
-          </article>
-          <article class="card">
-            <h3>Make release confidence auditable</h3>
-            <p>I report code tests, isolated PostgreSQL checks, deployment identity, and persisted production evidence separately as PASS, FAIL, BLOCKED, or NOT RUN, with supporting run and receipt references.</p>
-          </article>
+        <div class="evaluation-preview-frame">
+          <iframe src="projects/ai-agent-evaluation/?embed=home#lab" title="Interactive AI agent evaluation demo comparing expected and actual JSON outputs" loading="lazy"></iframe>
         </div>
-        <div class="actions">
-          <a class="button primary" href="/projects/ai-agent-evaluation/">Open the evaluation lab</a>
-          <a class="button" href="/projects/wph-architecture/">Inspect workflow recovery</a>
-          <a class="button" href="/projects/wph-ai-platform/">Read the WPH case study</a>
-        </div>
-        <p class="small-note">These are specific WPH project results and milestone-scoped counts, not employer outcomes or a claim of live LLM inference.</p>
+        <a class="text-link evaluation-full-link" href="projects/ai-agent-evaluation/">Open the full evaluation lab ↗</a>
       </section>
 
-      <section class="section" id="professional-experience" aria-labelledby="professional-experience-heading">
+      <section class="section readiness-section" id="release-readiness" aria-labelledby="readiness-heading">
         <div class="section-header">
+          <div class="eyebrow">How I evaluate release readiness</div>
+          <h2 id="readiness-heading">Evidence before confidence</h2>
+          <p>Quality gates combine observable evidence, deterministic checks, safe recovery, and human decisions.</p>
+        </div>
+        <div class="readiness-grid">
+          <article><h3>Check the source</h3><p>Trace a claim to its source and keep missing or conflicting evidence explicit.</p></article>
+          <article><h3>Block unsafe outcomes</h3><p>Keep rights and policy constraints as hard gates; do not average away a critical failure.</p></article>
+          <article><h3>Review before promotion</h3><p>Require human approval for uncertain records and preserve the decision trail.</p></article>
+          <article><h3>Report the actual state</h3><p>Separate PASS, FAIL, BLOCKED, and NOT RUN with run-specific evidence.</p></article>
+        </div>
+      </section>
+
+      <section class="section experience-section" id="professional-experience" aria-labelledby="professional-experience-heading">
+        <div class="experience-copy">
           <div class="eyebrow">Professional experience</div>
           <h2 id="professional-experience-heading">Quality engineering applied to AI</h2>
+          <p class="experience-company">Advisor360° · Lead QA Automation Engineer</p>
+          <p>I evaluated an authorized internal AI-assisted meeting workflow by comparing generated summaries, action items, and structured records with source transcripts and downstream requirements.</p>
+          <p>I reviewed completeness, factual consistency, attribution, unsupported claims, schema validity, and operational usability, then converted reproducible failures into regression scenarios.</p>
+          <a class="text-link" href="pages/resume.html">View résumé and work history ↗</a>
         </div>
-        <article class="card featured">
-          <div class="kicker">Fintech · Lead QA Automation Engineer</div>
-          <h3>Advisor360°</h3>
-          <p>I evaluated an authorized internal AI-assisted meeting workflow by checking generated summaries, action items, and structured records against source transcripts and downstream requirements. I reviewed completeness, factual consistency, attribution, unsupported claims, schema validity, and operational usability, then converted reproducible failures into regression scenarios.</p>
-          <div class="actions"><a class="button primary" href="pages/resume.html">View résumé and work history</a><a class="button" href="pages/qa-impact.html">See quality engineering impact</a></div>
-        </article>
       </section>
 
-      <section class="section" id="contact" aria-labelledby="contact-heading">
-        <div class="contact-grid">
-          <div>
-            <h2 id="contact-heading" data-i18n="contact.h2">Building reliable AI systems?</h2>
-            <p class="lead" data-i18n="contact.lead">I'm interested in full-time US remote roles across Applied AI, AI Evaluation, AI Platform, and advanced data/ML quality.</p>
-            <div class="actions"><a class="button primary" href="mailto:tetiana.kravchukqa@gmail.com" data-i18n="btn.email">Email me</a><a class="button" href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="button" href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a></div>
-          </div>
-          <div class="detail-list">
-            <div class="row"><span class="k" data-i18n="contact.location">LOCATION</span><span class="v" data-i18n="contact.locationVal">Massachusetts, US</span></div>
-            <div class="row"><span class="k" data-i18n="contact.mode">WORK MODE</span><span class="v" data-i18n="contact.modeVal">US remote</span></div>
-            <div class="row"><span class="k" data-i18n="contact.focus">FOCUS</span><span class="v">Applied AI · AI Evaluation · AI Platform</span></div>
-            <div class="row"><span class="k" data-i18n="contact.resume">RÉSUMÉ</span><a href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download data-i18n="contact.download">Download PDF</a></div>
-          </div>
+      <section class="section contact-section" id="contact" aria-labelledby="contact-heading">
+        <div>
+          <div class="eyebrow">Contact</div>
+          <h2 id="contact-heading" data-i18n="contact.h2">Building reliable AI systems?</h2>
+          <p class="lead" data-i18n="contact.lead">I'm interested in full-time US remote roles across Applied AI, AI Evaluation, AI Platform, and advanced data/ML quality.</p>
+        </div>
+        <div class="contact-actions">
+          <a class="button primary" href="mailto:tetiana.kravchukqa@gmail.com" data-i18n="btn.email">Email me</a>
+          <a class="button" href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </section>
     </div>
@@ -194,10 +184,10 @@
   <footer class="footer">
     <div class="footer-inner">
       <div>© <span data-year></span> Tetiana Kravchuk</div>
-      <div class="footer-links"><a href="#featured-ai-project" data-i18n="footer.featured">Featured AI project</a><a href="pages/about.html" data-i18n="nav.about">About</a><a href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a><a href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download data-i18n="footer.resume">Résumé</a></div>
+      <div class="footer-links"><a href="#featured-project" data-i18n="footer.featured">Featured AI project</a><a href="pages/about.html" data-i18n="nav.about">About</a><a href="https://www.linkedin.com/in/tetianakravchuk" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a><a href="assets/resume/Tetiana_Kravchuk_Resume.pdf" download data-i18n="footer.resume">Résumé</a></div>
     </div>
   </footer>
-  <script src="/assets/i18n.js?v=20261117-recruiter-positioning" defer></script>
+  <script src="/assets/i18n.js?v=20261117-recruiter-layout" defer></script>
 
   <script src="assets/script.js?v=20261106r2"></script>
 
