@@ -660,15 +660,8 @@ img, svg, object { max-width: 100%; }
   .cat-corner-bubble { animation: none; transition: none; }
 }
 
-/* Language switcher (i18n.js) — custom dropdown with SVG flags */
+/* Language switcher (i18n.js) — text-only dropdown in secondary navigation */
 .lang-switch { position: relative; margin-left: 8px; }
-
-.flag-wrap {
-  display: inline-block; width: 22px; height: 15px; flex: 0 0 auto;
-  border-radius: 3px; overflow: hidden;
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.12); background: #fff;
-}
-.flag-wrap .flag { display: block; width: 100%; height: 100%; }
 
 .lang-btn {
   display: inline-flex; align-items: center; gap: 7px;
