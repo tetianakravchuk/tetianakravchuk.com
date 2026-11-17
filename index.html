@@ -147,6 +147,43 @@
         </div>
       </section>
 
+
+      <section class="section" id="ai-systems-quality" aria-labelledby="ai-systems-quality-heading">
+        <div class="section-header">
+          <div class="eyebrow">AI systems quality engineering</div>
+          <h2 id="ai-systems-quality-heading">How I evaluate whether an AI system is ready to release</h2>
+          <p>In World Publishing Houses, I connect Python regression tests, source evidence, PostgreSQL receipts, and production run diagnostics to explicit release criteria. These examples show how I investigate failures and preserve uncertainty in agent workflows.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Recover from source failures safely</h3>
+            <p>Five Sweden discovery runs initially ended in a dead-letter state after remote connections closed. Following a targeted network-error repair, five sequential production runs reached human review with matching counts: 22 verified sources and three pending sources per run.</p>
+            <p>Timed-out sources remained pending after retry exhaustion. Each completed run retained a trace ID. Run-specific golden-set evidence remained an outstanding acceptance requirement at that milestone.</p>
+          </article>
+          <article class="card">
+            <h3>Test the evidence behind the decision</h3>
+            <p>I reproduced a defect where changing a claim’s expected value changed its proposed verdict while leaving the evidence receipt hash unchanged. A regression test exposed the gap; the correction bound the expected value into the receipt.</p>
+            <p>The focused suite grew from nine passing tests to ten after the fix. Additional adversarial checks exposed duplicate source aliases that could falsely count as independent corroboration.</p>
+          </article>
+          <article class="card">
+            <h3>Keep verification and human approval explicit</h3>
+            <p>WPH uses three terminal evidence outcomes: verified, rejected, and verification_pending. Agent proposals require human review and keep automatic promotion and trusted-path access disabled.</p>
+            <p>Acceptance covers missing provenance, conflicting evidence, fabricated receipt identifiers, replay conflicts, and Unicode differences such as Cyrillic Ё versus Latin Ë. Historical source strings remain available for inspection.</p>
+          </article>
+          <article class="card">
+            <h3>Make release confidence auditable</h3>
+            <p>I assess code tests, isolated PostgreSQL checks, deployment identity, and persisted production evidence separately. Reports label checks PASS, FAIL, BLOCKED, or NOT RUN and retain the supporting run and receipt references.</p>
+            <p>These are dated engineering observations from an independent publishing-data project. End-to-end acceptance remains open wherever required evidence has not been collected.</p>
+          </article>
+        </div>
+        <div class="actions">
+          <a class="button primary" href="/projects/ai-agent-evaluation/">Explore the evaluation lab</a>
+          <a class="button" href="/projects/wph-architecture/">Inspect workflow recovery</a>
+          <a class="button" href="/projects/ai-engineering-showcase/">Explore the engineering demonstrations</a>
+        </div>
+        <p class="small-note">Engineering observations recorded November 15–16, 2026. Python · SQL · FastAPI · PostgreSQL · automated regression · evidence provenance.</p>
+      </section>
+
       <section class="section" id="work" aria-labelledby="work-heading">
         <div class="work-head">
           <div>
