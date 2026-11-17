@@ -1,0 +1,60 @@
+.rag-hero { padding: 70px 0 46px; }
+.rag-hero h1 { max-width: 20ch; }
+.rag-hero .lead { max-width: 65ch; }
+.rag-intro-note { display: flex; align-items: start; gap: 12px; max-width: 76ch; padding-top: 10px; }
+.rag-intro-note p { font-size: 14px; color: var(--ink-soft); margin: 0; }
+.rag-dot { width: 9px; height: 9px; flex: 0 0 9px; margin-top: 7px; border-radius: 50%; background: #407a68; }
+.rag-pipeline { padding: 0; margin: 0 0 30px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); list-style: none; border: 1px solid var(--line-strong); border-radius: 12px; overflow: hidden; }
+.rag-pipeline li { display: grid; grid-template-columns: 25px 1fr; gap: 3px 8px; padding: 20px 17px; background: #f1f3ed; border-right: 1px solid var(--line-strong); }
+.rag-pipeline li:last-child { border: 0; }
+.rag-pipeline span { color: #436a61; font: 12px/1.8 var(--mono); }
+.rag-pipeline strong { font-size: 16px; }
+.rag-pipeline small { grid-column: 2; color: var(--ink-soft); font-size: 11px; }
+.rag-query-box { padding: 26px; background: #163b3f; border-radius: 12px; margin-bottom: 36px; color: white; }
+.rag-query-box label { display: block; font-size: 18px; font-weight: 600; margin-bottom: 13px; }
+.rag-input-row { display: flex; gap: 12px; }
+.rag-input-row input { min-width: 0; flex: 1; padding: 15px; color: var(--ink); background: #fff; border: 1px solid #abc9bd; border-radius: 6px; font: inherit; font-size: 15px; }
+.rag-input-row .button { white-space: nowrap; background: #d9ece0; color: #173d36; border-color: #d9ece0; }
+.rag-query-box #question-help { margin: 12px 0 20px; font-size: 12px; color: #d0dfd8; }
+.rag-examples { display: flex; gap: 8px; flex-wrap: wrap; }
+.rag-examples button { background: transparent; border: 1px solid #72938b; color: #f1f6f3; border-radius: 30px; padding: 9px 12px; min-height: 44px; font: inherit; font-size: 12px; cursor: pointer; }
+.rag-examples button:hover, .rag-examples button[aria-pressed='true'] { background: #d9ece0; color: #173d36; border-color: #d9ece0; }
+.rag-query-box :focus-visible { outline-color: #f6d99c; }
+.rag-workspace { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.rag-panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.rag-workspace h2 { font-size: 26px; }
+.rag-count { font: 12px var(--mono); padding: 7px 10px; background: var(--chip); border-radius: 20px; white-space: nowrap; }
+.rag-help { color: var(--muted); font-size: 12px; line-height: 1.65; }
+.rag-source { background: white; border: 1px solid var(--line-strong); border-radius: 10px; margin: 16px 0; padding: 20px; scroll-margin-top: 105px; }
+.rag-source h3 { font-size: 15px; line-height: 1.5; letter-spacing: 0; margin: 10px 0; }
+.rag-source blockquote { margin: 0; font-size: 15px; line-height: 1.65; padding: 0 0 0 13px; border-left: 2px solid #98b4a3; }
+.rag-source[data-used='true'] { border-color: #699b83; background: #fbfdf9; }
+.rag-source[data-state='pending'] { border-style: dashed; }
+.rag-source-label { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font: 11px/1.5 var(--mono); color: var(--muted); }
+.rag-source-label strong { color: #1e5541; }
+.rag-source details { border-top: 1px solid var(--line); padding-top: 12px; margin-top: 15px; }
+.rag-source summary, .rag-trace summary, .rag-method summary { cursor: pointer; padding: 7px 0; font-size: 13px; font-weight: 600; }
+.rag-source dl { margin-bottom: 0; font-size: 12px; overflow-wrap: anywhere; }
+.rag-source dt { color: var(--muted); margin-top: 8px; }
+.rag-source dd { margin: 0; }
+.rag-answer-panel { border: 1px solid var(--line-strong); background: var(--card-alt); border-radius: 12px; padding: 26px; }
+.rag-answer { font-size: 22px; line-height: 1.5; letter-spacing: -0.015em; margin: 22px 0; }
+.rag-outcome { display: inline-block; border-radius: 4px; padding: 5px 9px; background: #f3e3c9; color: #663e18; font: 12px/1.6 var(--mono); overflow-wrap: anywhere; }
+.rag-outcome[data-state='answered'] { background: #dceade; color: #21563c; }
+.rag-citations { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
+.rag-citations a { padding: 8px 12px; border: 1px solid #9fb4a5; background: white; border-radius: 5px; font-size: 12px; }
+.rag-decision-note { border-top: 1px solid var(--line-strong); padding-top: 20px; margin-top: 22px; }
+.rag-decision-note h3 { font-size: 14px; letter-spacing: 0; margin-bottom: 10px; }
+.rag-decision-note p { font-size: 14px; color: var(--ink-soft); }
+.rag-trace { border-top: 1px solid var(--line-strong); padding-top: 14px; margin-top: 20px; }
+.rag-trace pre { max-height: 350px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font: 11px/1.7 var(--mono); }
+.rag-warning { padding: 15px; border: 1px solid #cda86b; background: #faf0dd; border-radius: 6px; }
+.rag-principles article { border-top: 2px solid #8ca798; padding-top: 20px; }
+.rag-principles span { font: 11px var(--mono); color: var(--muted); }
+.rag-principles h3 { margin-top: 14px; font-size: 21px; line-height: 1.3; }
+.rag-principles p { font-size: 15px; color: var(--ink-soft); }
+.rag-method { margin: 30px 0; padding: 20px; border: 1px solid var(--line-strong); border-radius: 8px; }
+.rag-method p { max-width: 85ch; font-size: 14px; margin-top: 15px; }
+.rag-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media(max-width: 900px) { .rag-workspace { grid-template-columns: 1fr; } .rag-answer-panel { grid-row: 1; } .rag-pipeline { grid-template-columns: repeat(2, minmax(0,1fr)); } .rag-pipeline li:nth-child(2) { border-right: 0; } .rag-pipeline li:nth-child(-n+2) { border-bottom: 1px solid var(--line-strong); } }
+@media(max-width: 600px) { .rag-hero { padding-top: 42px; } .rag-hero h1 br { display: none; } .rag-input-row { flex-direction: column; } .rag-query-box, .rag-answer-panel { padding: 20px; } .rag-pipeline li { padding: 16px 12px; } .rag-examples button { flex: 1 1 auto; } .rag-answer { font-size: 20px; } }
