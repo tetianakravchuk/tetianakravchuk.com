@@ -1,21 +1,17 @@
-# Portfolio refresh — November 2026
+# Portfolio review follow-up — November 2026
 
-## Scope
-Single branch for P0–P2 changes: correct historical employer dates, promote existing interactive engineering demonstrations, improve recruiter navigation, normalize selected social preview URLs, and maintain the sitemap.
+## Accuracy decisions
+- Public résumé dates show Advisor360° as 2022–2026. Do not publish a departure reason or imply current employment.
+- WPH is independent portfolio work; it is not employer production work.
+- The Agent Evaluation Lab and RAG Explorer use deterministic synthetic scenarios and do not make live model calls.
+- The public `wph-llm-eval` report evaluates four fixed answer fixtures with deterministic rules; two planted failures are caught. Optional Anthropic Claude judging scores the same fixtures; answer generation is not implemented in that public repo.
+- Homepage activity metrics are removed from the recruiter path; milestone counts remain contextualized on the project case study.
 
-## Accuracy boundaries
-- Advisor360° employment ends October 2026. Professional employer experience remains distinct from independent WPH engineering.
-- AI Agent Evaluation Lab uses synthetic deterministic fixtures, not live LLM inference.
-- WPH architecture demo is conceptual; concurrency animation does not execute PostgreSQL.
-- Homepage numeric metrics refer to historical milestones and require links to dated CI/test evidence before being presented as current production statistics.
+## Content and navigation
+- Keep the homepage recruiter path to role positioning, one-platform/two-demo cards, release-readiness evidence, professional experience, and contact.
+- Keep walkthrough videos on the WPH case study. Place the cinematic introduction on the World Publishing Houses product site.
+- Use a concise disclosure for independent-project context and per-demo tags for deterministic examples.
+- Degree dates are shown by year only until the month is confirmed against the diploma and LinkedIn.
 
-## Outstanding before merge
-- **PDF resume:** The existing binary PDF cannot be safely rewritten using the GitHub UTF-8 file connector. Replace it with an approved October 2026 version and verify content and rendering; the HTML resume is updated.
-- **Beyond the Prompt MP4:** Video is a conversation attachment, not a committed repository asset. Upload an optimized captioned video to the repository or approved video host, then embed/link it. Do not invent a video URL.
-- Verify live Cloudflare Pages preview, navigation, keyboard interaction, mobile responsiveness, social scraper behavior, and browser console.
-- Confirm recent GitHub Actions results and compare homepage metric claims to dated evidence.
-- Confirm homepage translation strings do not override new headline or badge.
-- Verify the employer dates and wording across downloadable resume and any localized content.
-
-## Test
-Run `node tests/portfolio-smoke.cjs` from repository root.
+## Verification
+- Validate the live recruiter path, video placement, and PDF rendering after deployment.
