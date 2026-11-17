@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#faf9f6">
+  <title>WPH RAG Explorer | Tetiana Kravchuk</title>
+  <meta name="description" content="Ask a question, inspect ranked source passages, and trace a cited answer in an interactive WPH retrieval and grounding demonstration.">
+  <link rel="canonical" href="https://tetianakravchuk.com/projects/wph-rag-explorer/">
+  <meta property="og:type" content="website"><meta property="og:title" content="WPH RAG Explorer | Tetiana Kravchuk">
+  <meta property="og:description" content="An inspectable question-to-evidence workflow, with conflicting sources, missing evidence, and safe abstention.">
+  <meta property="og:url" content="https://tetianakravchuk.com/projects/wph-rag-explorer/">
+  <meta property="og:image" content="https://raw.githubusercontent.com/tetianakravchuk/tetianakravchuk.com/main/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/styles.css?v=20261106r2">
+  <link rel="stylesheet" href="explorer.css?v=20261117">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <nav class="nav" aria-label="Main navigation"><div class="nav-inner">
+    <a class="brand" href="../../index.html">Tetiana Kravchuk <span class="brand-mark">AI Evaluation · Reliability</span></a>
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-navigation" data-menu-toggle><span class="menu-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span><span>Menu</span></button>
+    <div class="nav-links" id="site-navigation" data-nav-links><a href="../../pages/about.html">About</a><a href="../../pages/resume.html">Resume</a><a href="../../pages/projects.html" aria-current="page">Projects</a><a href="../../pages/qa-impact.html">Quality Engineering</a><a href="../../pages/contact.html">Contact</a></div>
+  </div></nav>
+  <main id="main">
+    <section class="rag-hero"><div class="container">
+      <div class="eyebrow">WPH / Interactive retrieval &amp; grounding</div>
+      <h1>An answer you can<br>trace back to a source.</h1>
+      <p class="lead">RAG brings retrieved information into the answering process. Here, you can inspect that process: ask a question, see which passages match, and check what the answer actually rests on.</p>
+      <div class="rag-intro-note"><span class="rag-dot" aria-hidden="true"></span><p><strong>Working local retrieval · fictional collection</strong><br>This demo ranks six passages when you submit a question. It composes answers with deterministic rules and citations; it does not call an LLM or query live WPH records.</p></div>
+    </div></section>
+    <section class="section tight" id="explorer"><div class="container">
+      <ol class="rag-pipeline" aria-label="Retrieval and answer workflow">
+        <li><span>01</span><strong>Ask</strong><small>One book, one question</small></li>
+        <li><span>02</span><strong>Retrieve</strong><small>Rank matching passages</small></li>
+        <li><span>03</span><strong>Check</strong><small>Eligibility &amp; agreement</small></li>
+        <li><span>04</span><strong>Compose</strong><small>Cite or preserve uncertainty</small></li>
+      </ol>
+      <form id="rag-form" class="rag-query-box">
+        <label for="rag-question">Ask the collection</label>
+        <div class="rag-input-row"><input id="rag-question" name="question" type="text" maxlength="300" value="When was The Winter Atlas published?" aria-describedby="question-help" autocomplete="off"><button class="button primary" type="submit">Retrieve &amp; answer <span aria-hidden="true">→</span></button></div>
+        <p id="question-help">Try publication dates, authors, or Japanese catalog entries. Fictional titles: The Winter Atlas, The Sea Between Us, The Amber Orchard.</p>
+        <div id="rag-examples" class="rag-examples" role="group" aria-label="Try an example question"></div>
+      </form>
+      <noscript><p class="card">Enable JavaScript to run this local retrieval demo. All six passages are fictional, and no live source or model requests are made.</p></noscript>
+      <p id="query-announcement" class="rag-sr-only" role="status" aria-live="polite"></p>
+      <p id="unicode-warning" class="rag-warning" hidden></p>
+      <div class="rag-workspace">
+        <section aria-labelledby="retrieval-heading" class="rag-sources-panel">
+          <div class="rag-panel-heading"><div><div class="eyebrow">Retrieved context</div><h2 id="retrieval-heading">Open the evidence.</h2></div><span id="retrieval-count" class="rag-count"></span></div>
+          <p class="rag-help">Rank = number of distinct matching query terms. This is lexical relevance, not a confidence or truth score.</p>
+          <div id="rag-sources"></div>
+        </section>
+        <section aria-labelledby="answer-heading" class="rag-answer-panel">
+          <div class="eyebrow">Answer &amp; decision</div><h2 id="answer-heading">What can we say?</h2>
+          <span class="rag-outcome" id="rag-outcome"></span>
+          <p class="rag-answer" id="rag-answer"></p>
+          <div id="rag-citations" class="rag-citations" aria-label="Answer evidence links"></div>
+          <p id="source-summary" class="rag-help"></p>
+          <div class="rag-decision-note"><h3>Why this outcome?</h3><p id="rag-reason"></p></div>
+          <p class="rag-help">“Included” is a fixture setting for this demonstration. It is not a real Source Check, evidence attestation, or reviewer approval.</p>
+          <details class="rag-trace"><summary>Inspect this local execution</summary><pre id="rag-trace" tabindex="0"></pre><button class="button" id="download-trace" type="button">Download demo JSON</button></details>
+        </section>
+      </div>
+    </div></section>
+    <section class="section"><div class="container">
+      <div class="section-header"><div class="eyebrow">What I test</div><h2>Retrieval is the beginning of the check.</h2><p>The engineering work is making every boundary visible and testable.</p></div>
+      <div class="grid-3 rag-principles">
+        <article><span>01 / Relevance</span><h3>Did we retrieve the right passage?</h3><p>Rank by query terms, retain document identity, and keep unrelated passages out of the final claim.</p></article>
+        <article><span>02 / Grounding</span><h3>Does it support this exact answer?</h3><p>Compare source values. A matching book title cannot establish an ISBN, translation, or licensing claim.</p></article>
+        <article><span>03 / Safe failure</span><h3>What happens when evidence falls short?</h3><p>Exclude pending sources, expose contradictions, and preserve unknowns. Human review remains a separate action.</p></article>
+      </div>
+      <details class="rag-method"><summary>How this relates to WPH and standard RAG</summary><p>Standard RAG retrieves context and supplies it to a generative model. WPH’s documented answer layer currently uses deterministic, extractive composition with citation metadata. This browser demonstration uses keyword overlap and a small fictional corpus to make those boundaries easy to inspect.</p><p>It does not run WPH’s backend, an embedding model, vector search, live Source Checks, or model-based evaluation. Source IDs and document IDs are synthetic. Production acceptance still requires its own persisted evidence and integration checks.</p></details>
+      <div class="actions"><a class="button primary" href="../wph-ai-platform/">WPH engineering case study</a><a class="button" href="../ai-agent-evaluation/">Try the agent evaluation lab</a></div>
+    </div></section>
+  </main>
+  <footer class="footer"><div class="container footer-inner"><div>© <span data-year></span> Tetiana Kravchuk</div><div class="footer-links"><a href="../../pages/projects.html">Projects</a><a href="../../pages/contact.html">Contact</a><a href="https://github.com/tetianakravchuk" target="_blank" rel="noopener noreferrer">GitHub</a></div></div></footer>
+  <script src="../../assets/script.js?v=20261106r2"></script><script type="module" src="explorer.mjs?v=20261117"></script>
+</body>
+</html>
