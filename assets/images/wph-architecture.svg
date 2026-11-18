@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+<title id="title">World Publishing Houses system architecture</title>
+<desc id="desc">Publishing sources flow through ingestion and normalization to PostgreSQL evidence records. Reviewers verify evidence before approved data reaches the discovery interface. Bounded research and evaluation workflows remain gated by provenance and rights checks.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f8f7f1"/><stop offset="1" stop-color="#e8f0eb"/></linearGradient>
+  <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#3b766a"/></marker>
+  <style>
+    .box{fill:#fff;stroke:#c8d5ce;stroke-width:2}.core{fill:#143d36;stroke:#143d36}.soft{fill:#eef5f1;stroke:#b8cec5}.gate{fill:#f8f1df;stroke:#dccb9d}.label{font:600 22px 'Instrument Sans',Arial,sans-serif;fill:#202722}.sub{font:16px 'Instrument Sans',Arial,sans-serif;fill:#58655f}.light{fill:#fff}.lightSub{fill:#e0ebe6}.line{fill:none;stroke:#3b766a;stroke-width:3;marker-end:url(#arrow)}.dash{fill:none;stroke:#8b9c95;stroke-width:2.5;stroke-dasharray:7 7;marker-end:url(#arrow)}.tag{font:500 13px 'JetBrains Mono',monospace;letter-spacing:1px;fill:#57756b}
+  </style>
+</defs>
+<rect width="1200" height="620" rx="24" fill="url(#bg)"/>
+<text x="55" y="54" class="tag">SOURCE-GROUNDED PUBLISHING INTELLIGENCE</text>
+<rect class="box" x="55" y="105" width="240" height="128" rx="16"/>
+<text x="78" y="151" class="label">Publishing sources</text><text x="78" y="184" class="sub">Catalogs · publishers</text><text x="78" y="208" class="sub">Rights &amp; language records</text>
+<rect class="soft" x="350" y="105" width="260" height="128" rx="16"/>
+<text x="376" y="151" class="label">Ingestion &amp; provenance</text><text x="376" y="184" class="sub">FastAPI · parse · normalize</text><text x="376" y="208" class="sub">Source URLs · hashes · traces</text>
+<rect class="core" x="665" y="105" width="260" height="128" rx="16"/>
+<text x="692" y="151" class="label light">Evidence system of record</text><text x="692" y="184" class="sub lightSub">PostgreSQL · source snapshots</text><text x="692" y="208" class="sub lightSub">Discovered · pending · verified</text>
+<rect class="box" x="980" y="105" width="165" height="128" rx="16"/>
+<text x="1001" y="151" class="label">Next.js</text><text x="1001" y="184" class="sub">Discovery UI</text><text x="1001" y="208" class="sub">Reviewer console</text>
+<path class="line" d="M295 169h48"/><path class="line" d="M610 169h48"/><path class="line" d="M925 169h43"/>
+<rect class="soft" x="135" y="350" width="255" height="130" rx="16"/>
+<text x="160" y="397" class="label">Research workflows</text><text x="160" y="431" class="sub">Bounded tools over WPH data</text><text x="160" y="455" class="sub">Safe abstention on gaps</text>
+<rect class="gate" x="472" y="350" width="255" height="130" rx="16"/>
+<text x="497" y="397" class="label">Evaluation &amp; safety gates</text><text x="497" y="431" class="sub">Golden set · provenance checks</text><text x="497" y="455" class="sub">Rights claims block promotion</text>
+<rect class="box" x="810" y="350" width="255" height="130" rx="16"/>
+<text x="835" y="397" class="label">Human review</text><text x="835" y="431" class="sub">Verify evidence &amp; conflicts</text><text x="835" y="455" class="sub">Approve controlled promotion</text>
+<path class="dash" d="M795 233v58H264v50"/><path class="line" d="M390 415h73"/><path class="line" d="M727 415h73"/>
+<path class="line" d="M938 350V281h-143v-39"/>
+<text x="56" y="551" class="tag">DATA STATE CHANGES ARE EXPLICIT · MODEL OUTPUT IS NOT THE SYSTEM OF RECORD</text>
+</svg>
