@@ -819,3 +819,56 @@ img, svg, object { max-width: 100%; }
 @media (max-width: 620px) {
   .home-video-grid { grid-template-columns: 1fr; }
 }
+
+/* Cinematic WPH case-study introduction */
+.cinematic-intro {
+  padding: clamp(52px, 7vw, 92px) 0;
+  color: #f8f5ed;
+  background:
+    radial-gradient(ellipse at 82% 12%, rgba(196, 157, 94, .20), transparent 40%),
+    linear-gradient(125deg, #102423 0%, #133c39 58%, #182f30 100%);
+}
+.cinematic-copy { max-width: 790px; }
+.cinematic-copy .eyebrow { color: #d8bd88; }
+.cinematic-copy h2 {
+  max-width: 720px;
+  margin: 12px 0 16px;
+  color: #fbf8f1;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.04;
+  letter-spacing: -.035em;
+}
+.cinematic-copy p {
+  max-width: 720px;
+  margin: 0;
+  color: rgba(248, 245, 237, .78);
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.65;
+}
+.cinematic-film {
+  margin: clamp(28px, 4vw, 46px) 0 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 18px;
+  background: #0d1616;
+  box-shadow: 0 28px 72px rgba(0, 0, 0, .28);
+}
+.cinematic-film video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #0b1111;
+}
+.cinematic-film figcaption {
+  padding: 12px 18px 15px;
+  color: rgba(248, 245, 237, .68);
+  font-size: 13px;
+  line-height: 1.5;
+}
+@media (max-width: 620px) {
+  .cinematic-intro { padding: 48px 0; }
+  .cinematic-copy h2 { font-size: clamp(32px, 9vw, 44px); }
+  .cinematic-film { border-radius: 12px; }
+  .cinematic-film figcaption { padding: 10px 12px 12px; }
+}
