@@ -805,3 +805,17 @@ img, svg, object { max-width: 100%; }
   .experience-copy { padding-left: 16px; }
   .contact-actions { width: 100%; }
 }
+
+/* Homepage WPH video gallery */
+.home-video-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.home-video-card .video-embed { margin: 0; }
+.home-video-card .video-facade { padding: 18px; }
+.home-video-card .video-facade-inner { gap: 8px; }
+.home-video-card .video-play-icon { width: 54px; height: 54px; }
+.home-video-section .small-note { margin-top: 16px; }
+@media (max-width: 900px) {
+  .home-video-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 620px) {
+  .home-video-grid { grid-template-columns: 1fr; }
+}

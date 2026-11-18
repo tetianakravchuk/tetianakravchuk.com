@@ -27,7 +27,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/styles.css?v=20261117-recruiter-layout" />
+  <link rel="stylesheet" href="assets/styles.css?v=20261118-home-video-gallery" />
 
   <script type="application/ld+json">
   {
@@ -130,6 +130,37 @@
         </div>
       </section>
 
+      <section class="section home-video-section" id="wph-videos" aria-labelledby="wph-videos-heading">
+        <div class="section-header">
+          <div class="eyebrow">WPH · Independent portfolio work</div>
+          <h2 id="wph-videos-heading">Watch the platform in action</h2>
+          <p>A product overview, an agent-evaluation walkthrough, and a source-grounded RAG demo.</p>
+        </div>
+        <div class="grid-3 wph-video-grid home-video-grid">
+          <article class="card wph-video-card">
+            <div class="video-embed" data-wph-video="XlATAL1rO5w">
+              <button type="button" class="video-facade" data-wph-video-play aria-label="Play the World Publishing Houses product overview" style="background-image:linear-gradient(180deg,rgba(13,26,28,.12),rgba(13,26,28,.78)),url('/assets/images/wph-reviewer-console.jpg');background-size:cover;background-position:center 28%;">
+                <span class="video-facade-inner"><span class="video-play-icon" aria-hidden="true">&#9654;</span><span class="video-facade-label">World Publishing Houses</span><span class="video-facade-sub">Product overview · 6 min</span></span>
+              </button>
+            </div>
+            <div class="wph-video-copy"><div class="kicker">Product overview</div><h3>World Publishing Houses</h3><p>See the product goal and how source evidence supports discovery.</p></div>
+          </article>
+          <article class="card wph-video-card">
+            <video controls playsInline preload="metadata" poster="/assets/images/agent-eval-poster.jpg" aria-label="Thirty-second narrated walkthrough of WPH agent evaluation">
+              <source src="/assets/video/wph-agent-evaluation.mp4" type="video/mp4" />
+            </video>
+            <div class="wph-video-copy"><div class="kicker">30-second walkthrough</div><h3>Evaluate agent behavior</h3><p>Compare expected actions, actual output, and evaluation checks.</p></div>
+          </article>
+          <article class="card wph-video-card">
+            <video controls playsInline preload="metadata" poster="/assets/images/rag-explorer-poster.jpg" aria-label="Thirty-second narrated walkthrough of the WPH RAG Explorer">
+              <source src="/assets/video/wph-rag-explorer.mp4" type="video/mp4" />
+            </video>
+            <div class="wph-video-copy"><div class="kicker">30-second walkthrough</div><h3>Explore source-grounded RAG</h3><p>Follow retrieval, source evidence, and a grounded response.</p></div>
+          </article>
+        </div>
+        <p class="small-note">The short demos use deterministic scenarios; they do not call a live model. <a href="projects/wph-ai-platform/#technical-deep-dives">View all technical walkthroughs ↗</a></p>
+      </section>
+
       <section class="section evaluation-preview-section" id="evaluation-preview" aria-labelledby="evaluation-preview-heading">
         <div class="section-header">
           <div class="eyebrow">Interactive demonstration</div>
@@ -191,5 +222,6 @@
 
   <script src="assets/script.js?v=20261106r2"></script>
 
+  <script src="/projects/wph-ai-platform/video-gallery.js?v=20261118-home-video-gallery" defer></script>
 </body>
 </html>
